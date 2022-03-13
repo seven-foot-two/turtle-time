@@ -9,6 +9,7 @@ base_url = "http://ufcstats.com/statistics/events/completed?page=all"
 # Instantiating the list to hold the URL of each fight of each event
 url_fight_list = []
 
+
 #Funtion created to scrape the URLs needed for fight data
 def url_scraper(URL):
 
@@ -36,8 +37,9 @@ def url_scraper(URL):
             url_event_list.append(link)
 
     # USER MESSAGE
-    print("Event URL Extraction COMPLETE. Moving on...\n
-            Extracting fight stat URLs...")
+
+    print("Event URL Extraction COMPLETE. Moving on...\nExtracting fight stat URLs...")
+
 
     # Looping through url_event_list to grab the urls associated with each fight
     # Essentially the same as scraping for url_event_list above
@@ -351,6 +353,7 @@ def stat_scraper(fight_list):
                     
                     ### QUESTION: Do we want the keys here to match base data headers? If so
                     ###     we should scrub to be sure they match up
+
                     "B_Name": blue_fighter,
                     "B_Knockdowns": blue_knockdowns,
                     "B_Significant_Strikes_Landed": Blue_Significant_Strikes_Landed,
