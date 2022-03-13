@@ -14,25 +14,34 @@ url_fight_list = []
 #Funtion created to scrape the URLs needed for fight data
 def url_scraper(URL):
 
-    # Instantiating the list to hold fight event URLs
+    # Instantiating the list to hold fight event URLs from base_url
     url_event_list = []
-
+    # Requesting page
     page = requests.get(URL)
-
+    # Parsing page content
     soup = BeautifulSoup(page.content, "html.parser")
 
+    # Found the one and only table on the page, which contains each event in a "row"
     event_table = soup.find("table", {"class": "b-statistics__table-events"})
 
+    # USER MESSAGE
     print("Extracting Event URLs...")
 
+    # Finding all of the <a> tags within the table, which contain the event url
     for td in event_table.find_all("a")[1:]:
+
+        # Using .get("href") to grab the url and assigning it to "link"
         link = td.get("href")
+
+        # Checking if url is already in url_event_list, if NOT, appends it.
         if link not in url_event_list:
             url_event_list.append(link)
 
+    # USER MESSAGE
     print("Event URL Extraction COMPLETE. Moving on...\nExtracting fight stat URLs...")
 
-
+    # Looping through url_event_list to grab the urls associated with each fight
+    # Essentially the same as scraping for url_event_list above
     for url in url_event_list:
         event_page = requests.get(url)
         soup = BeautifulSoup(event_page.content, "html.parser")
@@ -43,46 +52,59 @@ def url_scraper(URL):
             if fight_link not in url_fight_list:
                 url_fight_list.append(fight_link)
 
+    # USER MESSAGE
     print("Fight stat URL Extraction COMPLETED.")
 
 
 
 
-
+# Function that intakes the fight urls and gathers stats.
 def stat_scraper(fight_list):
+
+    # Looping through the urls in fight_list
     for url in fight_list:
+
         fight_stat_page = requests.get(url)
-
         stat_soup = BeautifulSoup(fight_stat_page.content, "html.parser")
-
+        # Div that hold essentially all the pages elements
         fighter_name_main_div = stat_soup.find("div", {"class": "b-fight-details"})
 
+        # Getting fighter corner color
         red_fighter_div = fighter_name_main_div.find("i", {"class": "b-fight-details__charts-name b-fight-details__charts-name_pos_left js-chart-name"})
         blue_fighter_div = fighter_name_main_div.find("i", {"class": "b-fight-details__charts-name b-fight-details__charts-name_pos_right js-chart-name"})
 
+        # fighter name assigned to corner color
         blue_fighter = blue_fighter_div.text.strip()
         red_fighter = red_fighter_div.text.strip()
 
         winner = ""
+
         # Getting the winners name
         for div in fighter_name_main_div.find_all("div", {"class": "b-fight-details__person"}):
             fighter_header = div.find('i')
             header_text = fighter_header.text
+
+            # Checks if header text contains "W" (Winner)
             if header_text.strip() == "W":
+                # If header text contains "W", the corrisponding name is extracted and assigned to "winner_name"
                 winner_text = div.find("a", {"class": {"b-link b-fight-details__person-link"}})
                 winner_name = winner_text.text.strip()
+
+                # Comparing "winner_namer" to each corner colors fighter name. If match, winner color is instantiated.
                 if winner_name == blue_fighter:
                     winner = "Blue"
                 elif winner_name == red_fighter:
                     winner = "Red"
 
 
-        #Getting fight outcome information
+        # Getting fight details div
         outcome_div = fighter_name_main_div.find("p", {"class":"b-fight-details__text"})
 
+        # Checking <i> tag holding method of victory
         method_div  = outcome_div.find("i", {"style": "font-style: normal"})
 
         fight_win_method = ""
+        # Assigning "fight_win_method" through comparison
         if "Decision" in method_div.text:
            fight_win_method = "DEC"
         elif "KO/TKO" in method_div.text:
@@ -92,6 +114,8 @@ def stat_scraper(fight_list):
 
         max_rounds = ""
         ending_round = ""
+
+        # Getting the Round the fight ended and number of maximum possible rounds.
         for i in outcome_div.find_all("i", {"class": "b-fight-details__label"}):
 
             if "Round:" in i.text:
@@ -385,7 +409,7 @@ def stat_scraper(fight_list):
         #Sig_Strike_round_table = stat_soup.find_all("table", {"b-fight-details__table js-fight-table"})[1]
 
 
-
+        # Dictionary to be used for writing to CSV file.
         fight_stat_dict = {
             "Fight Details": {
                 "Max_Rounds": max_rounds
@@ -693,7 +717,6 @@ def stat_scraper(fight_list):
 
                 }
             },
-
 
 
 
