@@ -128,7 +128,7 @@ def stat_scraper(fight_list):
 
 
 
-
+        # Instantiating values here so they can be assigned to the dictionary
         Red_Significant_Strikes_Landed = ""
         Red_Significant_Strikes_Attempted = ""
         Blue_Significant_Strikes_Landed = ""
@@ -154,20 +154,24 @@ def stat_scraper(fight_list):
         red_knockdowns = ""
         blue_knockdowns = ""
 
+        # Getting the "Totals" table
         total_overall_table = stat_soup.find("table")
 
+        # Looping through the "rows"
         for tab in total_overall_table.find_all("tbody"):
             fighter1rowList = []
             fighter2rowList = []
             blue_fighter_row = []
             red_fighter_row = []
             row = tab.find_all("td")
+
+            # Looping through the column of each row
             for r in row:
                 fighter1rowList.append(r.select_one(":nth-child(1)").text)
                 fighter2rowList.append(r.select_one(":nth-child(2)").text)
 
 
-
+            # Assigning the values to a list based on the fighters corner color
             if fighter1rowList[0].strip() == blue_fighter:
                 for i in fighter1rowList:
                     blue_fighter_row.append(i)
@@ -182,12 +186,12 @@ def stat_scraper(fight_list):
                 for i in fighter2rowList:
                     red_fighter_row.append(i)
 
+            # Referencing and assigning the Knockdown variables in X_fighter_row
             red_knockdowns = red_fighter_row[1].strip()
             blue_knockdowns = blue_fighter_row[1].strip()
 
 
-
-            # splitting total sig strike stat assigning to each color
+            # Splitting total table stats assigning to each color
             Red_Significant_Strikes_Landed = red_fighter_row[2].split("of")[0].strip()
             Red_Significant_Strikes_Attempted = red_fighter_row[2].split("of")[1].strip()
             Blue_Significant_Strikes_Landed = blue_fighter_row[2].split("of")[0].strip()
@@ -222,10 +226,11 @@ def stat_scraper(fight_list):
         fighter1SigStrikeRowList = []
         fighter2SigStrikeRowList = []
 
+        # Getting the "Significant Strikes" table
         Sig_Strike_overall_table = stat_soup.find_all("table")[2]
 
         Sig_Strike_overall_tbody = Sig_Strike_overall_table.find("tbody", {"class": "b-fight-details__table-body"})
-
+        # Looping through <tbody> "rows"
         for i in Sig_Strike_overall_tbody.find_all("td"):
             fighter1SigStrikeRowList.append(i.select_one(":nth-child(1)").text)
             fighter2SigStrikeRowList.append(i.select_one(":nth-child(2)").text)
@@ -235,6 +240,7 @@ def stat_scraper(fight_list):
         blue_sig_strike_fighter_row = []
         red_sig_strike_fighter_row = []
 
+        # deciding corner color base on fighter name vs blue_fighter or red_fighter name
         if fighter1SigStrikeRowList[0].strip() == blue_fighter:
             for i in fighter1SigStrikeRowList:
                 blue_sig_strike_fighter_row.append(i)
@@ -249,7 +255,7 @@ def stat_scraper(fight_list):
             for i in fighter2SigStrikeRowList:
                 red_sig_strike_fighter_row.append(i)
 
-
+        # Splitting total table stats (Attempted Vs. Landed) assigning to each color
         Red_Head_Significant_Strikes_Landed = red_sig_strike_fighter_row[3].split("of")[0]
         Red_Head_Significant_Strikes_Attempted = red_sig_strike_fighter_row[3].split("of")[1]
         Blue_Head_Significant_Strikes_Landed = blue_sig_strike_fighter_row[3].split("of")[0]
@@ -311,6 +317,7 @@ def stat_scraper(fight_list):
         R5_fighter2TotalRowList = []
         round_title_list = []
 
+        ## WORK IN PROGRESS....
         Rounds_totals_round_table = stat_soup.find_all("section", {"class": "b-fight-details__section js-fight-section"})[2]
         totals_round_table = Rounds_totals_round_table.find("table", {"class": "b-fight-details__table js-fight-table"})
 
@@ -331,82 +338,7 @@ def stat_scraper(fight_list):
 
 
 
-        ## ROUND 1 Color assigner
-        #if R1fighter1TotalRowList[0].strip() == blue_fighter:
-        #    for i in R1fighter1TotalRowList:
-        #        R1TotalBlueRow.append(i)
-        #elif R1fighter1TotalRowList[0].strip() == red_fighter:
-        #    for i in R1fighter1TotalRowList:
-        #        R1TotalRedRow.append(i)
-        #if R1fighter2TotalRowList[0].strip() == blue_fighter:
-        #    for i in R1fighter2TotalRowList:
-        #        R1TotalBlueRow.append(i)
-        #elif R1fighter2TotalRowList[0] == red_fighter:
-        #    for i in R1fighter2TotalRowList:
-        #        R1TotalRedRow.append(i)
-#
-        ## ROUND 2 Color assigner
-        #if R2fighter1TotalRowList[0].strip() == blue_fighter:
-        #    for i in R2fighter1TotalRowList:
-        #        R2TotalBlueRow.append(i)
-        #elif R2fighter1TotalRowList[0].strip() == red_fighter:
-        #    for i in R2fighter1TotalRowList:
-        #        R2TotalRedRow.append(i)
-        #if R2fighter2TotalRowList[0].strip() == blue_fighter:
-        #    for i in R2fighter2TotalRowList:
-        #        R2TotalBlueRow.append(i)
-        #elif R2fighter2TotalRowList[0] == red_fighter:
-        #    for i in R2fighter2TotalRowList:
-        #        R2TotalRedRow.append(i)
-#
-        ## ROUND 3 Color assigner
-        #if R3fighter1TotalRowList[0].strip() == blue_fighter:
-        #    for i in R3fighter1TotalRowList:
-        #        R3TotalBlueRow.append(i)
-        #elif R3fighter1TotalRowList[0].strip() == red_fighter:
-        #    for i in R3fighter1TotalRowList:
-        #        R3TotalRedRow.append(i)
-        #if R3fighter2TotalRowList[0].strip() == blue_fighter:
-        #    for i in R3fighter2TotalRowList:
-        #        R3TotalBlueRow.append(i)
-        #elif R3fighter2TotalRowList[0] == red_fighter:
-        #    for i in R2fighter2TotalRowList:
-        #        R3TotalRedRow.append(i)
-#
-        ## ROUND 4 Color assigner
-        #if R4fighter1TotalRowList[0].strip() == blue_fighter:
-        #    for i in R4fighter1TotalRowList:
-        #        R4TotalBlueRow.append(i)
-        #elif R4fighter1TotalRowList[0].strip() == red_fighter:
-        #    for i in R4fighter1TotalRowList:
-        #        R4TotalRedRow.append(i)
-        #if R4fighter2TotalRowList[0].strip() == blue_fighter:
-        #    for i in R4fighter2TotalRowList:
-        #        R4TotalBlueRow.append(i)
-        #elif R4fighter2TotalRowList[0] == red_fighter:
-        #    for i in R4fighter2TotalRowList:
-        #        R4TotalRedRow.append(i)
-#
-        ## ROUND 5 Color assigner
-        #if R5fighter1TotalRowList[0].strip() == blue_fighter:
-        #    for i in R5fighter1TotalRowList:
-        #        R5TotalBlueRow.append(i)
-        #elif R5fighter1TotalRowList[0].strip() == red_fighter:
-        #    for i in R5fighter1TotalRowList:
-        #        R5TotalRedRow.append(i)
-        #if R5fighter2TotalRowList[0].strip() == blue_fighter:
-        #    for i in R5fighter2TotalRowList:
-        #        R5TotalBlueRow.append(i)
-        #elif R5fighter2TotalRowList[0] == red_fighter:
-        #    for i in R5fighter2TotalRowList:
-        #        R5TotalRedRow.append(i)
 
-        #print(R5TotalRedRow[0], R5TotalRedRow[1],R5TotalRedRow[2])
-
-
-
-
-        #Sig_Strike_round_table = stat_soup.find_all("table", {"b-fight-details__table js-fight-table"})[1]
 
 
         # Dictionary to be used for writing to CSV file.
