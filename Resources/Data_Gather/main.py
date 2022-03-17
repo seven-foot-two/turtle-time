@@ -8,7 +8,7 @@ base_url = "http://ufcstats.com/statistics/events/completed?page=all"
 
 # Instantiating the list to hold the URL of each fight of each event
 url_fight_list = []
-
+empty_list = []
 
 #Funtion created to scrape the URLs needed for fight data
 def url_scraper(URL):
@@ -61,7 +61,7 @@ def url_scraper(URL):
 
 # Function that intakes the fight urls and gathers stats.
 def stat_scraper(fight_list):
-
+    fight_stat_list =[]
     # Looping through the urls in fight_list
     for url in fight_list:
 
@@ -257,85 +257,506 @@ def stat_scraper(fight_list):
                 red_sig_strike_fighter_row.append(i)
 
         # Splitting total table stats (Attempted Vs. Landed) assigning to each color
-        Red_Head_Significant_Strikes_Landed = red_sig_strike_fighter_row[3].split("of")[0]
-        Red_Head_Significant_Strikes_Attempted = red_sig_strike_fighter_row[3].split("of")[1]
-        Blue_Head_Significant_Strikes_Landed = blue_sig_strike_fighter_row[3].split("of")[0]
-        Blue_Head_Significant_Strikes_Attempted = blue_sig_strike_fighter_row[3].split("of")[1]
+        Red_Head_Significant_Strikes_Landed = red_sig_strike_fighter_row[3].split("of")[0].strip()
+        Red_Head_Significant_Strikes_Attempted = red_sig_strike_fighter_row[3].split("of")[1].strip()
+        Blue_Head_Significant_Strikes_Landed = blue_sig_strike_fighter_row[3].split("of")[0].strip()
+        Blue_Head_Significant_Strikes_Attempted = blue_sig_strike_fighter_row[3].split("of")[1].strip()
 
-        Red_Body_Significant_Strikes_Landed = red_sig_strike_fighter_row[4].split("of")[0]
-        Red_Body_Significant_Strikes_Attempted = red_sig_strike_fighter_row[4].split("of")[1]
-        Blue_Body_Significant_Strikes_Landed = blue_sig_strike_fighter_row[4].split("of")[0]
-        Blue_Body_Significant_Strikes_Attempted = blue_sig_strike_fighter_row[4].split("of")[1]
+        Red_Body_Significant_Strikes_Landed = red_sig_strike_fighter_row[4].split("of")[0].strip()
+        Red_Body_Significant_Strikes_Attempted = red_sig_strike_fighter_row[4].split("of")[1].strip()
+        Blue_Body_Significant_Strikes_Landed = blue_sig_strike_fighter_row[4].split("of")[0].strip()
+        Blue_Body_Significant_Strikes_Attempted = blue_sig_strike_fighter_row[4].split("of")[1].strip()
 
-        Red_Leg_Significant_Strikes_Landed = red_sig_strike_fighter_row[5].split("of")[0]
-        Red_Leg_Significant_Strikes_Attempted = red_sig_strike_fighter_row[5].split("of")[1]
-        Blue_Leg_Significant_Strikes_Landed = blue_sig_strike_fighter_row[5].split("of")[0]
-        Blue_Leg_Significant_Strikes_Attempted = blue_sig_strike_fighter_row[5].split("of")[1]
+        Red_Leg_Significant_Strikes_Landed = red_sig_strike_fighter_row[5].split("of")[0].strip()
+        Red_Leg_Significant_Strikes_Attempted = red_sig_strike_fighter_row[5].split("of")[1].strip()
+        Blue_Leg_Significant_Strikes_Landed = blue_sig_strike_fighter_row[5].split("of")[0].strip()
+        Blue_Leg_Significant_Strikes_Attempted = blue_sig_strike_fighter_row[5].split("of")[1].strip()
 
-        Red_Distance_Significant_Strikes_Landed = red_sig_strike_fighter_row[6].split("of")[0]
-        Red_Distance_Significant_Strikes_Attempted = red_sig_strike_fighter_row[6].split("of")[1]
-        Blue_Distance_Significant_Strikes_Landed = blue_sig_strike_fighter_row[6].split("of")[0]
-        Blue_Distance_Significant_Strikes_Attempted = blue_sig_strike_fighter_row[6].split("of")[1]
+        Red_Distance_Significant_Strikes_Landed = red_sig_strike_fighter_row[6].split("of")[0].strip()
+        Red_Distance_Significant_Strikes_Attempted = red_sig_strike_fighter_row[6].split("of")[1].strip()
+        Blue_Distance_Significant_Strikes_Landed = blue_sig_strike_fighter_row[6].split("of")[0].strip()
+        Blue_Distance_Significant_Strikes_Attempted = blue_sig_strike_fighter_row[6].split("of")[1].strip()
 
-        Red_Clinch_Significant_Strikes_Landed = red_sig_strike_fighter_row[7].split("of")[0]
-        Red_Clinch_Significant_Strikes_Attempted = red_sig_strike_fighter_row[7].split("of")[1]
-        Blue_Clinch_Significant_Strikes_Landed = blue_sig_strike_fighter_row[7].split("of")[0]
-        Blue_Clinch_Significant_Strikes_Attempted = blue_sig_strike_fighter_row[7].split("of")[1]
+        Red_Clinch_Significant_Strikes_Landed = red_sig_strike_fighter_row[7].split("of")[0].strip()
+        Red_Clinch_Significant_Strikes_Attempted = red_sig_strike_fighter_row[7].split("of")[1].strip()
+        Blue_Clinch_Significant_Strikes_Landed = blue_sig_strike_fighter_row[7].split("of")[0].strip()
+        Blue_Clinch_Significant_Strikes_Attempted = blue_sig_strike_fighter_row[7].split("of")[1].strip()
 
-        Red_Ground_Significant_Strikes_Landed = red_sig_strike_fighter_row[8].split("of")[0]
-        Red_Ground_Significant_Strikes_Attempted = red_sig_strike_fighter_row[8].split("of")[1]
-        Blue_Ground_Significant_Strikes_Landed = blue_sig_strike_fighter_row[8].split("of")[0]
-        Blue_Ground_Significant_Strikes_Attempted = blue_sig_strike_fighter_row[8].split("of")[1]
-
-
+        Red_Ground_Significant_Strikes_Landed = red_sig_strike_fighter_row[8].split("of")[0].strip()
+        Red_Ground_Significant_Strikes_Attempted = red_sig_strike_fighter_row[8].split("of")[1].strip()
+        Blue_Ground_Significant_Strikes_Landed = blue_sig_strike_fighter_row[8].split("of")[0].strip()
+        Blue_Ground_Significant_Strikes_Attempted = blue_sig_strike_fighter_row[8].split("of")[1].strip()
 
 
-        R1_TotalRedRow = []
-        R2_TotalRedRow = []
-        R3_TotalRedRow = []
-        R4_TotalRedRow = []
-        R5_TotalRedRow = []
 
-        R1_TotalBlueRow = []
-        R2_TotalBlueRow = []
-        R3_TotalBlueRow = []
-        R4_TotalBlueRow = []
-        R5_TotalBlueRow = []
 
-        R1_fighter1TotalRowList = []
-        R1_fighter2TotalRowList = []
-
-        R2_fighter1TotalRowList = []
-        R2_fighter2TotalRowList = []
-
-        R3_fighter1TotalRowList = []
-        R3_fighter2TotalRowList = []
-
-        R4_fighter1TotalRowList = []
-        R4_fighter2TotalRowList = []
-
-        R5_fighter1TotalRowList = []
-        R5_fighter2TotalRowList = []
-        round_title_list = []
+        # Instantiating strings to find each rounds "section"
+        round_one = "Round 1"
+        round_two = "Round 2"
+        round_three = "Round 3"
+        round_four = "Round 4"
+        round_five = "Round 5"
 
         ## WORK IN PROGRESS....
         Rounds_totals_round_table = stat_soup.find_all("section", {"class": "b-fight-details__section js-fight-section"})[2]
         totals_round_table = Rounds_totals_round_table.find("table", {"class": "b-fight-details__table js-fight-table"})
 
-        #round_title = totals_round_table.find_all("thead", {"class": "b-fight-details__table-row b-fight-details__table-row_type_head"})
+        # Finding all round headers within the Totals table
+        roundHeaders = totals_round_table.find_all("thead", {
+            "class": "b-fight-details__table-row b-fight-details__table-row_type_head"})
 
-        #for i in round_title:
-        #    round_title_list.append(i.text.strip())
+        R1_Fighter1_Totals_Table_List = []
+        R1_Fighter2_Totals_Table_List = []
+        R1_Blue_Fighter_Totals_Row = []
+        R1_Red_Fighter_Totals_Row = []
 
-        #print(len(round_title_list))
-        column = totals_round_table.findChildren("tbody")[1]
-        # ROUND 1 Totals
-        for i in column:
-            row = i.findChildren("td")
-            for x in row:
-                print(x.select_one(":nth-child(1)").text)
+        R2_Fighter1_Totals_Table_List = []
+        R2_Fighter2_Totals_Table_List = []
+        R2_Blue_Fighter_Totals_Row = []
+        R2_Red_Fighter_Totals_Row = []
+
+        R3_Fighter1_Totals_Table_List = []
+        R3_Fighter2_Totals_Table_List = []
+        R3_Blue_Fighter_Totals_Row = []
+        R3_Red_Fighter_Totals_Row = []
+
+        R4_Fighter1_Totals_Table_List = []
+        R4_Fighter2_Totals_Table_List = []
+        R4_Blue_Fighter_Totals_Row = []
+        R4_Red_Fighter_Totals_Row = []
+
+        R5_Fighter1_Totals_Table_List = []
+        R5_Fighter2_Totals_Table_List = []
+        R5_Blue_Fighter_Totals_Row = []
+        R5_Red_Fighter_Totals_Row = []
+        # ROUND ONE TOTAL VALUES INITIALIZED
+            #RED
+        R_Round_One_Knockdowns = ""
+        R_Round_One_Significant_Strikes_Landed = ""
+        R_Round_One_Significant_Strikes_Attempted = ""
+        R_Round_One_Significant_Strike_Perc = ""
+        R_Round_One_Total_Strikes_Attempted = ""
+        R_Round_One_Total_Strikes_Landed = ""
+        R_Round_One_Takedowns_Attempted = ""
+        R_Round_One_Takedowns_Landed = ""
+        R_Round_One_Takedown_Perc = ""
+        R_Round_One_Submission_Attempts = ""
+        R_Round_One_Grappling_Reversals = ""
+        R_Round_One_Grappling_Control_Time = ""
+            #BLUE
+        B_Round_One_Knockdowns = ""
+        B_Round_One_Significant_Strikes_Landed = ""
+        B_Round_One_Significant_Strikes_Attempted = ""
+        B_Round_One_Significant_Strike_Perc = ""
+        B_Round_One_Total_Strikes_Attempted = ""
+        B_Round_One_Total_Strikes_Landed = ""
+        B_Round_One_Takedowns_Attempted = ""
+        B_Round_One_Takedowns_Landed = ""
+        B_Round_One_Takedown_Perc = ""
+        B_Round_One_Submission_Attempts = ""
+        B_Round_One_Grappling_Reversals = ""
+        B_Round_One_Grappling_Control_Time = ""
+
+        # ROUND TWO TOTAL VALUES INITIALIZED
+            #RED
+        R_Round_Two_Knockdowns = ""
+        R_Round_Two_Significant_Strikes_Landed = ""
+        R_Round_Two_Significant_Strikes_Attempted = ""
+        R_Round_Two_Significant_Strike_Perc = ""
+        R_Round_Two_Total_Strikes_Attempted = ""
+        R_Round_Two_Total_Strikes_Landed = ""
+        R_Round_Two_Takedowns_Attempted = ""
+        R_Round_Two_Takedowns_Landed = ""
+        R_Round_Two_Takedown_Perc = ""
+        R_Round_Two_Submission_Attempts = ""
+        R_Round_Two_Grappling_Reversals = ""
+        R_Round_Two_Grappling_Control_Time = ""
+            #BLUE
+        B_Round_Two_Knockdowns = ""
+        B_Round_Two_Significant_Strikes_Landed = ""
+        B_Round_Two_Significant_Strikes_Attempted = ""
+        B_Round_Two_Significant_Strike_Perc = ""
+        B_Round_Two_Total_Strikes_Attempted = ""
+        B_Round_Two_Total_Strikes_Landed = ""
+        B_Round_Two_Takedowns_Attempted = ""
+        B_Round_Two_Takedowns_Landed = ""
+        B_Round_Two_Takedown_Perc = ""
+        B_Round_Two_Submission_Attempts = ""
+        B_Round_Two_Grappling_Reversals = ""
+        B_Round_Two_Grappling_Control_Time = ""
+
+        # ROUND THREE TOTAL VALUES INITIALIZED
+            # RED
+        R_Round_Three_Knockdowns = ""
+        R_Round_Three_Significant_Strikes_Landed = ""
+        R_Round_Three_Significant_Strikes_Attempted = ""
+        R_Round_Three_Significant_Strike_Perc = ""
+        R_Round_Three_Total_Strikes_Attempted = ""
+        R_Round_Three_Total_Strikes_Landed = ""
+        R_Round_Three_Takedowns_Attempted = ""
+        R_Round_Three_Takedowns_Landed = ""
+        R_Round_Three_Takedown_Perc = ""
+        R_Round_Three_Submission_Attempts = ""
+        R_Round_Three_Grappling_Reversals = ""
+        R_Round_Three_Grappling_Control_Time = ""
+            #BLUE
+        B_Round_Three_Knockdowns = ""
+        B_Round_Three_Significant_Strikes_Landed = ""
+        B_Round_Three_Significant_Strikes_Attempted = ""
+        B_Round_Three_Significant_Strike_Perc = ""
+        B_Round_Three_Total_Strikes_Attempted = ""
+        B_Round_Three_Total_Strikes_Landed = ""
+        B_Round_Three_Takedowns_Attempted = ""
+        B_Round_Three_Takedowns_Landed = ""
+        B_Round_Three_Takedown_Perc = ""
+        B_Round_Three_Submission_Attempts = ""
+        B_Round_Three_Grappling_Reversals = ""
+        B_Round_Three_Grappling_Control_Time = ""
+
+        # ROUND FOUR TOTAL VALUES INITIALIZED
+            # RED
+        R_Round_Four_Knockdowns = ""
+        R_Round_Four_Significant_Strikes_Landed = ""
+        R_Round_Four_Significant_Strikes_Attempted = ""
+        R_Round_Four_Significant_Strike_Perc = ""
+        R_Round_Four_Total_Strikes_Attempted = ""
+        R_Round_Four_Total_Strikes_Landed = ""
+        R_Round_Four_Takedowns_Attempted = ""
+        R_Round_Four_Takedowns_Landed = ""
+        R_Round_Four_Takedown_Perc = ""
+        R_Round_Four_Submission_Attempts = ""
+        R_Round_Four_Grappling_Reversals = ""
+        R_Round_Four_Grappling_Control_Time = ""
+            # BLUE
+        B_Round_Four_Knockdowns = ""
+        B_Round_Four_Significant_Strikes_Landed = ""
+        B_Round_Four_Significant_Strikes_Attempted = ""
+        B_Round_Four_Significant_Strike_Perc = ""
+        B_Round_Four_Total_Strikes_Attempted = ""
+        B_Round_Four_Total_Strikes_Landed = ""
+        B_Round_Four_Takedowns_Attempted = ""
+        B_Round_Four_Takedowns_Landed = ""
+        B_Round_Four_Takedown_Perc = ""
+        B_Round_Four_Submission_Attempts = ""
+        B_Round_Four_Grappling_Reversals = ""
+        B_Round_Four_Grappling_Control_Time = ""
+
+        # ROUND FIVE TOTAL VALUES INITIALIZED
+            # RED
+        R_Round_Five_Knockdowns = ""
+        R_Round_Five_Significant_Strikes_Landed = ""
+        R_Round_Five_Significant_Strikes_Attempted = ""
+        R_Round_Five_Significant_Strike_Perc = ""
+        R_Round_Five_Total_Strikes_Attempted = ""
+        R_Round_Five_Total_Strikes_Landed = ""
+        R_Round_Five_Takedowns_Attempted = ""
+        R_Round_Five_Takedowns_Landed = ""
+        R_Round_Five_Takedown_Perc = ""
+        R_Round_Five_Submission_Attempts = ""
+        R_Round_Five_Grappling_Reversals = ""
+        R_Round_Five_Grappling_Control_Time = ""
+            # BLUE
+        B_Round_Five_Knockdowns = ""
+        B_Round_Five_Significant_Strikes_Landed = ""
+        B_Round_Five_Significant_Strikes_Attempted = ""
+        B_Round_Five_Significant_Strike_Perc = ""
+        B_Round_Five_Total_Strikes_Attempted = ""
+        B_Round_Five_Total_Strikes_Landed = ""
+        B_Round_Five_Takedowns_Attempted = ""
+        B_Round_Five_Takedowns_Landed = ""
+        B_Round_Five_Takedown_Perc = ""
+        B_Round_Five_Submission_Attempts = ""
+        B_Round_Five_Grappling_Reversals = ""
+        B_Round_Five_Grappling_Control_Time = ""
+
+        # GETS Total (table) values of each round:
+        for i in roundHeaders:
+            # ROUND 1
+            # If the loop encounters the header "Round 1", continue...
+            if i.text.strip() == round_one:
+                # Since the header matches the round we are looking for, we grab the next sibling, which is a
+                # <tbody> ceontaining the round information
+                round_one_tbody = i.find_next_siblings(limit=1)
+                # Even though there is only 1, we must loop through the results
+                for x in round_one_tbody:
+                    round_one_td = x.find_all("td")
+                    for y in round_one_td:
+                        R1_Fighter1_Totals_Table_List.append(y.select_one(":nth-child(1)").text)
+                        R1_Fighter2_Totals_Table_List.append(y.select_one(":nth-child(2)").text)
+
+                    # Assigning the values to a list based on the fighters corner color
+                    if R1_Fighter1_Totals_Table_List[0].strip() == blue_fighter:
+                        for z in R1_Fighter1_Totals_Table_List:
+                            R1_Blue_Fighter_Totals_Row.append(z)
+                    elif R1_Fighter1_Totals_Table_List[0].strip() == red_fighter:
+                        for z in R1_Fighter1_Totals_Table_List:
+                            R1_Red_Fighter_Totals_Row.append(z)
+                    if R1_Fighter2_Totals_Table_List[0].strip() == blue_fighter:
+                        for z in R1_Fighter2_Totals_Table_List:
+                            R1_Blue_Fighter_Totals_Row.append(z)
+                    elif R1_Fighter2_Totals_Table_List[0] == red_fighter:
+                        for z in R1_Fighter2_Totals_Table_List:
+                            R1_Red_Fighter_Totals_Row.append(z)
+
+            # TOTALS TABLE ROUND 2
+            if i.text.strip() == round_two:
+                # Since the header matches the round we are looking for, we grab the next sibling, which is a
+                # <tbody> ceontaining the round information
+                round_two_tbody = i.find_next_siblings(limit=1)
+                # Even though there is only 1, we must loop through the results
+                for x in round_two_tbody:
+                    round_two_td = x.find_all("td")
+                    for y in round_two_td:
+                        R2_Fighter1_Totals_Table_List.append(y.select_one(":nth-child(1)").text)
+                        R2_Fighter2_Totals_Table_List.append(y.select_one(":nth-child(2)").text)
+
+                    # Assigning the values to a list based on the fighters corner color
+                    if R2_Fighter1_Totals_Table_List[0].strip() == blue_fighter:
+                        for z in R2_Fighter1_Totals_Table_List:
+                            R2_Blue_Fighter_Totals_Row.append(z)
+                    elif R2_Fighter1_Totals_Table_List[0].strip() == red_fighter:
+                        for z in R2_Fighter1_Totals_Table_List:
+                            R2_Red_Fighter_Totals_Row.append(z)
+                    if R2_Fighter2_Totals_Table_List[0].strip() == blue_fighter:
+                        for z in R2_Fighter2_Totals_Table_List:
+                            R2_Blue_Fighter_Totals_Row.append(z)
+                    elif R2_Fighter2_Totals_Table_List[0] == red_fighter:
+                        for z in R2_Fighter2_Totals_Table_List:
+                            R2_Red_Fighter_Totals_Row.append(z)
 
 
+            # TOTALS TABLE ROUND 3
+            if i.text.strip() == round_three:
+                # Since the header matches the round we are looking for, we grab the next sibling, which is a
+                # <tbody> ceontaining the round information
+                round_three_tbody = i.find_next_siblings(limit=1)
+                # Even though there is only 1, we must loop through the results
+                for x in round_three_tbody:
+                    round_three_td = x.find_all("td")
+                    for y in round_three_td:
+                        R3_Fighter1_Totals_Table_List.append(y.select_one(":nth-child(1)").text)
+                        R3_Fighter2_Totals_Table_List.append(y.select_one(":nth-child(2)").text)
+
+                    # Assigning the values to a list based on the fighters corner color
+                    if R3_Fighter1_Totals_Table_List[0].strip() == blue_fighter:
+                        for z in R3_Fighter1_Totals_Table_List:
+                            R3_Blue_Fighter_Totals_Row.append(z)
+                    elif R3_Fighter1_Totals_Table_List[0].strip() == red_fighter:
+                        for z in R3_Fighter1_Totals_Table_List:
+                            R3_Red_Fighter_Totals_Row.append(z)
+                    if R3_Fighter2_Totals_Table_List[0].strip() == blue_fighter:
+                        for z in R3_Fighter2_Totals_Table_List:
+                            R3_Blue_Fighter_Totals_Row.append(z)
+                    elif R3_Fighter2_Totals_Table_List[0] == red_fighter:
+                        for z in R3_Fighter2_Totals_Table_List:
+                            R3_Red_Fighter_Totals_Row.append(z)
+
+
+            # TOTALS TABLE ROUND 4
+            if i.text.strip() == round_four:
+                # Since the header matches the round we are looking for, we grab the next sibling, which is a
+                # <tbody> ceontaining the round information
+                round_four_tbody = i.find_next_siblings(limit=1)
+                # Even though there is only 1, we must loop through the results
+                for x in round_four_tbody:
+                    round_four_td = x.find_all("td")
+                    for y in round_four_td:
+                        R4_Fighter1_Totals_Table_List.append(y.select_one(":nth-child(1)").text)
+                        R4_Fighter2_Totals_Table_List.append(y.select_one(":nth-child(2)").text)
+
+                    # Assigning the values to a list based on the fighters corner color
+                    if R4_Fighter1_Totals_Table_List[0].strip() == blue_fighter:
+                        for z in R4_Fighter1_Totals_Table_List:
+                            R4_Blue_Fighter_Totals_Row.append(z)
+                    elif R4_Fighter1_Totals_Table_List[0].strip() == red_fighter:
+                        for z in R4_Fighter1_Totals_Table_List:
+                            R4_Red_Fighter_Totals_Row.append(z)
+                    if R4_Fighter2_Totals_Table_List[0].strip() == blue_fighter:
+                        for z in R4_Fighter2_Totals_Table_List:
+                            R4_Blue_Fighter_Totals_Row.append(z)
+                    elif R4_Fighter2_Totals_Table_List[0] == red_fighter:
+                        for z in R4_Fighter2_Totals_Table_List:
+                            R4_Red_Fighter_Totals_Row.append(z)
+
+            # TOTALS TABLE ROUND 5
+            if i.text.strip() == round_five:
+                # Since the header matches the round we are looking for, we grab the next sibling, which is a
+                # <tbody> ceontaining the round information
+                round_five_tbody = i.find_next_siblings(limit=1)
+                # Even though there is only 1, we must loop through the results
+                for x in round_five_tbody:
+                    round_five_td = x.find_all("td")
+                    for y in round_five_td:
+                        R5_Fighter1_Totals_Table_List.append(y.select_one(":nth-child(1)").text)
+                        R5_Fighter2_Totals_Table_List.append(y.select_one(":nth-child(2)").text)
+
+                    # Assigning the values to a list based on the fighters corner color
+                    if R5_Fighter1_Totals_Table_List[0].strip() == blue_fighter:
+                        for z in R5_Fighter1_Totals_Table_List:
+                            R5_Blue_Fighter_Totals_Row.append(z)
+                    elif R5_Fighter1_Totals_Table_List[0].strip() == red_fighter:
+                        for z in R5_Fighter1_Totals_Table_List:
+                            R5_Red_Fighter_Totals_Row.append(z)
+                    if R5_Fighter2_Totals_Table_List[0].strip() == blue_fighter:
+                        for z in R5_Fighter2_Totals_Table_List:
+                            R5_Blue_Fighter_Totals_Row.append(z)
+                    elif R5_Fighter2_Totals_Table_List[0] == red_fighter:
+                        for z in R5_Fighter2_Totals_Table_List:
+                            R5_Red_Fighter_Totals_Row.append(z)
+
+        # fighter values being assigned for each round.
+            ## ROUND 1 RED FIGHTER STATS
+        if R1_Red_Fighter_Totals_Row != empty_list:
+            R_Round_One_Knockdowns = R1_Red_Fighter_Totals_Row[1].strip()
+            R_Round_One_Significant_Strikes_Landed = R1_Red_Fighter_Totals_Row[2].split("of")[0].strip()
+            R_Round_One_Significant_Strikes_Attempted= R1_Red_Fighter_Totals_Row[2].split("of")[1].strip()
+            R_Round_One_Significant_Strike_Perc= R1_Red_Fighter_Totals_Row[3].strip("%\n ").strip()
+            R_Round_One_Total_Strikes_Landed = R1_Red_Fighter_Totals_Row[4].split("of")[0].strip()
+            R_Round_One_Total_Strikes_Attempted= R1_Red_Fighter_Totals_Row[4].split("of")[1].strip()
+            R_Round_One_Takedowns_Landed = R1_Red_Fighter_Totals_Row[5].split("of")[0].strip()
+            R_Round_One_Takedowns_Attempted= R1_Red_Fighter_Totals_Row[5].split("of")[1].strip()
+            R_Round_One_Takedown_Perc= R1_Red_Fighter_Totals_Row[6].strip("%\n ").strip()
+            R_Round_One_Submission_Attempts= R1_Red_Fighter_Totals_Row[7].strip()
+            R_Round_One_Grappling_Reversals= R1_Red_Fighter_Totals_Row[8].strip()
+            R_Round_One_Grappling_Control_Time= R1_Red_Fighter_Totals_Row[9].strip()
+
+            ## ROUND 1 BLUE FIGHTER STATS
+        if R1_Blue_Fighter_Totals_Row != empty_list:
+            B_Round_One_Knockdowns = R1_Blue_Fighter_Totals_Row[1].strip()
+            B_Round_One_Significant_Strikes_Landed = R1_Blue_Fighter_Totals_Row[2].split("of")[0].strip()
+            B_Round_One_Significant_Strikes_Attempted= R1_Blue_Fighter_Totals_Row[2].split("of")[1].strip()
+            B_Round_One_Significant_Strike_Perc= R1_Blue_Fighter_Totals_Row[3].strip("%\n ").strip()
+            B_Round_One_Total_Strikes_Landed = R1_Blue_Fighter_Totals_Row[4].split("of")[0].strip()
+            B_Round_One_Total_Strikes_Attempted= R1_Blue_Fighter_Totals_Row[4].split("of")[1].strip()
+            B_Round_One_Takedowns_Landed = R1_Blue_Fighter_Totals_Row[5].split("of")[0].strip()
+            B_Round_One_Takedowns_Attempted= R1_Blue_Fighter_Totals_Row[5].split("of")[1].strip()
+            B_Round_One_Takedown_Perc= R1_Blue_Fighter_Totals_Row[6].strip("%\n ").strip()
+            B_Round_One_Submission_Attempts= R1_Blue_Fighter_Totals_Row[7].strip()
+            B_Round_One_Grappling_Reversals= R1_Blue_Fighter_Totals_Row[8].strip()
+            B_Round_One_Grappling_Control_Time= R1_Blue_Fighter_Totals_Row[9].strip()
+
+
+
+        if R2_Red_Fighter_Totals_Row != empty_list:
+                ## ROUND 2 RED FIGHTER STATS
+            R_Round_Two_Knockdowns = R2_Red_Fighter_Totals_Row[1].strip()
+            R_Round_Two_Significant_Strikes_Landed = R2_Red_Fighter_Totals_Row[2].split("of")[0].strip()
+            R_Round_Two_Significant_Strikes_Attempted = R2_Red_Fighter_Totals_Row[2].split("of")[1].strip()
+            R_Round_Two_Significant_Strike_Perc = R2_Red_Fighter_Totals_Row[3].strip("%\n ").strip()
+            R_Round_Two_Total_Strikes_Landed = R2_Red_Fighter_Totals_Row[4].split("of")[0].strip()
+            R_Round_Two_Total_Strikes_Attempted = R2_Red_Fighter_Totals_Row[4].split("of")[1].strip()
+            R_Round_Two_Takedowns_Landed = R2_Red_Fighter_Totals_Row[5].split("of")[0].strip()
+            R_Round_Two_Takedowns_Attempted = R2_Red_Fighter_Totals_Row[5].split("of")[1].strip()
+            R_Round_Two_Takedown_Perc = R2_Red_Fighter_Totals_Row[6].strip("%\n ").strip()
+            R_Round_Two_Submission_Attempts = R2_Red_Fighter_Totals_Row[7].strip()
+            R_Round_Two_Grappling_Reversals = R2_Red_Fighter_Totals_Row[8].strip()
+            R_Round_Two_Grappling_Control_Time = R2_Red_Fighter_Totals_Row[9].strip()
+
+            ## ROUND 2 BLUE FIGHTER STATS
+        if R2_Blue_Fighter_Totals_Row != empty_list:
+            B_Round_Two_Knockdowns = R2_Blue_Fighter_Totals_Row[1].strip()
+            B_Round_Two_Significant_Strikes_Landed = R2_Blue_Fighter_Totals_Row[2].split("of")[0].strip()
+            B_Round_Two_Significant_Strikes_Attempted = R2_Blue_Fighter_Totals_Row[2].split("of")[1].strip()
+            B_Round_Two_Significant_Strike_Perc = R2_Blue_Fighter_Totals_Row[3].strip("%\n ").strip()
+            B_Round_Two_Total_Strikes_Landed = R2_Blue_Fighter_Totals_Row[4].split("of")[0].strip()
+            B_Round_Two_Total_Strikes_Attempted = R2_Blue_Fighter_Totals_Row[4].split("of")[1].strip()
+            B_Round_Two_Takedowns_Landed = R2_Blue_Fighter_Totals_Row[5].split("of")[0].strip()
+            B_Round_Two_Takedowns_Attempted = R2_Blue_Fighter_Totals_Row[5].split("of")[1].strip()
+            B_Round_Two_Takedown_Perc = R2_Blue_Fighter_Totals_Row[6].strip("%\n ").strip()
+            B_Round_Two_Submission_Attempts = R2_Blue_Fighter_Totals_Row[7].strip()
+            B_Round_Two_Grappling_Reversals = R2_Blue_Fighter_Totals_Row[8].strip()
+            B_Round_Two_Grappling_Control_Time = R2_Blue_Fighter_Totals_Row[9].strip()
+
+
+        if R3_Red_Fighter_Totals_Row != empty_list:
+                ## ROUND 3 RED FIGHTER STATS
+            R_Round_Three_Knockdowns = R3_Red_Fighter_Totals_Row[1].strip()
+            R_Round_Three_Significant_Strikes_Landed = R3_Red_Fighter_Totals_Row[2].split("of")[0].strip()
+            R_Round_Three_Significant_Strikes_Attempted = R3_Red_Fighter_Totals_Row[2].split("of")[1].strip()
+            R_Round_Three_Significant_Strike_Perc = R3_Red_Fighter_Totals_Row[3].strip("%\n ").strip()
+            R_Round_Three_Total_Strikes_Landed = R3_Red_Fighter_Totals_Row[4].split("of")[0].strip()
+            R_Round_Three_Total_Strikes_Attempted = R3_Red_Fighter_Totals_Row[4].split("of")[1].strip()
+            R_Round_Three_Takedowns_Landed = R3_Red_Fighter_Totals_Row[5].split("of")[0].strip()
+            R_Round_Three_Takedowns_Attempted = R3_Red_Fighter_Totals_Row[5].split("of")[1].strip()
+            R_Round_Three_Takedown_Perc = R3_Red_Fighter_Totals_Row[6].strip("%\n ").strip()
+            R_Round_Three_Submission_Attempts = R3_Red_Fighter_Totals_Row[7].strip()
+            R_Round_Three_Grappling_Reversals = R3_Red_Fighter_Totals_Row[8].strip()
+            R_Round_Three_Grappling_Control_Time = R3_Red_Fighter_Totals_Row[9].strip()
+
+                ## ROUND 3 BLUE FIGHTER STATS
+        if R3_Blue_Fighter_Totals_Row != empty_list:
+            B_Round_Three_Knockdowns = R3_Blue_Fighter_Totals_Row[1].strip()
+            B_Round_Three_Significant_Strikes_Landed = R3_Blue_Fighter_Totals_Row[2].split("of")[0].strip()
+            B_Round_Three_Significant_Strikes_Attempted = R3_Blue_Fighter_Totals_Row[2].split("of")[1].strip()
+            B_Round_Three_Significant_Strike_Perc = R3_Blue_Fighter_Totals_Row[3].strip("%\n ").strip()
+            B_Round_Three_Total_Strikes_Landed = R3_Blue_Fighter_Totals_Row[4].split("of")[0].strip()
+            B_Round_Three_Total_Strikes_Attempted = R3_Blue_Fighter_Totals_Row[4].split("of")[1].strip()
+            B_Round_Three_Takedowns_Landed = R3_Blue_Fighter_Totals_Row[5].split("of")[0].strip()
+            B_Round_Three_Takedowns_Attempted = R3_Blue_Fighter_Totals_Row[5].split("of")[1].strip()
+            B_Round_Three_Takedown_Perc = R3_Blue_Fighter_Totals_Row[6].strip("%\n ").strip()
+            B_Round_Three_Submission_Attempts = R3_Blue_Fighter_Totals_Row[7].strip()
+            B_Round_Three_Grappling_Reversals = R3_Blue_Fighter_Totals_Row[8].strip()
+            B_Round_Three_Grappling_Control_Time = R3_Blue_Fighter_Totals_Row[9].strip()
+
+
+            ## ROUND 4 RED FIGHTER STATS
+        if R4_Red_Fighter_Totals_Row != empty_list:
+            R_Round_Four_Knockdowns = R4_Red_Fighter_Totals_Row[1].strip()
+            R_Round_Four_Significant_Strikes_Landed = R4_Red_Fighter_Totals_Row[2].split("of")[0].strip()
+            R_Round_Four_Significant_Strikes_Attempted = R4_Red_Fighter_Totals_Row[2].split("of")[1].strip()
+            R_Round_Four_Significant_Strike_Perc = R4_Red_Fighter_Totals_Row[3].strip("%\n ").strip()
+            R_Round_Four_Total_Strikes_Landed = R4_Red_Fighter_Totals_Row[4].split("of")[0].strip()
+            R_Round_Four_Total_Strikes_Attempted = R4_Red_Fighter_Totals_Row[4].split("of")[1].strip()
+            R_Round_Four_Takedowns_Landed = R4_Red_Fighter_Totals_Row[5].split("of")[0].strip()
+            R_Round_Four_Takedowns_Attempted = R4_Red_Fighter_Totals_Row[5].split("of")[1].strip()
+            R_Round_Four_Takedown_Perc = R4_Red_Fighter_Totals_Row[6].strip("%\n ").strip()
+            R_Round_Four_Submission_Attempts = R4_Red_Fighter_Totals_Row[7].strip()
+            R_Round_Four_Grappling_Reversals = R4_Red_Fighter_Totals_Row[8].strip()
+            R_Round_Four_Grappling_Control_Time = R4_Red_Fighter_Totals_Row[9].strip()
+
+            ## ROUND 4 BLUE FIGHTER STATS
+        if R4_Blue_Fighter_Totals_Row != empty_list:
+            B_Round_Four_Knockdowns = R4_Blue_Fighter_Totals_Row[1].strip()
+            B_Round_Four_Significant_Strikes_Landed = R4_Blue_Fighter_Totals_Row[2].split("of")[0].strip()
+            B_Round_Four_Significant_Strikes_Attempted = R4_Blue_Fighter_Totals_Row[2].split("of")[1].strip()
+            B_Round_Four_Significant_Strike_Perc = R4_Blue_Fighter_Totals_Row[3].strip("%\n ").strip()
+            B_Round_Four_Total_Strikes_Landed = R4_Blue_Fighter_Totals_Row[4].split("of")[0].strip()
+            B_Round_Four_Total_Strikes_Attempted = R4_Blue_Fighter_Totals_Row[4].split("of")[1].strip()
+            B_Round_Four_Takedowns_Landed = R4_Blue_Fighter_Totals_Row[5].split("of")[0].strip()
+            B_Round_Four_Takedowns_Attempted = R4_Blue_Fighter_Totals_Row[5].split("of")[1].strip()
+            B_Round_Four_Takedown_Perc = R4_Blue_Fighter_Totals_Row[6].strip("%\n ").strip()
+            B_Round_Four_Submission_Attempts = R4_Blue_Fighter_Totals_Row[7].strip()
+            B_Round_Four_Grappling_Reversals = R4_Blue_Fighter_Totals_Row[8].strip()
+            B_Round_Four_Grappling_Control_Time = R4_Blue_Fighter_Totals_Row[9].strip()
+
+        if R5_Red_Fighter_Totals_Row != empty_list:
+            R_Round_Five_Knockdowns = R5_Red_Fighter_Totals_Row[1].strip()
+            R_Round_Five_Significant_Strikes_Landed = R5_Red_Fighter_Totals_Row[2].split("of")[0].strip()
+            R_Round_Five_Significant_Strikes_Attempted = R5_Red_Fighter_Totals_Row[2].split("of")[1].strip()
+            R_Round_Five_Significant_Strike_Perc = R5_Red_Fighter_Totals_Row[3].strip("%\n ").strip()
+            R_Round_Five_Total_Strikes_Landed = R5_Red_Fighter_Totals_Row[4].split("of")[0].strip()
+            R_Round_Five_Total_Strikes_Attempted = R5_Red_Fighter_Totals_Row[4].split("of")[1].strip()
+            R_Round_Five_Takedowns_Landed = R5_Red_Fighter_Totals_Row[5].split("of")[0].strip()
+            R_Round_Five_Takedowns_Attempted = R5_Red_Fighter_Totals_Row[5].split("of")[1].strip()
+            R_Round_Five_Takedown_Perc = R5_Red_Fighter_Totals_Row[6].strip("%\n ").strip()
+            R_Round_Five_Submission_Attempts = R5_Red_Fighter_Totals_Row[7].strip()
+            R_Round_Five_Grappling_Reversals = R5_Red_Fighter_Totals_Row[8].strip()
+            R_Round_Five_Grappling_Control_Time = R5_Red_Fighter_Totals_Row[9].strip()
+
+            ## ROUND 5 BLUE FIGHTER STATS
+        if R5_Blue_Fighter_Totals_Row != empty_list:
+            B_Round_Five_Knockdowns = R5_Blue_Fighter_Totals_Row[1].strip()
+            B_Round_Five_Significant_Strikes_Landed = R5_Blue_Fighter_Totals_Row[2].split("of")[0].strip()
+            B_Round_Five_Significant_Strikes_Attempted = R5_Blue_Fighter_Totals_Row[2].split("of")[1].strip()
+            B_Round_Five_Significant_Strike_Perc = R5_Blue_Fighter_Totals_Row[3].strip("%\n ").strip()
+            B_Round_Five_Total_Strikes_Landed = R5_Blue_Fighter_Totals_Row[4].split("of")[0].strip()
+            B_Round_Five_Total_Strikes_Attempted = R5_Blue_Fighter_Totals_Row[4].split("of")[1].strip()
+            B_Round_Five_Takedowns_Landed = R5_Blue_Fighter_Totals_Row[5].split("of")[0].strip()
+            B_Round_Five_Takedowns_Attempted = R5_Blue_Fighter_Totals_Row[5].split("of")[1].strip()
+            B_Round_Five_Takedown_Perc = R5_Blue_Fighter_Totals_Row[6].strip("%\n ").strip()
+            B_Round_Five_Submission_Attempts = R5_Blue_Fighter_Totals_Row[7].strip()
+            B_Round_Five_Grappling_Reversals = R5_Blue_Fighter_Totals_Row[8].strip()
+            B_Round_Five_Grappling_Control_Time = R5_Blue_Fighter_Totals_Row[9].strip()
 
 
 
@@ -344,10 +765,12 @@ def stat_scraper(fight_list):
 
         # Dictionary to be used for writing to CSV file.
         fight_stat_dict = {
+
             "Fight Details": {
                 "Max_Rounds": max_rounds
 
             },
+
             "Blue": {
                 "Totals": {
                     
@@ -382,10 +805,10 @@ def stat_scraper(fight_list):
                 },
                 "Rounds": {
                     1: {
-                        "B_Round_One_Knockdowns":"",
-                        "B_Round_One_Significant_Strikes_Landed": "",
-                        "B_Round_One_Significant_Strikes_Attempted": "",
-                        "B_Round_One_Significant_Strike_Perc": "",
+                        "B_Round_One_Knockdowns": B_Round_One_Knockdowns,
+                        "B_Round_One_Significant_Strikes_Landed": B_Round_One_Significant_Strikes_Landed,
+                        "B_Round_One_Significant_Strikes_Attempted": B_Round_One_Significant_Strikes_Attempted,
+                        "B_Round_One_Significant_Strike_Perc": B_Round_One_Significant_Strike_Perc,
                         "B_Round_One_Significant_Strikes_Distance": "",
                         "B_Round_One_Significant_Strikes_Clinch": "",
                         "B_Round_One_Significant_Strikes_Ground": "",
@@ -395,23 +818,23 @@ def stat_scraper(fight_list):
                         "B_Round_One_Body_Significant_Strikes_Laned": "",
                         "B_Round_One_Leg_Significant_Strikes_Attempted": "",
                         "B_Round_One_Leg_Significant_Strikes_Landed": "",
-                        "B_Round_One_Total_Strikes_Attempted": "",
-                        "B_Round_One_Total_Strikes_Landed": "",
-                        "B_Round_One_Takedowns_Attempted": "",
-                        "B_Round_One_Takedowns_Landed": "",
-                        "B_Round_One_Takedown_Perc": "",
-                        "B_Round_One_Submission_Attempts": "",
-                        "B_Round_One_Grappling_Reversals": "",
-                        "B_Round_One_Grappling_Control_Time": "",
+                        "B_Round_One_Total_Strikes_Attempted": B_Round_One_Total_Strikes_Attempted,
+                        "B_Round_One_Total_Strikes_Landed": B_Round_One_Total_Strikes_Landed,
+                        "B_Round_One_Takedowns_Attempted": B_Round_One_Takedowns_Attempted,
+                        "B_Round_One_Takedowns_Landed": B_Round_One_Takedowns_Landed,
+                        "B_Round_One_Takedown_Perc": B_Round_One_Takedown_Perc,
+                        "B_Round_One_Submission_Attempts": B_Round_One_Submission_Attempts,
+                        "B_Round_One_Grappling_Reversals": B_Round_One_Grappling_Reversals,
+                        "B_Round_One_Grappling_Control_Time": B_Round_One_Grappling_Control_Time,
 
 
 
                     },
                     2: {
-                        "B_Round_Two_Knockdowns": "",
-                        "B_Round_Two_Significant_Strikes_Landed": "",
-                        "B_Round_Two_Significant_Strikes_Attempted": "",
-                        "B_Round_Two_Significant_Strike_Perc": "",
+                        "B_Round_Two_Knockdowns": B_Round_Two_Knockdowns,
+                        "B_Round_Two_Significant_Strikes_Landed": B_Round_Two_Significant_Strikes_Landed,
+                        "B_Round_Two_Significant_Strikes_Attempted": B_Round_Two_Significant_Strikes_Attempted,
+                        "B_Round_Two_Significant_Strike_Perc": B_Round_Two_Significant_Strike_Perc,
                         "B_Round_Two_Significant_Strikes_Distance": "",
                         "B_Round_Two_Significant_Strikes_Clinch": "",
                         "B_Round_Two_Significant_Strikes_Ground": "",
@@ -421,20 +844,20 @@ def stat_scraper(fight_list):
                         "B_Round_Two_Body_Significant_Strikes_Laned": "",
                         "B_Round_Two_Leg_Significant_Strikes_Attempted": "",
                         "B_Round_Two_Leg_Significant_Strikes_Landed": "",
-                        "B_Round_Two_Total_Strikes_Attempted": "",
-                        "B_Round_Two_Total_Strikes_Landed": "",
-                        "B_Round_Two_Takedowns_Attempted": "",
-                        "B_Round_Two_Takedowns_Landed": "",
-                        "B_Round_Two_Takedown_Perc": "",
-                        "B_Round_Two_Submission_Attempts": "",
-                        "B_Round_Two_Grappling_Reversals": "",
-                        "B_Round_Two_Grappling_Control_Time": "",
+                        "B_Round_Two_Total_Strikes_Attempted": B_Round_Two_Total_Strikes_Attempted,
+                        "B_Round_Two_Total_Strikes_Landed": B_Round_Two_Total_Strikes_Landed,
+                        "B_Round_Two_Takedowns_Attempted": B_Round_Two_Takedowns_Attempted,
+                        "B_Round_Two_Takedowns_Landed": B_Round_Two_Takedowns_Landed,
+                        "B_Round_Two_Takedown_Perc": B_Round_Two_Takedown_Perc,
+                        "B_Round_Two_Submission_Attempts": B_Round_Two_Submission_Attempts,
+                        "B_Round_Two_Grappling_Reversals": B_Round_Two_Grappling_Reversals,
+                        "B_Round_Two_Grappling_Control_Time": B_Round_Two_Grappling_Control_Time,
                     },
                     3: {
-                        "B_Round_Three_Knockdowns": "",
-                        "B_Round_Three_Significant_Strikes_Landed": "",
-                        "B_Round_Three_Significant_Strikes_Attempted": "",
-                        "B_Round_Three_Significant_Strike_Perc": "",
+                        "B_Round_Three_Knockdowns": B_Round_Three_Knockdowns,
+                        "B_Round_Three_Significant_Strikes_Landed": B_Round_Three_Significant_Strikes_Landed,
+                        "B_Round_Three_Significant_Strikes_Attempted": B_Round_Three_Significant_Strikes_Attempted,
+                        "B_Round_Three_Significant_Strike_Perc": B_Round_Three_Significant_Strike_Perc,
                         "B_Round_Three_Significant_Strikes_Distance": "",
                         "B_Round_Three_Significant_Strikes_Clinch": "",
                         "B_Round_Three_Significant_Strikes_Ground": "",
@@ -444,20 +867,20 @@ def stat_scraper(fight_list):
                         "B_Round_Three_Body_Significant_Strikes_Laned": "",
                         "B_Round_Three_Leg_Significant_Strikes_Attempted": "",
                         "B_Round_Three_Leg_Significant_Strikes_Landed": "",
-                        "B_Round_Three_Total_Strikes_Attempted": "",
-                        "B_Round_Three_Total_Strikes_Landed": "",
-                        "B_Round_Three_Takedowns_Attempted": "",
-                        "B_Round_Three_Takedowns_Landed": "",
-                        "B_Round_Three_Takedown_Perc": "",
-                        "B_Round_Three_Submission_Attempts": "",
-                        "B_Round_Three_Grappling_Reversals": "",
-                        "B_Round_Three_Grappling_Control_Time": "",
+                        "B_Round_Three_Total_Strikes_Attempted": B_Round_Three_Total_Strikes_Attempted,
+                        "B_Round_Three_Total_Strikes_Landed": B_Round_Three_Total_Strikes_Landed,
+                        "B_Round_Three_Takedowns_Attempted": B_Round_Three_Takedowns_Attempted,
+                        "B_Round_Three_Takedowns_Landed": B_Round_Three_Takedowns_Landed,
+                        "B_Round_Three_Takedown_Perc": B_Round_Three_Takedown_Perc,
+                        "B_Round_Three_Submission_Attempts": B_Round_Three_Submission_Attempts,
+                        "B_Round_Three_Grappling_Reversals": B_Round_Three_Grappling_Reversals,
+                        "B_Round_Three_Grappling_Control_Time": B_Round_Three_Grappling_Control_Time,
                     },
                     4: {
-                        "B_Round_Four_Knockdowns": "",
-                        "B_Round_Four_Significant_Strikes_Landed": "",
-                        "B_Round_Four_Significant_Strikes_Attempted": "",
-                        "B_Round_Four_Significant_Strike_Perc": "",
+                        "B_Round_Four_Knockdowns": B_Round_Four_Knockdowns,
+                        "B_Round_Four_Significant_Strikes_Landed": B_Round_Four_Significant_Strikes_Landed,
+                        "B_Round_Four_Significant_Strikes_Attempted": B_Round_Four_Significant_Strikes_Attempted,
+                        "B_Round_Four_Significant_Strike_Perc": B_Round_Four_Significant_Strike_Perc,
                         "B_Round_Four_Significant_Strikes_Distance": "",
                         "B_Round_Four_Significant_Strikes_Clinch": "",
                         "B_Round_Four_Significant_Strikes_Ground": "",
@@ -467,20 +890,20 @@ def stat_scraper(fight_list):
                         "B_Round_Four_Body_Significant_Strikes_Laned": "",
                         "B_Round_Four_Leg_Significant_Strikes_Attempted": "",
                         "B_Round_Four_Leg_Significant_Strikes_Landed": "",
-                        "B_Round_Four_Total_Strikes_Attempted": "",
-                        "B_Round_Four_Total_Strikes_Landed": "",
-                        "B_Round_Four_Takedowns_Attempted": "",
-                        "B_Round_Four_Takedowns_Landed": "",
-                        "B_Round_Four_Takedown_Perc": "",
-                        "B_Round_Four_Submission_Attempts": "",
-                        "B_Round_Four_Grappling_Reversals": "",
-                        "B_Round_Four_Grappling_Control_Time": "",
+                        "B_Round_Four_Total_Strikes_Attempted": B_Round_Four_Total_Strikes_Attempted,
+                        "B_Round_Four_Total_Strikes_Landed": B_Round_Four_Total_Strikes_Landed,
+                        "B_Round_Four_Takedowns_Attempted": B_Round_Four_Takedowns_Attempted,
+                        "B_Round_Four_Takedowns_Landed": B_Round_Four_Takedowns_Landed,
+                        "B_Round_Four_Takedown_Perc": B_Round_Four_Takedown_Perc,
+                        "B_Round_Four_Submission_Attempts": B_Round_Four_Submission_Attempts,
+                        "B_Round_Four_Grappling_Reversals": B_Round_Four_Grappling_Reversals,
+                        "B_Round_Four_Grappling_Control_Time": B_Round_Four_Grappling_Control_Time,
                     },
                     5: {
-                        "B_Round_Five_Knockdowns": "",
-                        "B_Round_Five_Significant_Strikes_Landed": "",
-                        "B_Round_Five_Significant_Strikes_Attempted": "",
-                        "B_Round_Five_Significant_Strike_Perc": "",
+                        "B_Round_Five_Knockdowns": B_Round_Five_Knockdowns,
+                        "B_Round_Five_Significant_Strikes_Landed": B_Round_Five_Significant_Strikes_Landed,
+                        "B_Round_Five_Significant_Strikes_Attempted": B_Round_Five_Significant_Strikes_Attempted,
+                        "B_Round_Five_Significant_Strike_Perc": B_Round_Five_Significant_Strike_Perc,
                         "B_Round_Five_Significant_Strikes_Distance": "",
                         "B_Round_Five_Significant_Strikes_Clinch": "",
                         "B_Round_Five_Significant_Strikes_Ground": "",
@@ -490,14 +913,14 @@ def stat_scraper(fight_list):
                         "B_Round_Five_Body_Significant_Strikes_Laned": "",
                         "B_Round_Five_Leg_Significant_Strikes_Attempted": "",
                         "B_Round_Five_Leg_Significant_Strikes_Landed": "",
-                        "B_Round_Five_Total_Strikes_Attempted": "",
-                        "B_Round_Five_Total_Strikes_Landed": "",
-                        "B_Round_Five_Takedowns_Attempted": "",
-                        "B_Round_Five_Takedowns_Landed": "",
-                        "B_Round_Five_Takedown_Perc": "",
-                        "B_Round_Five_Submission_Attempts": "",
-                        "B_Round_Five_Grappling_Reversals": "",
-                        "B_Round_Five_Grappling_Control_Time": "",
+                        "B_Round_Five_Total_Strikes_Attempted": B_Round_Five_Total_Strikes_Attempted,
+                        "B_Round_Five_Total_Strikes_Landed": B_Round_Five_Total_Strikes_Landed,
+                        "B_Round_Five_Takedowns_Attempted": B_Round_Five_Takedowns_Attempted,
+                        "B_Round_Five_Takedowns_Landed": B_Round_Five_Takedowns_Landed,
+                        "B_Round_Five_Takedown_Perc": B_Round_Five_Takedown_Perc,
+                        "B_Round_Five_Submission_Attempts": B_Round_Five_Submission_Attempts,
+                        "B_Round_Five_Grappling_Reversals": B_Round_Five_Grappling_Reversals,
+                        "B_Round_Five_Grappling_Control_Time": B_Round_Five_Grappling_Control_Time,
                     }
 
                 }
@@ -536,10 +959,10 @@ def stat_scraper(fight_list):
                 "Rounds": {
 
                     1: {
-                        "R_Round_One_Knockdowns": "",
-                        "R_Round_One_Significant_Strikes_Landed": "",
-                        "R_Round_One_Significant_Strikes_Attempted": "",
-                        "R_Round_One_Significant_Strike_Perc": "",
+                        "R_Round_One_Knockdowns": R_Round_One_Knockdowns,
+                        "R_Round_One_Significant_Strikes_Landed": R_Round_One_Significant_Strikes_Landed,
+                        "R_Round_One_Significant_Strikes_Attempted": R_Round_One_Significant_Strikes_Attempted,
+                        "R_Round_One_Significant_Strike_Perc": R_Round_One_Significant_Strike_Perc,
                         "R_Round_One_Significant_Strikes_Distance": "",
                         "R_Round_One_Significant_Strikes_Clinch": "",
                         "R_Round_One_Significant_Strikes_Ground": "",
@@ -549,21 +972,21 @@ def stat_scraper(fight_list):
                         "R_Round_One_Body_Significant_Strikes_Laned": "",
                         "R_Round_One_Leg_Significant_Strikes_Attempted": "",
                         "R_Round_One_Leg_Significant_Strikes_Landed": "",
-                        "R_Round_One_Total_Strikes_Attempted": "",
-                        "R_Round_One_Total_Strikes_Landed": "",
-                        "R_Round_One_Takedowns_Attempted": "",
-                        "R_Round_One_Takedowns_Landed": "",
-                        "R_Round_One_Takedown_Perc": "",
-                        "R_Round_One_Submission_Attempts": "",
-                        "R_Round_One_Grappling_Reversals": "",
-                        "R_Round_One_Grappling_Control_Time": "",
+                        "R_Round_One_Total_Strikes_Attempted": R_Round_One_Total_Strikes_Attempted,
+                        "R_Round_One_Total_Strikes_Landed": R_Round_One_Total_Strikes_Landed,
+                        "R_Round_One_Takedowns_Attempted": R_Round_One_Takedowns_Attempted,
+                        "R_Round_One_Takedowns_Landed": R_Round_One_Takedowns_Landed,
+                        "R_Round_One_Takedown_Perc": R_Round_One_Takedown_Perc,
+                        "R_Round_One_Submission_Attempts": R_Round_One_Submission_Attempts,
+                        "R_Round_One_Grappling_Reversals": R_Round_One_Grappling_Reversals,
+                        "R_Round_One_Grappling_Control_Time": R_Round_One_Grappling_Control_Time,
 
                     },
                     2: {
-                        "R_Round_Two_Knockdowns": "",
-                        "R_Round_Two_Significant_Strikes_Landed": "",
-                        "R_Round_Two_Significant_Strikes_Attempted": "",
-                        "R_Round_Two_Significant_Strike_Perc": "",
+                        "R_Round_Two_Knockdowns": R_Round_Two_Knockdowns,
+                        "R_Round_Two_Significant_Strikes_Landed": R_Round_Two_Significant_Strikes_Landed,
+                        "R_Round_Two_Significant_Strikes_Attempted": R_Round_Two_Significant_Strikes_Attempted,
+                        "R_Round_Two_Significant_Strike_Perc": R_Round_Two_Significant_Strike_Perc,
                         "R_Round_Two_Significant_Strikes_Distance": "",
                         "R_Round_Two_Significant_Strikes_Clinch": "",
                         "R_Round_Two_Significant_Strikes_Ground": "",
@@ -573,20 +996,20 @@ def stat_scraper(fight_list):
                         "R_Round_Two_Body_Significant_Strikes_Laned": "",
                         "R_Round_Two_Leg_Significant_Strikes_Attempted": "",
                         "R_Round_Two_Leg_Significant_Strikes_Landed": "",
-                        "R_Round_Two_Total_Strikes_Attempted": "",
-                        "R_Round_Two_Total_Strikes_Landed": "",
-                        "R_Round_Two_Takedowns_Attempted": "",
-                        "R_Round_Two_Takedowns_Landed": "",
-                        "R_Round_Two_Takedown_Perc": "",
-                        "R_Round_Two_Submission_Attempts": "",
-                        "R_Round_Two_Grappling_Reversals": "",
-                        "R_Round_Two_Grappling_Control_Time": "",
+                        "R_Round_Two_Total_Strikes_Attempted": R_Round_Two_Total_Strikes_Attempted,
+                        "R_Round_Two_Total_Strikes_Landed": R_Round_Two_Total_Strikes_Landed,
+                        "R_Round_Two_Takedowns_Attempted": R_Round_Two_Takedowns_Attempted,
+                        "R_Round_Two_Takedowns_Landed": R_Round_Two_Takedowns_Landed,
+                        "R_Round_Two_Takedown_Perc": R_Round_Two_Takedown_Perc,
+                        "R_Round_Two_Submission_Attempts": R_Round_Two_Submission_Attempts,
+                        "R_Round_Two_Grappling_Reversals": R_Round_Two_Grappling_Reversals,
+                        "R_Round_Two_Grappling_Control_Time": R_Round_Two_Grappling_Control_Time,
                     },
                     3: {
-                        "R_Round_Three_Knockdowns": "",
-                        "R_Round_Three_Significant_Strikes_Landed": "",
-                        "R_Round_Three_Significant_Strikes_Attempted": "",
-                        "R_Round_Three_Significant_Strike_Perc": "",
+                        "R_Round_Three_Knockdowns": R_Round_Three_Knockdowns,
+                        "R_Round_Three_Significant_Strikes_Landed": R_Round_Three_Significant_Strikes_Landed,
+                        "R_Round_Three_Significant_Strikes_Attempted": R_Round_Three_Significant_Strikes_Attempted,
+                        "R_Round_Three_Significant_Strike_Perc": R_Round_Three_Significant_Strike_Perc,
                         "R_Round_Three_Significant_Strikes_Distance": "",
                         "R_Round_Three_Significant_Strikes_Clinch": "",
                         "R_Round_Three_Significant_Strikes_Ground": "",
@@ -596,20 +1019,20 @@ def stat_scraper(fight_list):
                         "R_Round_Three_Body_Significant_Strikes_Laned": "",
                         "R_Round_Three_Leg_Significant_Strikes_Attempted": "",
                         "R_Round_Three_Leg_Significant_Strikes_Landed": "",
-                        "R_Round_Three_Total_Strikes_Attempted": "",
-                        "R_Round_Three_Total_Strikes_Landed": "",
-                        "R_Round_Three_Takedowns_Attempted": "",
-                        "R_Round_Three_Takedowns_Landed": "",
-                        "R_Round_Three_Takedown_Perc": "",
-                        "R_Round_Three_Submission_Attempts": "",
-                        "R_Round_Three_Grappling_Reversals": "",
-                        "R_Round_Three_Grappling_Control_Time": "",
+                        "R_Round_Three_Total_Strikes_Attempted": R_Round_Three_Total_Strikes_Attempted,
+                        "R_Round_Three_Total_Strikes_Landed": R_Round_Three_Total_Strikes_Landed,
+                        "R_Round_Three_Takedowns_Attempted": R_Round_Three_Takedowns_Attempted,
+                        "R_Round_Three_Takedowns_Landed": R_Round_Three_Takedowns_Landed,
+                        "R_Round_Three_Takedown_Perc": R_Round_Three_Takedown_Perc,
+                        "R_Round_Three_Submission_Attempts": R_Round_Three_Submission_Attempts,
+                        "R_Round_Three_Grappling_Reversals": R_Round_Three_Grappling_Reversals,
+                        "R_Round_Three_Grappling_Control_Time": R_Round_Three_Grappling_Control_Time,
                     },
                     4: {
-                        "R_Round_Four_Knockdowns": "",
-                        "R_Round_Four_Significant_Strikes_Landed": "",
-                        "R_Round_Four_Significant_Strikes_Attempted": "",
-                        "R_Round_Four_Significant_Strike_Perc": "",
+                        "R_Round_Four_Knockdowns": R_Round_Four_Knockdowns,
+                        "R_Round_Four_Significant_Strikes_Landed": R_Round_Four_Significant_Strikes_Landed,
+                        "R_Round_Four_Significant_Strikes_Attempted": R_Round_Four_Significant_Strikes_Attempted,
+                        "R_Round_Four_Significant_Strike_Perc": R_Round_Four_Significant_Strike_Perc,
                         "R_Round_Four_Significant_Strikes_Distance": "",
                         "R_Round_Four_Significant_Strikes_Clinch": "",
                         "R_Round_Four_Significant_Strikes_Ground": "",
@@ -619,20 +1042,20 @@ def stat_scraper(fight_list):
                         "R_Round_Four_Body_Significant_Strikes_Laned": "",
                         "R_Round_Four_Leg_Significant_Strikes_Attempted": "",
                         "R_Round_Four_Leg_Significant_Strikes_Landed": "",
-                        "R_Round_Four_Total_Strikes_Attempted": "",
-                        "R_Round_Four_Total_Strikes_Landed": "",
-                        "R_Round_Four_Takedowns_Attempted": "",
-                        "R_Round_Four_Takedowns_Landed": "",
-                        "R_Round_Four_Takedown_Perc": "",
-                        "R_Round_Four_Submission_Attempts": "",
-                        "R_Round_Four_Grappling_Reversals": "",
-                        "R_Round_Four_Grappling_Control_Time": "",
+                        "R_Round_Four_Total_Strikes_Attempted": R_Round_Four_Total_Strikes_Attempted,
+                        "R_Round_Four_Total_Strikes_Landed": R_Round_Four_Total_Strikes_Landed,
+                        "R_Round_Four_Takedowns_Attempted": R_Round_Four_Takedowns_Attempted,
+                        "R_Round_Four_Takedowns_Landed": R_Round_Four_Takedowns_Landed,
+                        "R_Round_Four_Takedown_Perc": R_Round_Four_Takedown_Perc,
+                        "R_Round_Four_Submission_Attempts": R_Round_Four_Submission_Attempts,
+                        "R_Round_Four_Grappling_Reversals": R_Round_Four_Grappling_Reversals,
+                        "R_Round_Four_Grappling_Control_Time": R_Round_Four_Grappling_Control_Time,
                     },
                     5: {
-                        "R_Round_Five_Knockdowns": "",
-                        "R_Round_Five_Significant_Strikes_Landed": "",
-                        "R_Round_Five_Significant_Strikes_Attempted": "",
-                        "R_Round_Five_Significant_Strike_Perc": "",
+                        "R_Round_Five_Knockdowns": R_Round_Five_Knockdowns,
+                        "R_Round_Five_Significant_Strikes_Landed": R_Round_Five_Significant_Strikes_Landed,
+                        "R_Round_Five_Significant_Strikes_Attempted": R_Round_Five_Significant_Strikes_Attempted,
+                        "R_Round_Five_Significant_Strike_Perc": R_Round_Five_Significant_Strike_Perc,
                         "R_Round_Five_Significant_Strikes_Distance": "",
                         "R_Round_Five_Significant_Strikes_Clinch": "",
                         "R_Round_Five_Significant_Strikes_Ground": "",
@@ -642,14 +1065,14 @@ def stat_scraper(fight_list):
                         "R_Round_Five_Body_Significant_Strikes_Laned": "",
                         "R_Round_Five_Leg_Significant_Strikes_Attempted": "",
                         "R_Round_Five_Leg_Significant_Strikes_Landed": "",
-                        "R_Round_Five_Total_Strikes_Attempted": "",
-                        "R_Round_Five_Total_Strikes_Landed": "",
-                        "R_Round_Five_Takedowns_Attempted": "",
-                        "R_Round_Five_Takedowns_Landed": "",
-                        "R_Round_Five_Takedown_Perc": "",
-                        "R_Round_Five_Submission_Attempts": "",
-                        "R_Round_Five_Grappling_Reversals": "",
-                        "R_Round_Five_Grappling_Control_Time": "",
+                        "R_Round_Five_Total_Strikes_Attempted": R_Round_Five_Total_Strikes_Attempted,
+                        "R_Round_Five_Total_Strikes_Landed": R_Round_Five_Total_Strikes_Landed,
+                        "R_Round_Five_Takedowns_Attempted": R_Round_Five_Takedowns_Attempted,
+                        "R_Round_Five_Takedowns_Landed": R_Round_Five_Takedowns_Landed,
+                        "R_Round_Five_Takedown_Perc": R_Round_Five_Takedown_Perc,
+                        "R_Round_Five_Submission_Attempts": R_Round_Five_Submission_Attempts,
+                        "R_Round_Five_Grappling_Reversals": R_Round_Five_Grappling_Reversals,
+                        "R_Round_Five_Grappling_Control_Time": R_Round_Five_Grappling_Control_Time,
                     }
 
                 }
@@ -663,7 +1086,13 @@ def stat_scraper(fight_list):
                 "Winner": winner,
                 "Win_By": fight_win_method
             }
+
+
         }
+
+        fight_stat_list.append(fight_stat_dict)
+        # TESTER PRINT
+        print(fight_stat_list[0]["Fight Outcome"])
 
 
 
