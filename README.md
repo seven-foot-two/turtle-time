@@ -85,8 +85,8 @@ The team determined that the best machine learning model to implement for the Fi
         - `R-Prev` - Previous wins of the fighter in the red corner
         - `Last_round` - The round the fight ENDED
         - `Max_round` - Total rounds the fight was scheduled for
-        - `Height` - Fighter height (cm)
-        - `Weight` - Fighter weight (kg)
+        - `Height` - Fighter height (Inches)
+        - `Weight` - Fighter weight (Lbs.)
         - `winby`
             - `DEC` - Decision: Fight went all rounds and the judges decided the winner.
             - `KO/TKO`
@@ -97,4 +97,6 @@ The team determined that the best machine learning model to implement for the Fi
             - `Red` - Fighter in the red corner won the fight.
             - `Blue` - Fighter in the blue corner won the fight.
             - `No contest` - No contest decisions in MMA are usually declared when an accidental illegal strike (the rules on which differ from each organization and state) causes the recipient of the blow to be unable to continue, that decision being made by the referee, doctor, the fighter or his corner.
+        - `Accuracy` - Accuracy column values are percentages.
+        - `Defence` - Defence column values are percentages.
 - Libraries: [`Pandas`](https://pandas.pydata.org), [`Matplotlib`](https://matplotlib.org/), [`Scikit Learn`](https://scikit-learn.org/stable/index.html)
