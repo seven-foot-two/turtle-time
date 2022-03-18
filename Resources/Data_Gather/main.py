@@ -1,7 +1,8 @@
-
+from datetime import date
+import datetime
 import requests
 from bs4 import BeautifulSoup
-import multiprocessing
+import csv
 
 base_url = "http://ufcstats.com/statistics/events/completed?page=all"
 
@@ -57,6 +58,23 @@ def url_scraper(URL):
     print("Fight stat URL Extraction COMPLETED.")
 
 
+
+
+months = {"Jan": 1,
+          "Feb": 2,
+          "Mar": 3,
+          "Apr": 4,
+          "May": 5,
+          "Jun": 6,
+          "Jul": 7,
+          "Aug": 8,
+          "Sep": 9,
+          "Oct": 10,
+          "Nov": 11,
+          "Dec": 12
+          }
+
+
 fight_stat_list =[]
 
 # Function that intakes the fight urls and gathers stats.
@@ -79,9 +97,24 @@ def stat_scraper(fight_list):
             red_fighter = red_fighter_div.text.strip()
 
             winner = ""
+            blue_career_stat_url = ""
+            red_career_stat_url = ""
 
-            # Getting the winners name
+            # Getting the winners name and career stat URL
             for div in fighter_name_main_div.find_all("div", {"class": "b-fight-details__person"}):
+
+                # Getting career stat url for fighter
+                fighter_href_div = div.find("a")
+                fighter_career_name = fighter_href_div.text.strip()
+                fighter_career_href = fighter_href_div.get("href")
+
+                if fighter_career_name == blue_fighter:
+                    blue_career_stat_url = fighter_career_href
+                elif fighter_career_name == red_fighter:
+                    red_career_stat_url = fighter_career_href
+
+                print(fighter_career_name)
+
                 fighter_header = div.find('i')
                 header_text = fighter_header.text
 
@@ -127,7 +160,238 @@ def stat_scraper(fight_list):
 
 
 
+            # CAREER STAT RETRIEVAL STARTS HERE
+            # BLUE CORNER
+            blue_career_stat_page = requests.get(blue_career_stat_url)
+            blue_career_stat_soup = BeautifulSoup(blue_career_stat_page.content, "html.parser")
+            blue_main_career_stats_ul = blue_career_stat_soup.find('ul', {'class': 'b-list__box-list'})
+            blue_main_career_stats_li = blue_main_career_stats_ul.find_all('li', {'class': 'b-list__box-list-item b-list__box-list-item_type_block'})
 
+            blue_fighter_Age = ''
+            blue_fighter_Stance = ''
+            blue_fighter_Reach = ''
+            blue_fighter_Weight = ''
+            blue_fighter_Height = ''
+            blue_fighter_Wins = ''
+            blue_fighter_Losses = ''
+            blue_fighter_Draws = ''
+            blue_fighter_SLpM = ''
+            blue_fighter_Str_Acc = ''
+            blue_fighter_SApM = ""
+            blue_fighter_Str_Def = ""
+            blue_fighter_Td_Avg = ""
+            blue_fighter_Td_Acc = ""
+            blue_fighter_Td_Def = ""
+            blue_fighter_Sub_Avg = ""
+            
+
+
+            # getting fighters wins, losses and draws
+            title = blue_career_stat_soup.find("h2", {"class": "b-content__title"})
+            blue_fighter_record = title.select_one(":nth-child(2)")
+            blue_fighter_WLD = blue_fighter_record.text.strip().strip('Record: ').split('-')
+            blue_fighter_Wins, blue_fighter_Losses, blue_fighter_Draws = blue_fighter_WLD[0], blue_fighter_WLD[1], \
+                                                                         blue_fighter_WLD[2]
+            blue_age_month_clean = ""
+            for li in blue_main_career_stats_li:
+
+                # Finding the <i> tag thats within each <li> tag
+
+                blue_stat = li.find('i', {'class': 'b-list__box-item-title b-list__box-item-title_type_width'})
+
+                # Checking to see if "Height" exists within the <i> tag
+                if "Height:" in blue_stat.text:
+                    # If it is, fighterHeights is instantiated with the
+                    # next sibling (In this case, the fighters height)
+                    blue_fighter_height_dirty = blue_stat.next_sibling
+                    # Reformatting by removing unwanted html
+                    blue_fighter_height_clean = ''.join(c for c in blue_fighter_height_dirty if c.isalnum())
+
+                    # Reformatting by adding the feet and inches symbols back into the fighters height
+                    blue_fighter_Height_cleaned = blue_fighter_height_clean[:1] + "'" + blue_fighter_height_clean[1:] + '"'
+
+                    inches_gathering = blue_fighter_Height_cleaned.split("'")
+                    feet_to_inches = int(inches_gathering[0]) * 12
+                    inches_cleaned = inches_gathering[1].replace('"', "")
+                    blue_fighter_Height = int(feet_to_inches) + int(inches_cleaned)
+
+
+                if "Weight:" in blue_stat.text:
+                    blue_fighter_weight_dirty = blue_stat.next_sibling
+                    blue_fighter_Weight = blue_fighter_weight_dirty.text.replace("lbs.","").strip()
+
+                if "Reach:" in blue_stat.text:
+                    blue_fighter_reach_dirty = blue_stat.next_sibling
+                    blue_fighter_Reach = blue_fighter_reach_dirty.replace('"', "").strip()
+
+                if "STANCE:" in blue_stat.text:
+                    blue_fighter_Stance = blue_stat.next_sibling
+
+
+                # Gets DOB and calculates age
+                if "DOB:" in blue_stat.text:
+                    today = date.today()
+                    blue_fighter_Age_dirty = blue_stat.next_sibling.text.strip()
+                    blue_fighter_age_convertions = "%b %d, %Y"
+                    blue_fighter_Age_converted = datetime.datetime.strptime(blue_fighter_Age_dirty,
+                                                                          blue_fighter_age_convertions)
+
+                    blue_fighter_Age_cleaned = str(blue_fighter_Age_converted).strip("00:00:00").strip()
+                    blue_fighter_date_split = blue_fighter_Age_cleaned.split("-")
+                    blue_fighter_age_year,blue_fighter_age_month,blue_fighter_age_day  = blue_fighter_date_split[0],\
+                                                                                         blue_fighter_date_split[1],\
+                                                                                         blue_fighter_date_split[2]
+                    blue_fighter_Age = today.year - int(blue_fighter_age_year) -((today.month, today.day) < (int(blue_fighter_age_month), int(blue_fighter_age_day)))
+
+                blue_career_stat_div = blue_career_stat_soup.find("div", {"class": "b-list__info-box-left clearfix"})
+                middleCareerStats = blue_career_stat_div.find_all("i", {
+                    "class": "b-list__box-item-title b-list__box-item-title_font_lowercase b-list__box-item-title_type_width"})
+    
+                for i in middleCareerStats:
+    
+                    if "SLpM:" in i.text:
+                        blue_fighter_SLpM = i.next_sibling.text.strip()
+    
+                    if "Str. Acc.:" in i.text:
+                        blue_fighter_Str_Acc = i.next_sibling.text.replace("%", "").strip()
+    
+                    if "SApM:" in i.text:
+                        blue_fighter_SApM = i.next_sibling.text.strip()
+    
+                    if "Str. Def:" in i.text:
+                        blue_fighter_Str_Def = i.next_sibling.text.replace("%", "").strip()
+    
+                    if "TD Avg.:" in i.text:
+                        blue_fighter_Td_Avg = i.next_sibling.text.strip()
+    
+                    if "TD Acc.:" in i.text:
+                        blue_fighter_Td_Acc = i.next_sibling.text.replace("%", "").strip()
+    
+                    if "TD Def.:" in i.text:
+                        blue_fighter_Td_Def = i.next_sibling.text.replace("%", "").strip()
+    
+                    if "Sub. Avg.:" in i.text:
+                        blue_fighter_Sub_Avg = i.next_sibling.text.strip()
+
+            
+
+
+
+            # RED CORNER
+            red_career_stat_page = requests.get(red_career_stat_url)
+            red_career_stat_soup = BeautifulSoup(red_career_stat_page.content, "html.parser")
+            red_main_career_stats_ul = red_career_stat_soup.find('ul', {'class': 'b-list__box-list'})
+            red_main_career_stats_li = red_main_career_stats_ul.find_all('li', {
+                'class': 'b-list__box-list-item b-list__box-list-item_type_block'})
+
+            red_fighter_Age = ''
+            red_fighter_Stance = ''
+            red_fighter_Reach = ''
+            red_fighter_Weight = ''
+            red_fighter_Height = ''
+            red_fighter_Wins = ''
+            red_fighter_Losses = ''
+            red_fighter_Draws = ''
+            red_fighter_SLpM = ''
+            red_fighter_Str_Acc = ''
+            red_fighter_SApM = ""
+            red_fighter_Str_Def = ""
+            red_fighter_Td_Avg = ""
+            red_fighter_Td_Acc = ""
+            red_fighter_Td_Def = ""
+            red_fighter_Sub_Avg = ""
+
+            # getting fighters wins, losses and draws
+            title = red_career_stat_soup.find("h2", {"class": "b-content__title"})
+            red_fighter_record = title.select_one(":nth-child(2)")
+            red_fighter_WLD = red_fighter_record.text.strip().strip('Record: ').split('-')
+            red_fighter_Wins, red_fighter_Losses, red_fighter_Draws = red_fighter_WLD[0], red_fighter_WLD[1], \
+                                                                         red_fighter_WLD[2]
+            red_age_month_clean = ""
+            for li in red_main_career_stats_li:
+
+                # Finding the <i> tag thats within each <li> tag
+
+                red_stat = li.find('i', {'class': 'b-list__box-item-title b-list__box-item-title_type_width'})
+
+                # Checking to see if "Height" exists within the <i> tag
+                if "Height:" in red_stat.text:
+                    # If it is, fighterHeights is instantiated with the
+                    # next sibling (In this case, the fighters height)
+                    red_fighter_height_dirty = red_stat.next_sibling
+                    # Reformatting by removing unwanted html
+                    red_fighter_height_clean = ''.join(c for c in red_fighter_height_dirty if c.isalnum())
+
+                    # Reformatting by adding the feet and inches symbols back into the fighters height
+                    red_fighter_Height_cleaned = red_fighter_height_clean[:1] + "'" + red_fighter_height_clean[
+                                                                                        1:] + '"'
+
+                    inches_gathering = red_fighter_Height_cleaned.split("'")
+                    feet_to_inches = int(inches_gathering[0]) * 12
+                    inches_cleaned = inches_gathering[1].replace('"', "")
+                    red_fighter_Height = int(feet_to_inches) + int(inches_cleaned)
+
+                if "Weight:" in red_stat.text:
+                    red_fighter_weight_dirty = red_stat.next_sibling
+                    red_fighter_Weight = red_fighter_weight_dirty.text.replace("lbs.", "").strip()
+
+                if "Reach:" in red_stat.text:
+                    red_fighter_reach_dirty = red_stat.next_sibling
+                    red_fighter_Reach = red_fighter_reach_dirty.replace('"', "").strip()
+
+                if "STANCE:" in red_stat.text:
+                    red_fighter_Stance = red_stat.next_sibling
+
+                # Gets DOB and calculates age
+                if "DOB:" in red_stat.text:
+                    today = date.today()
+                    red_fighter_Age_dirty = red_stat.next_sibling.text.strip()
+                    red_fighter_age_convertions = "%b %d, %Y"
+                    red_fighter_Age_converted = datetime.datetime.strptime(red_fighter_Age_dirty,
+                                                                            red_fighter_age_convertions)
+
+                    red_fighter_Age_cleaned = str(red_fighter_Age_converted).strip("00:00:00").strip()
+                    red_fighter_date_split = red_fighter_Age_cleaned.split("-")
+                    red_fighter_age_year, red_fighter_age_month, red_fighter_age_day = red_fighter_date_split[0], \
+                                                                                          red_fighter_date_split[1], \
+                                                                                          red_fighter_date_split[2]
+                    red_fighter_Age = today.year - int(red_fighter_age_year) - (
+                                (today.month, today.day) < (int(red_fighter_age_month), int(red_fighter_age_day)))
+
+                red_career_stat_div = red_career_stat_soup.find("div", {"class": "b-list__info-box-left clearfix"})
+                middleCareerStats = red_career_stat_div.find_all("i", {
+                    "class": "b-list__box-item-title b-list__box-item-title_font_lowercase b-list__box-item-title_type_width"})
+
+                for i in middleCareerStats:
+
+                    if "SLpM:" in i.text:
+                        red_fighter_SLpM = i.next_sibling.text.strip()
+
+                    if "Str. Acc.:" in i.text:
+                        red_fighter_Str_Acc = i.next_sibling.text.replace("%", "").strip()
+
+                    if "SApM:" in i.text:
+                        red_fighter_SApM = i.next_sibling.text.strip()
+
+                    if "Str. Def:" in i.text:
+                        red_fighter_Str_Def = i.next_sibling.text.replace("%", "").strip()
+
+                    if "TD Avg.:" in i.text:
+                        red_fighter_Td_Avg = i.next_sibling.text.strip()
+
+                    if "TD Acc.:" in i.text:
+                        red_fighter_Td_Acc = i.next_sibling.text.replace("%", "").strip()
+
+                    if "TD Def.:" in i.text:
+                        red_fighter_Td_Def = i.next_sibling.text.replace("%", "").strip()
+
+                    if "Sub. Avg.:" in i.text:
+                        red_fighter_Sub_Avg = i.next_sibling.text.strip()
+
+                        
+                        
+                        
+                        
 
             # Instantiating values here so they can be assigned to the dictionary
             Red_Significant_Strikes_Landed = ""
@@ -1235,18 +1499,32 @@ def stat_scraper(fight_list):
             # Dictionary to be used for writing to CSV file.
             fight_stat_dict = {
 
-                "Fight Details": {
+                "Fight_Details": {
                     "Max_Rounds": max_rounds
 
                 },
 
                 "Blue": {
+                    "Career_Stats": {
+                        "B_Name": blue_fighter,
+                        "B_Age": blue_fighter_Age,
+                        "B_Height": blue_fighter_Height,
+                        "B_Weight": blue_fighter_Weight,
+                        "B_Reach": blue_fighter_Reach,
+                        "B_Stance": blue_fighter_Stance,
+                        "B_Career_Significant_Strikes_Landed_PM": blue_fighter_SLpM,
+                        "B_Career_Striking_Accuracy": blue_fighter_Str_Acc,
+                        "B_Career_Significant_Strike_Defence": blue_fighter_Str_Def,
+                        "B_Career_Takedown_Average": blue_fighter_Td_Avg,
+                        "B_Career_Takedown_Accuracy": blue_fighter_Td_Acc,
+                        "B_Career_Takedown_Defence": blue_fighter_Td_Def,
+                        "B_Career_Submission_Average": blue_fighter_Sub_Avg,
+                    },
                     "Totals": {
 
                         ### QUESTION: Do we want the keys here to match base data headers? If so
                         ###     we should scrub to be sure they match up
 
-                        "B_Name": blue_fighter,
                         "B_Knockdowns": blue_knockdowns,
                         "B_Significant_Strikes_Landed": Blue_Significant_Strikes_Landed,
                         "B_Significant_Strikes_Attempted": Blue_Significant_Strikes_Attempted,
@@ -1412,8 +1690,24 @@ def stat_scraper(fight_list):
                 },
 
                 "Red": {
-                    "Totals": {
+                    "Career_Stats": {
                         "R_Name": red_fighter,
+                        "R_Age": red_fighter_Age,
+                        "R_Height": red_fighter_Height,
+                        "R_Weight": red_fighter_Weight,
+                        "R_Reach": red_fighter_Reach,
+                        "R_Stance": red_fighter_Stance,
+                        "R_Career_Significant_Strikes_Landed_PM": red_fighter_SLpM,
+                        "R_Career_Striking_Accuracy": red_fighter_Str_Acc,
+                        "R_Career_Significant_Strike_Defence": red_fighter_Str_Def,
+                        "R_Career_Takedown_Average": red_fighter_Td_Avg,
+                        "R_Career_Takedown_Accuracy": red_fighter_Td_Acc,
+                        "R_Career_Takedown_Defence": red_fighter_Td_Def,
+                        "R_Career_Submission_Average": red_fighter_Sub_Avg,
+
+                    },
+                    "Totals": {
+
                         "R_Knockdowns": red_knockdowns,
                         "R_Significant_Strikes_Landed": Red_Significant_Strikes_Landed,
                         "R_Significant_Strikes_Attempted": Red_Significant_Strikes_Attempted,
@@ -1590,14 +1884,17 @@ def stat_scraper(fight_list):
             }
             print("Fight stats appended...")
             fight_stat_list.append(fight_stat_dict)
+
         except:
             print("Error occurred")
 
-            # TESTER PRINT
+    # WORK IN PROGRESS
+    keys = fight_stat_list[0].keys()
+    with open("newest_dataset.csv", "w+", newline='') as output_file:
+        writer = csv.DictWriter(output_file, keys)
+        writer.writeheader()
+        writer.writerows(fight_stat_list)
 
-
-    for index, r in enumerate(fight_stat_list):
-        print(f"{fight_stat_list[index]['Fight Outcome']}")
 
 
 
