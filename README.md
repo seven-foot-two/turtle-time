@@ -4,13 +4,13 @@
 ### Selected topic
 The topic selected by the team was UFC Fight Analysis of all UFC fights from 2013.
 
-### Reason for topic selection
+### Reason topic was selected
 The team selected to analyze UFC fights from 2013 because the team members had prior interest in UFC fighting, and were intrigued by the data contained in the dataset.
 
 ### Description of the source of data
 The data on UFC fights from 2013 was obtained from [Kaggle](https://www.kaggle.com/calmdownkarm/ufcdataset?select=data.csv).
 
-### Questions we hope to answer with the data
+### Questions the team hopes to answer with the data
 The questions we hope to answer with the data include:
 - Can our machine learning model predict the `winner` (target) based on the features?
 - Can our machine learning model predict the `winby` based on features?
@@ -31,10 +31,33 @@ For the First Segment of the project, each team member was assigned a specific r
     - Jack and Max
 
 ### Communication Protocols
-The team attends a standing meeting daily from 6-7pm EST on Discord to discuss progress made on the project, and other project-related matters. The team also maintains constant communication as-needed via Discord chat. 
+The team attends a standing meeting daily from 6-7pm EST on Discord to discuss progress made on the project, and other project-related matters. The team also maintains constant communication as-needed via Discord chat. The team maintains meeting notes, scheduling, and organization in [Notion](https://fobordo.notion.site/Module-20-Final-Project-d827016db1854b4f860cc8e221d9ccd7).
+
+## Data Exploration
+[Description of the data exploration (cleaning) phase of the project]
+
+## Database Integration
+[Description of the database integration?]
 
 ## Machine Learning Model
 The team determined that the best machine learning model to implement for the First Segment was a Logistic Regression model. The team chose Logistic Regression because the dataset has two possible outcomes (`blue` or `red` winner). This model is also widely used in machine learning, and the team was interested to see the accuracy of the model for this initial phase.
+
+### Preliminary Data Preprocessing
+[Description of preliminary data preprocessing]
+
+### Preliminary Feature Engineering and Feature Selection
+[Description of preliminary feature engineering and preliminary feature selection, including the decision-making process]
+
+### Training and Testing Sets
+[Description of how data was split into training and testing sets]
+
+### Machine Learning Model Selection
+[Explanation of model choice, including limitations and benefits]
+
+## Analysis
+### Results of the ML Model
+
+### Visualizations/Charts
 
 ## Resources
 - Source Code: [`UFC_Final_Project.ipynb`](UFC_Final_Project.ipynb)
