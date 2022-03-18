@@ -36,6 +36,22 @@ The team attends a standing meeting daily from 6-7pm EST on Discord to discuss p
 ## Data Exploration
 [Description of the data exploration (cleaning) phase of the project]
 
+During the data exploration (cleaning) phase of the project, the team performed the following actions to clean and transform the data as a preprocessing step for the machine learning model.
+
+### Converted data types
+Using methods such as `convert_dtypes` and `astype`, the team converted the data types of various columns as necessary for the analysis
+
+### Dropped non-beneficial columns
+Using methods such as `drop` and `loc`, along with conditional operators, the team dropped all columns that were non-beneficial to the analysis, or columns that might create unnecessary "noise" for the machine learning model
+
+### Created charts
+- [Red vs. Blue Win Rate]
+
+### Created buckets
+- [Age]
+- [Weight]
+- [Height]
+
 ## Database Integration
 [Description of the database integration?]
 
