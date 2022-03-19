@@ -182,4 +182,4 @@ Multiple arrays are created from splitting the train and test subsets randomly. 
             -   `Red` - Fighter in the red corner won the fight.
             -   `Blue` - Fighter in the blue corner won the fight.
             -   `No contest` - No contest decisions in MMA are usually declared when an accidental illegal strike (the rules on which differ from each organization and state) causes the recipient of the blow to be unable to continue, that decision being made by the referee, doctor, the fighter or his corner.
--   Libraries: [`Pandas`](https://pandas.pydata.org), [`Matplotlib`](https://matplotlib.org/), [`Scikit Learn`](https://scikit-learn.org/stable/index.html)
+-   Libraries: [`Pandas`](https://pandas.pydata.org), [`Matplotlib`](https://matplotlib.org/), [`Scikit Learn`](https://scikit-learn.org/stable/index.html), [`Joblib`](https://github.com/joblib/joblib)
