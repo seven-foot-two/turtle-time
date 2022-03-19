@@ -183,7 +183,7 @@ Multiple arrays are created from splitting the train and test subsets randomly. 
             -   `Blue` - Fighter in the blue corner won the fight.
             -   `No contest` - No contest decisions in MMA are usually declared when an accidental illegal strike (the rules on which differ from each organization and state) causes the recipient of the blow to be unable to continue, that decision being made by the referee, doctor, the fighter or his corner.
 -   Scraped Data: [`scraped_data.csv`](Resources/scraped_data.csv)
-  - New columns
+    - New columns
       - `Height` - Fighter height (Inches)
       - `Weight` - Fighter weight (Lbs.)
       - `Accuracy` - Accuracy column values are percentages.
