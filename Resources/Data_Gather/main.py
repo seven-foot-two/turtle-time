@@ -113,7 +113,6 @@ def stat_scraper(fight_list):
                 elif fighter_career_name == red_fighter:
                     red_career_stat_url = fighter_career_href
 
-                print(fighter_career_name)
 
                 fighter_header = div.find('i')
                 header_text = fighter_header.text
@@ -155,8 +154,9 @@ def stat_scraper(fight_list):
                 if "Round:" in i.text:
                     ending_round = i.next_sibling.text.strip()
                 if "Time format:" in i.text:
-                    max_rounds_split = i.next_sibling.text.split("Rnd", 1)
-                    max_rounds = max_rounds_split[0]
+                    max_rounds_split = i.next_sibling.text.split("Rnd")
+                    max_rounds = max_rounds_split[0].strip()
+
 
 
 
@@ -225,7 +225,7 @@ def stat_scraper(fight_list):
                     blue_fighter_Reach = blue_fighter_reach_dirty.replace('"', "").strip()
 
                 if "STANCE:" in blue_stat.text:
-                    blue_fighter_Stance = blue_stat.next_sibling
+                    blue_fighter_Stance = blue_stat.next_sibling.text.strip()
 
 
                 # Gets DOB and calculates age
@@ -272,10 +272,6 @@ def stat_scraper(fight_list):
     
                     if "Sub. Avg.:" in i.text:
                         blue_fighter_Sub_Avg = i.next_sibling.text.strip()
-
-            
-
-
 
             # RED CORNER
             red_career_stat_page = requests.get(red_career_stat_url)
@@ -340,7 +336,7 @@ def stat_scraper(fight_list):
                     red_fighter_Reach = red_fighter_reach_dirty.replace('"', "").strip()
 
                 if "STANCE:" in red_stat.text:
-                    red_fighter_Stance = red_stat.next_sibling
+                    red_fighter_Stance = red_stat.next_sibling.text.strip()
 
                 # Gets DOB and calculates age
                 if "DOB:" in red_stat.text:
