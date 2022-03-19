@@ -162,7 +162,7 @@ Multiple arrays are created from splitting the train and test subsets randomly. 
 ## Resources
 
 -   Source Code: [`UFC_Final_Project.ipynb`](UFC_Final_Project.ipynb)
--   Data: [`data.csv`](Resources/data.csv)
+-   Original Data: [`data.csv`](Resources/data.csv)
     -   Header Breakdown
         -   `B` - Blue corner
         -   `R` - Red corner
@@ -182,4 +182,10 @@ Multiple arrays are created from splitting the train and test subsets randomly. 
             -   `Red` - Fighter in the red corner won the fight.
             -   `Blue` - Fighter in the blue corner won the fight.
             -   `No contest` - No contest decisions in MMA are usually declared when an accidental illegal strike (the rules on which differ from each organization and state) causes the recipient of the blow to be unable to continue, that decision being made by the referee, doctor, the fighter or his corner.
+-   Scraped Data: [`scraped_data.csv`](Resources/scraped_data.csv)
+  - New columns
+      - `Height` - Fighter height (Inches)
+      - `Weight` - Fighter weight (Lbs.)
+      - `Accuracy` - Accuracy column values are percentages.
+      - `Defense` - Defense column values are percentages.
 -   Libraries: [`Pandas`](https://pandas.pydata.org), [`Matplotlib`](https://matplotlib.org/), [`Scikit Learn`](https://scikit-learn.org/stable/index.html), [`Joblib`](https://github.com/joblib/joblib)
