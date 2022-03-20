@@ -1,4 +1,3 @@
-from datetime import date
 import datetime
 import requests
 from bs4 import BeautifulSoup
@@ -87,6 +86,25 @@ def stat_scraper(fight_list):
             stat_soup = BeautifulSoup(fight_stat_page.content, "html.parser")
             # Div that hold essentially all the pages elements
             fighter_name_main_div = stat_soup.find("div", {"class": "b-fight-details"})
+            fight_event_date_header = stat_soup.find("h2", {"class": "b-content__title"}).find("a")
+            fight_event_date_url = fight_event_date_header.get("href")
+            event_date_page = requests.get(fight_event_date_url)
+            event_date_soup = BeautifulSoup(event_date_page.content, "html.parser")
+            event_date = event_date_soup.find("li", {"class": "b-list__box-list-item"}).text.replace("Date:","").strip()
+
+            event_date_convertions = "%B %d, %Y"
+            event_date_converted = datetime.datetime.strptime(event_date,
+                                                                    event_date_convertions)
+
+            #print(event_date_converted)
+
+            event_date_cleaned = str(event_date_converted).strip("00:00:00").strip()
+            event_date_split = event_date_cleaned.split("-")
+            event_year, event_month, event_day = event_date_split[0], event_date_split[1], event_date_split[2]
+
+
+            bout_weight_class = stat_soup.find("i", {"class": "b-fight-details__fight-title"}).text.replace("Bout", "").strip()
+
 
             # Getting fighter corner color
             red_fighter_div = fighter_name_main_div.find("i", {"class": "b-fight-details__charts-name b-fight-details__charts-name_pos_left js-chart-name"})
@@ -230,7 +248,6 @@ def stat_scraper(fight_list):
 
                 # Gets DOB and calculates age
                 if "DOB:" in blue_stat.text:
-                    today = date.today()
                     blue_fighter_Age_dirty = blue_stat.next_sibling.text.strip()
                     blue_fighter_age_convertions = "%b %d, %Y"
                     blue_fighter_Age_converted = datetime.datetime.strptime(blue_fighter_Age_dirty,
@@ -241,7 +258,10 @@ def stat_scraper(fight_list):
                     blue_fighter_age_year,blue_fighter_age_month,blue_fighter_age_day  = blue_fighter_date_split[0],\
                                                                                          blue_fighter_date_split[1],\
                                                                                          blue_fighter_date_split[2]
-                    blue_fighter_Age = today.year - int(blue_fighter_age_year) -((today.month, today.day) < (int(blue_fighter_age_month), int(blue_fighter_age_day)))
+
+
+                    blue_fighter_Age = int(event_year) - int(blue_fighter_age_year) -((int(event_month), int(event_day)) < (int(blue_fighter_age_month), int(blue_fighter_age_day)))
+
 
                 blue_career_stat_div = blue_career_stat_soup.find("div", {"class": "b-list__info-box-left clearfix"})
                 middleCareerStats = blue_career_stat_div.find_all("i", {
@@ -340,7 +360,6 @@ def stat_scraper(fight_list):
 
                 # Gets DOB and calculates age
                 if "DOB:" in red_stat.text:
-                    today = date.today()
                     red_fighter_Age_dirty = red_stat.next_sibling.text.strip()
                     red_fighter_age_convertions = "%b %d, %Y"
                     red_fighter_Age_converted = datetime.datetime.strptime(red_fighter_Age_dirty,
@@ -351,8 +370,10 @@ def stat_scraper(fight_list):
                     red_fighter_age_year, red_fighter_age_month, red_fighter_age_day = red_fighter_date_split[0], \
                                                                                           red_fighter_date_split[1], \
                                                                                           red_fighter_date_split[2]
-                    red_fighter_Age = today.year - int(red_fighter_age_year) - (
-                                (today.month, today.day) < (int(red_fighter_age_month), int(red_fighter_age_day)))
+                    red_fighter_Age = int(event_year) - int(red_fighter_age_year) - (
+                                (int(event_month), int(event_day)) < (int(red_fighter_age_month), int(red_fighter_age_day)))
+
+
 
                 red_career_stat_div = red_career_stat_soup.find("div", {"class": "b-list__info-box-left clearfix"})
                 middleCareerStats = red_career_stat_div.find_all("i", {
@@ -1495,7 +1516,7 @@ def stat_scraper(fight_list):
             # Dictionary to be used for writing to CSV file.
             fight_stat_dict = {
 
-
+                "Weight_Class": bout_weight_class,
                 "Max_Rounds": max_rounds,
                 "Ending_Round": ending_round,
                 "Winner": winner,
