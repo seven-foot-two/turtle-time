@@ -96,9 +96,11 @@ def stat_scraper(fight_list):
             event_date_converted = datetime.datetime.strptime(event_date,
                                                                     event_date_convertions)
 
-            #print(event_date_converted)
 
             event_date_cleaned = str(event_date_converted).strip("00:00:00").strip()
+
+
+
             event_date_split = event_date_cleaned.split("-")
             event_year, event_month, event_day = event_date_split[0], event_date_split[1], event_date_split[2]
 
@@ -1515,7 +1517,7 @@ def stat_scraper(fight_list):
 
             # Dictionary to be used for writing to CSV file.
             fight_stat_dict = {
-
+                "Event_Date": event_date_cleaned,
                 "Weight_Class": bout_weight_class,
                 "Max_Rounds": max_rounds,
                 "Ending_Round": ending_round,
