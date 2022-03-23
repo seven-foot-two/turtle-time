@@ -154,7 +154,7 @@ def stat_scraper(fight_list):
             outcome_div = fighter_name_main_div.find("p", {"class":"b-fight-details__text"})
 
             # Checking <i> tag holding method of victory
-            method_div  = outcome_div.find("i", {"style": "font-style: normal"})
+            method_div = outcome_div.find("i", {"style": "font-style: normal"})
 
             fight_win_method = ""
             # Assigning "fight_win_method" through comparison
@@ -475,7 +475,7 @@ def stat_scraper(fight_list):
                 blue_knockdowns = blue_fighter_row[1].strip()
 
 
-                # Splitting total table stats assigning to each color
+                # Splitting total table stats and assigning to each corner color
                 Red_Significant_Strikes_Landed = red_fighter_row[2].split("of")[0].strip()
                 Red_Significant_Strikes_Attempted = red_fighter_row[2].split("of")[1].strip()
                 Blue_Significant_Strikes_Landed = blue_fighter_row[2].split("of")[0].strip()
@@ -580,7 +580,7 @@ def stat_scraper(fight_list):
             round_four = "Round 4"
             round_five = "Round 5"
 
-            ## WORK IN PROGRESS....
+            # Getting the section containing the "Totals" table round information
             Rounds_totals_round_table = stat_soup.find_all("section", {"class": "b-fight-details__section js-fight-section"})[2]
             totals_round_table = Rounds_totals_round_table.find("table", {"class": "b-fight-details__table js-fight-table"})
 
@@ -1540,8 +1540,6 @@ def stat_scraper(fight_list):
                 "B_Career_Takedown_Accuracy": blue_fighter_Td_Acc,
                 "B_Career_Takedown_Defence": blue_fighter_Td_Def,
                 "B_Career_Submission_Average": blue_fighter_Sub_Avg,
-                ### QUESTION: Do we want the keys here to match base data headers? If so
-                ###     we should scrub to be sure they match u
                 "B_Knockdowns": blue_knockdowns,
                 "B_Significant_Strikes_Landed": Blue_Significant_Strikes_Landed,
                 "B_Significant_Strikes_Attempted": Blue_Significant_Strikes_Attempted,
@@ -1858,8 +1856,9 @@ def stat_scraper(fight_list):
         except:
             print("Error occurred")
 
-    # WORK IN PROGRESS
+
     keys = fight_stat_list[0].keys()
+    # writing fight results to CSV
     with open("newest_dataset.csv", "w+", newline='') as output_file:
         writer = csv.DictWriter(output_file, keys)
         writer.writeheader()
