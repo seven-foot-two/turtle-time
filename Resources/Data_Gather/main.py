@@ -2,7 +2,7 @@ import datetime
 import requests
 from bs4 import BeautifulSoup
 import csv
-
+from pathlib import Path
 base_url = "http://ufcstats.com/statistics/events/completed?page=all"
 
 
@@ -36,6 +36,7 @@ def url_scraper(URL):
         if link not in url_event_list:
             url_event_list.append(link)
 
+
     # USER MESSAGE
 
     print("Event URL Extraction COMPLETE. Moving on...\nExtracting fight stat URLs...")
@@ -52,6 +53,14 @@ def url_scraper(URL):
             fight_link = td.get("href")
             if fight_link not in url_fight_list:
                 url_fight_list.append(fight_link)
+
+
+
+    with open("new_scraped_urls.txt", "w") as w:
+        for link in url_fight_list:
+            w.write(str(link) + "\n")
+
+
 
     # USER MESSAGE
     print("Fight stat URL Extraction COMPLETED.")
@@ -78,10 +87,29 @@ fight_stat_list =[]
 
 # Function that intakes the fight urls and gathers stats.
 def stat_scraper(fight_list):
+    new_scraped_list = []
+    prev_scraped_list = []
+    new_fight_list = []
+
+    with open("new_scraped_urls.txt", "r") as r:
+        for link in r:
+            new_scraped_list.append(link.strip())
+
+    with open("prev_scraped_urls.txt", "r") as r:
+        for link in r:
+            prev_scraped_list.append(link.strip())
+
+    for url in new_scraped_list:
+        if url in prev_scraped_list:
+            print("already in list")
+        else:
+            new_fight_list.append(url.strip())
+    print(new_fight_list)
 
     # Looping through the urls in fight_list
-    for url in fight_list:
+    for url in new_fight_list:
         try :
+
             fight_stat_page = requests.get(url)
             stat_soup = BeautifulSoup(fight_stat_page.content, "html.parser")
             # Div that hold essentially all the pages elements
@@ -92,11 +120,12 @@ def stat_scraper(fight_list):
             event_date_soup = BeautifulSoup(event_date_page.content, "html.parser")
             event_date = event_date_soup.find("li", {"class": "b-list__box-list-item"}).text.replace("Date:","").strip()
 
+            # Converting date to xx/xx/xxxx format
             event_date_convertions = "%B %d, %Y"
             event_date_converted = datetime.datetime.strptime(event_date,
                                                                     event_date_convertions)
 
-
+            # Stripping excess
             event_date_cleaned = str(event_date_converted).strip("00:00:00").strip()
 
 
@@ -104,7 +133,7 @@ def stat_scraper(fight_list):
             event_date_split = event_date_cleaned.split("-")
             event_year, event_month, event_day = event_date_split[0], event_date_split[1], event_date_split[2]
 
-
+            # Getting the weight class of the bout. Stripping "Bout", leaving only the weight class
             bout_weight_class = stat_soup.find("i", {"class": "b-fight-details__fight-title"}).text.replace("Bout", "").strip()
 
 
@@ -1534,6 +1563,7 @@ def stat_scraper(fight_list):
                 "B_Losses": blue_fighter_Losses,
                 "B_Draws": blue_fighter_Draws,
                 "B_Career_Significant_Strikes_Landed_PM": blue_fighter_SLpM,
+                "B_Career_Significant_Strikes_Absorbed_PM": blue_fighter_SApM,
                 "B_Career_Striking_Accuracy": blue_fighter_Str_Acc,
                 "B_Career_Significant_Strike_Defence": blue_fighter_Str_Def,
                 "B_Career_Takedown_Average": blue_fighter_Td_Avg,
@@ -1697,6 +1727,7 @@ def stat_scraper(fight_list):
                 "R_Losses": red_fighter_Losses,
                 "R_Draws": red_fighter_Draws,
                 "R_Career_Significant_Strikes_Landed_PM": red_fighter_SLpM,
+                "R_Career_Significant_Strikes_Absorbed_PM": red_fighter_SApM,
                 "R_Career_Striking_Accuracy": red_fighter_Str_Acc,
                 "R_Career_Significant_Strike_Defence": red_fighter_Str_Def,
                 "R_Career_Takedown_Average": red_fighter_Td_Avg,
@@ -1856,15 +1887,26 @@ def stat_scraper(fight_list):
         except:
             print("Error occurred")
 
-
+    path = Path("../newest_dataset.csv")
     keys = fight_stat_list[0].keys()
     # writing fight results to CSV
-    with open("newest_dataset.csv", "w+", newline='') as output_file:
-        writer = csv.DictWriter(output_file, keys)
-        writer.writeheader()
-        writer.writerows(fight_stat_list)
+    if path.is_file():
+        with open("../newest_dataset.csv", "a", newline='') as output_file:
+            writer = csv.DictWriter(output_file, keys)
+            #writer.writeheader()
+            writer.writerows(fight_stat_list)
+    else:
+        with open("../newest_dataset.csv", "w+", newline='') as output_file:
+            writer = csv.DictWriter(output_file, keys)
+            writer.writeheader()
+            writer.writerows(fight_stat_list)
 
-
+    # storing the urls that have been tested for comparison when rerunning.
+    with open("prev_scraped_urls.txt", "r+") as w:
+        for link in new_fight_list:
+            if link not in w.readlines():
+                w.seek(0,0)
+                w.write(str(link) + "\n")
 
 
 # Press the green button in the gutter to run the script.
