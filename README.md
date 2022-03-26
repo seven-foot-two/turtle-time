@@ -2,16 +2,17 @@
 
 ## Project Overview
 
-- Selected topic
-    - <!--Need to change "from 2013" to reflect the date range in the scraped data-->
-    - The topic selected by the team was UFC Fight Analysis of all UFC fights from 2013.
-- Reason topic was selected
-    - The team selected to analyze UFC fights from 2013 because the team members had prior interest in UFC fighting, and were intrigued by the data contained in the dataset.
-- Description of the source of data
-    - The data on UFC fights from 2013 was obtained from [Kaggle](https://www.kaggle.com/calmdownkarm/ufcdataset?select=data.csv).
+### Selected topic 
+<!--Need to change "from 2013" to reflect the date range in the scraped data-->
+The topic selected by the team was UFC Fight Analysis of all UFC fights from 2013.
+
+### Reason topic was selected
+The team selected to analyze UFC fights from 2013 because the team members had prior interest in UFC fighting, and were intrigued by the data contained in the dataset.
+
+### Description of the source of data
+The data on UFC fights from 2013 was obtained from [Kaggle](https://www.kaggle.com/calmdownkarm/ufcdataset?select=data.csv).
 
 ### Questions the team hopes to answer with the data
-
 The questions we hope to answer with the data include:
 
 -   Can our machine learning model predict the `winner` (target) based on the features?
