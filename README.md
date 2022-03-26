@@ -2,17 +2,13 @@
 
 ## Project Overview
 
-### Selected topic
-
-The topic selected by the team was UFC Fight Analysis of all UFC fights from 2013.
-
-### Reason topic was selected
-
-The team selected to analyze UFC fights from 2013 because the team members had prior interest in UFC fighting, and were intrigued by the data contained in the dataset.
-
-### Description of the source of data
-
-The data on UFC fights from 2013 was obtained from [Kaggle](https://www.kaggle.com/calmdownkarm/ufcdataset?select=data.csv).
+- Selected topic
+    - <!--Need to change "from 2013" to reflect the date range in the scraped data-->
+    - The topic selected by the team was UFC Fight Analysis of all UFC fights from 2013.
+- Reason topic was selected
+    - The team selected to analyze UFC fights from 2013 because the team members had prior interest in UFC fighting, and were intrigued by the data contained in the dataset.
+- Description of the source of data
+    - The data on UFC fights from 2013 was obtained from [Kaggle](https://www.kaggle.com/calmdownkarm/ufcdataset?select=data.csv).
 
 ### Questions the team hopes to answer with the data
 
@@ -27,7 +23,7 @@ The questions we hope to answer with the data include:
 
 ### Team Member Roles
 
-For the First Segment of the project, each team member was assigned a specific role:
+For the First and Second Segments of the project, each team member was assigned a specific role:
 
 -   **Square:** The team member in the square role will be responsible for the repository.
     -   Tozer, Francesca, and Matin
@@ -80,27 +76,31 @@ During the preliminary data preprocessing phase of the project, the team perform
 1. **Imported [scraped data](https://github.com/seven-foot-two/turtle-time/blob/main/Resources/scraped_data.csv) into a Pandas DataFrame**
 
 2. **Dropped duplicate rows (fights)**
-    To ensure the scraped data did not contain duplicate rows (fights), duplicate rows were dropped using `drop_duplicates` based on the columns `Event_Date`, `B_Name`, and `R_Name`, where `Event_Date` contained the date of the fight, `B_Name` contained the name of the Blue fighter, and `R_Name` contained the name of the Red fighter.
+    - To ensure the scraped data did not contain duplicate rows (fights), duplicate rows were dropped using `drop_duplicates` based on the columns `Event_Date`, `B_Name`, and `R_Name`, where `Event_Date` contained the date of the fight, `B_Name` contained the name of the Blue fighter, and `R_Name` contained the name of the Red fighter.
 
 3. **Converted `Event_Date` column values to `datetime64` data type**
-    - The data type of the `Event_Date` column was converted to `datetime64` 
+    - The data type of the `Event_Date` column was converted to `datetime64` using the `to_datetime` function.
 
 4. **Dropped rows (fights) that happened *before* 5/3/2001**
 	- UFC Fights had little to no rules prior to 5/3/2001. Examples of this were as follows:
         - Some fights had no time limit.
         - Some fights included fighters of different weight classes, putting fighters of the lower weight classes at a disadvantage. In some cases, fighters had 100+ lb. weight discrepencies.
-    However, major rule changes were implemented on 5/3/2001, eliminating these unfair circumstances. AAs such, rows with an `Event_Date` before 5/3/2001 were dropped to maintain consistency in the rules set forth in the fights analyzed.
+    - However, major rule changes were implemented on 5/3/2001, eliminating these unfair circumstances. As such, rows with an `Event_Date` before 5/3/2001 were dropped to maintain consistency in the rules set forth in the fights analyzed.
 
 5.  **Replaced `"--", "---" and "No Time Limit"` with `np.NaN`**
+    <!-- What column was this done on? -->
 	- `No Time Limit` should already not exist due to the date restriction above but if it does, it will be replaced with `NaN`. 
 	- `"--"` and `"---"` represent NO value. **Not** zero; Nothing. An example would be the **take-down percentage** column, where these values are present quite often. This is due to the fact that the fighter didn't even attempt a single take-down. To clarify a little more, if a fighter was to attempt a take-down but failed to land that take-down, they would then have a take-down percentage of 0%.
+
 6. **`R_Draws` and `B_Draws` were split to create a `No_Contest` for each corner color**
 	- Some of the `Draws` column values contained "(x NC)", where "x" represents the amount of no contests. 	
 	- The "x" value was extracted and put into its own `No_Contest` column.
+
 7. **Rearranged columns**
 	- With the new `No_Contest` columns created, the DataFrames columns are rearranged to for origination.
 	- `R_No_Contest` column moved to the position after `R_Draws`.
 	- `B_No_Contest` column moved to the position after `B_Draws`.
+
 8. **Used `.loc` on the `Weight_Class` column in order to keep the standardized weight classes**
 	- **Standardized weight classes:** 
         `Heavyweight,
@@ -116,17 +116,22 @@ During the preliminary data preprocessing phase of the project, the team perform
         Women's Flyweight,
         Women's Bantamweight,
         Women's Featherweight.`
+
 9. **`R_Height` and `B_Height` bucketed using quartile (4 buckets created).**
     - `R_Height_Bucket` and `B_Height_Bucket` columns created.
+
 10. **`R_Age` and `B_Age` bucketed using quartile (4 buckets created).**
 	- `R_Age_Bucket` and `B_Age_Bucket` columns created. 
+
 11. **`Gender` column created based on `Weight_Class` column value containing "Women's" or not.**
 	- If the fighter is a women, the `Gender` column will contain a value of `0`.
 	- If the fighter is a man, the `Gender` column will contain a value of `1` .
+
 12. **Converted columns to best inferred possible dtypes using `.covert_dtypes` supporting `pd.NA`.**
 	- These inferred data types may not be correct and in our situation, a lot were incorrect. 
 	- Columns with the data type of "string" or "object" were inspected to figure out why they were inferred this way.
 		- No issues were found in any of the columns so they were converted to the correct data type (Categorical OR Numerical).
+
 13. FRANCESCA: **Set Categories converted to category datatype using `astype`**
 14. MATIN: **Gender**
 15. MATIN: **BMI**
