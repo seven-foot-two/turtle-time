@@ -78,7 +78,7 @@ The team determined that the machine learning model for implementation was the L
 
 1. **Imported [Data](https://github.com/seven-foot-two/turtle-time/blob/main/Resources/scraped_data.csv) into a Pandas DataFrame.**
 2. **Drop duplicate rows:**
-	- In order to insure that the newly scraped data doesn't contain any duplicate rows (fights), `.drop_duplicates(["Event_Date", "B_Name", "R_Name"])` is employed; Dropping duplicates by evaluating the `Event_Date`, `B_Name` (Blue fighters name), and `R_Name` (Red fighters name) column values.
+	- In order to ensure that the newly scraped data doesn't contain any duplicate rows (fights), `.drop_duplicates(["Event_Date", "B_Name", "R_Name"])` is employed; Dropping duplicates by evaluating the `Event_Date`, `B_Name` (Blue fighters name), and `R_Name` (Red fighters name) column values.
 3. **Converted `Event_Date` column values to `datetime64` datatype.**
 4. **Dropped rows (fights) that happened **before** May 3rd, 2001.**
 	- The reasoning for dropping the row before 5/3/2001 is to eliminate the fights that had little to no rules. For example, before these major rule changes, there were fights with NO time limit. Another example is the fact that they had fighters of different weight classes (Open Weight) fight; Some fighters had 100+ Lb. weight discrepancies.
