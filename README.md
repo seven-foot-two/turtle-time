@@ -92,7 +92,7 @@ The team determined that the machine learning model for implementation was the L
 	- With the new `No_Contest` columns created, the DataFrames columns are rearranged to for origination.
 	- `R_No_Contest` column moved to the position after `R_Draws`.
 	- `B_No_Contest` column moved to the position after `B_Draws`.
-8. **used `.loc` on the `Weight_Class` column in order to keep the standardized weight classes**
+8. **Used `.loc` on the `Weight_Class` column in order to keep the standardized weight classes**
 	- **Standardized weight classes:** `Heavyweight,
 Light Heavyweight, 
 Middleweight, 
