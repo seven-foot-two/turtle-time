@@ -520,6 +520,7 @@ MATIN & MAX
     - R_Weight_Class
 
 #### Results
+**Classification Report:**
 |                | **precision** | **recall** | **f1-score** | **support** |
 |---------------:|--------------:|-----------:|-------------:|------------:|
 | **blue**       | 0.59          | 0.30       | 0.40         | 195         |
@@ -529,6 +530,7 @@ MATIN & MAX
 | **macro avg**  | 0.60          | 0.57       | 0.55         | 456         |
 | **weight avg** | 0.61          | 0.61       | 0.58         | 456         |
 
+**Confusion Matrix:**
 ![Pipeline](Resources/Images/confusion_matrix.png)
 
 ### All Other ML Models (using [scraped data](Resources/scraped_data.csv))
