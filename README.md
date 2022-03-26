@@ -107,8 +107,8 @@ Women's Flyweight,
  Women's Bantamweight,
  Women's Featherweight.`
 9. **`R_Height` and `B_Height` bucketed using quartile (4 buckets created).**
-	- `R_Height_Bucket` and `B_Height_Bucket` columns created.
-10.   **`R_Age` and `B_Age` bucketed using quartile (4 buckets created).**
+    - `R_Height_Bucket` and `B_Height_Bucket` columns created.
+10. **`R_Age` and `B_Age` bucketed using quartile (4 buckets created).**
 	- `R_Age_Bucket` and `B_Age_Bucket` columns created. 
 11. **`Gender` column created based on `Weight_Class` column value containing "Women's" or not.**
 	- If the fighter is a women, the `Gender` column will contain a value of `0`.
