@@ -77,36 +77,45 @@ The team determined that the machine learning model for implementation was the L
 
 During the preliminary data preprocessing phase of the project, the team performed the following actions to clean and transform the data as a preprocessing step for the machine learning model.
 
-1. **Imported [Data](https://github.com/seven-foot-two/turtle-time/blob/main/Resources/scraped_data.csv) into a Pandas DataFrame.**
-2. **Drop duplicate rows:**
-	- In order to ensure that the newly scraped data doesn't contain any duplicate rows (fights), `.drop_duplicates(["Event_Date", "B_Name", "R_Name"])` is employed; Dropping duplicates by evaluating the `Event_Date`, `B_Name` (Blue fighters name), and `R_Name` (Red fighters name) column values.
-3. **Converted `Event_Date` column values to `datetime64` datatype.**
-4. **Dropped rows (fights) that happened **before** May 3rd, 2001.**
-	- The reasoning for dropping the row before 5/3/2001 is to eliminate the fights that had little to no rules. For example, before these major rule changes, there were fights with NO time limit. Another example is the fact that they had fighters of different weight classes (Open Weight) fight; Some fighters had 100+ Lb. weight discrepancies.
-5.  **Replaced `"--", "---" and "No Time Limit"` with `np.NaN`.**
+1. **Imported [scraped data](https://github.com/seven-foot-two/turtle-time/blob/main/Resources/scraped_data.csv) into a Pandas DataFrame**
+
+2. **Dropped duplicate rows (fights)**
+    To ensure the scraped data did not contain duplicate rows (fights), duplicate rows were dropped using `drop_duplicates` based on the columns `Event_Date`, `B_Name`, and `R_Name`, where `Event_Date` contained the date of the fight, `B_Name` contained the name of the Blue fighter, and `R_Name` contained the name of the Red fighter.
+
+3. **Converted `Event_Date` column values to `datetime64` data type**
+    - The data type of the `Event_Date` column was converted to `datetime64` 
+
+4. **Dropped rows (fights) that happened *before* 5/3/2001**
+	- UFC Fights had little to no rules prior to 5/3/2001. Examples of this were as follows:
+        - Some fights had no time limit.
+        - Some fights included fighters of different weight classes, putting fighters of the lower weight classes at a disadvantage. In some cases, fighters had 100+ lb. weight discrepencies.
+    However, major rule changes were implemented on 5/3/2001, eliminating these unfair circumstances. AAs such, rows with an `Event_Date` before 5/3/2001 were dropped to maintain consistency in the rules set forth in the fights analyzed.
+
+5.  **Replaced `"--", "---" and "No Time Limit"` with `np.NaN`**
 	- `No Time Limit` should already not exist due to the date restriction above but if it does, it will be replaced with `NaN`. 
 	- `"--"` and `"---"` represent NO value. **Not** zero; Nothing. An example would be the **take-down percentage** column, where these values are present quite often. This is due to the fact that the fighter didn't even attempt a single take-down. To clarify a little more, if a fighter was to attempt a take-down but failed to land that take-down, they would then have a take-down percentage of 0%.
-6. **`R_Draws` and `B_Draws` were split to create a `No_Contest` for each corner color.**
+6. **`R_Draws` and `B_Draws` were split to create a `No_Contest` for each corner color**
 	- Some of the `Draws` column values contained "(x NC)", where "x" represents the amount of no contests. 	
 	- The "x" value was extracted and put into its own `No_Contest` column.
-7. **Rearranged columns.**
+7. **Rearranged columns**
 	- With the new `No_Contest` columns created, the DataFrames columns are rearranged to for origination.
 	- `R_No_Contest` column moved to the position after `R_Draws`.
 	- `B_No_Contest` column moved to the position after `B_Draws`.
-8. **Used `.loc` on the `Weight_Class` column in order to keep the standardized weight classes.**
-	- **Standardized weight classes:** `Heavyweight,
-Light Heavyweight, 
-Middleweight, 
- Welterweight,
- Lightweight,
- Featherweight,
- Bantamweight,
- Flyweight,
- Strawweight,
- Women's Strawweight,
-Women's Flyweight,
- Women's Bantamweight,
- Women's Featherweight.`
+8. **Used `.loc` on the `Weight_Class` column in order to keep the standardized weight classes**
+	- **Standardized weight classes:** 
+        `Heavyweight,
+        Light Heavyweight, 
+        Middleweight, 
+        Welterweight,
+        Lightweight,
+        Featherweight,
+        Bantamweight,
+        Flyweight,
+        Strawweight,
+        Women's Strawweight,
+        Women's Flyweight,
+        Women's Bantamweight,
+        Women's Featherweight.`
 9. **`R_Height` and `B_Height` bucketed using quartile (4 buckets created).**
     - `R_Height_Bucket` and `B_Height_Bucket` columns created.
 10. **`R_Age` and `B_Age` bucketed using quartile (4 buckets created).**
@@ -499,8 +508,6 @@ Multiple arrays are created from splitting the train and test subsets randomly. 
 MATIN & MAX
 - Link Kaggle data file
 - Brief descriptions + accuracy scores of each ML model tested
-
-<!-- TODO: Do we need this? This is a rehash of the Machine Learning Model paragraph. -->
 
 ## Analysis
 
