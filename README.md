@@ -48,7 +48,7 @@ The team explored various sites for the most interesting/feasible dataset, and f
 The team created various charts to gain a better understanding of the data, such as the comparison between Red and Blue Winners, and Box & Whiskey Plots to identify outliers in the data.
 
 - Winner (Red vs. Blue)
-<img src="Resources/Images/Pie_WinRate.png" alt="Pie Win Rate" width="400" height="auto"> 
+  <img src="Resources/Images/Pie_WinRate.png" alt="Pie Win Rate" width="400" height="auto"> 
 
 - Box & Whisker Plots
     - Age
