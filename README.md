@@ -109,7 +109,6 @@ During the preliminary data preprocessing phase of the project, the team perform
     - However, major rule changes were implemented on 5/3/2001, eliminating these unfair circumstances. As such, rows with an `Event_Date` before 5/3/2001 were dropped to maintain consistency in the rules set forth in the fights analyzed.
 
 5.  **Replaced `"--", "---" and "No Time Limit"` with `np.NaN`**
-    <!-- What column was this done on? -->
 	- `No Time Limit` should already not exist due to the date restriction above but if it does, it will be replaced with `NaN`. 
 	- `"--"` and `"---"` represent NO value. **Not** zero; Nothing. An example would be the **take-down percentage** column, where these values are present quite often. This is due to the fact that the fighter didn't even attempt a single take-down. To clarify a little more, if a fighter was to attempt a take-down but failed to land that take-down, they would then have a take-down percentage of 0%.
 
@@ -153,10 +152,14 @@ During the preliminary data preprocessing phase of the project, the team perform
 	- Columns with the data type of "string" or "object" were inspected to figure out why they were inferred this way.
 		- No issues were found in any of the columns so they were converted to the correct data type (Categorical OR Numerical).
 
-13. FRANCESCA: **Set Categories converted to category datatype using `astype`**
+13. **Set Categories converted to category datatype using `astype`**
+
 14. MATIN: **Gender**
+
 15. MATIN: **BMI**
+
 16. MATIN: **Estimation of Body Fat**
+
 17. MATIN: **Lean Body Mass**
 
 **Categorical Data:**  
