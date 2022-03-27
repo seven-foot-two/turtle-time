@@ -695,6 +695,18 @@ CREATE TABLE fight_stats (
 -- Drop fight_stats table
 DROP TABLE fight_stats;
 
+-- Inner Joins
+
+SELECT fighter_stats.B_Age, fighter_stats.B_Age_Bucket, fight_stats.B_Total_Strikes_Attempted,
+    fight_stats.B_Total_Strikes_Landed
+FROM fighter_stats
+INNER JOIN fighter ON fighter_stats.B_name=fight_stats.B_name;
+
+SELECT fighter_stats.R_Age, fighter_stats.R_Age_Bucket, fight_stats.R_Total_Strikes_Attempted,
+    fight_stats.R_Total_Strikes_Landed
+FROM fighter_stats
+INNER JOIN fighter ON fighter_stats.R_name=fight_stats.R_name;
+
 -- Display fight_stats table
 SELECT * FROM fight_stats;
 
