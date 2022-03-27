@@ -40,31 +40,51 @@ For the First and Second Segments of the project, each team member was assigned 
 The team attends a standing meeting daily from 6-7pm EST on Discord to discuss progress made on the project, and other project-related matters. The team also maintains constant communication as-needed via Discord chat. The team maintains meeting notes, scheduling, and organization in [Notion](https://fobordo.notion.site/Module-20-Final-Project-d827016db1854b4f860cc8e221d9ccd7).
 
 ## Data Exploration
+<!--[Description of the data exploration phase of the project (i.e. Kaggle data and scraper)]-->
 
-[Description of the data exploration phase of the project (i.e. Kaggle data and scraper)]
+The team explored various sites for the most interesting/feasible dataset, and finally settled on [UFC Fight Data from Kaggle](Resources/data.csv).
 
-FRANCESCA: Kaggle data
 JACK: Scraper
 
 ### Created charts
+The team created various charts to gain a better understanding of the data, such as the comparison between Red and Blue Winners, and Box & Whiskey Plots to identify outliers in the data.
 
-FRANCESCA:
 - Winner (Red vs. Blue)
+![Winner (Red vs. Blue)](/Images/Pie_WinRate.png)
+
 - Box & Whisker Plots
     - Age
+    ![Age Box & Whisker](/Images/BoxPlot_Age.png)
+
     - Height
+    ![Height Box & Whisker](/Images/BoxPlot_Height.png)
+
     - Weight
+    ![Weight Box & Whisker](/Images/BoxPlot_Weight.png)
 
 ### Created buckets
+The team bucketed the `Age`, `Weight`, and `Height` data, then created charts of the bucketed groups to gain a better visualization of the fighters' stats.
 
-FRANCESCA:
--   [Age]
--   [Weight]
--   [Height]
+-   R_Age Bucket
+    ![R_Age Bucket](/Images/Bar_RAge_Buckets.png)
+
+-   B_Age Bucket
+    ![B_Age Bucket](/Images/Bar_BAge_Buckets.png)
+
+-   R_Height Bucket
+    ![R_Height Bucket](/Images/Bar_RHeight_Buckets.png)
+
+-   B_Height Bucket
+    ![B_Height Bucket](/Images/Bar_BHeight_Buckets.png)
 
 ## Database Integration
+The team created a database in pgAdmin, which contained the following 4 tables:
+1. `ufc_table` - The table containing all scraped data.
+2. `fighter_stats` - The table containing all fighter stats.
+3. `fight_stats` - The table containing all fight stats.
+4. `joined_table` - The table joining [table1] and [table2].
 
-[Description of the database integration?]
+The database tables were populated from within the `UFC_Final_Project.ipynb` Python file. The team used `to_sql` to overwrite the table with updated scraped data each time time the file is run. Then the team used the `psycopg2`, `sqlalchemy`, and `io` libraries to populate the tables in the pgAdmin database with data from the correspoding Pandas DataFrames.
 
 ## Machine Learning Model
 
@@ -153,7 +173,7 @@ During the preliminary data preprocessing phase of the project, the team perform
  'B_Age_Bucket',
  'R_Height_Bucket',
  'B_Height_Bucket',
- 'Gender'`.
+ 'Gender'`
 
 </details>
 
