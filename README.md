@@ -50,32 +50,32 @@ JACK: Scraper
 The team created various charts to gain a better understanding of the data, such as the comparison between Red and Blue Winners, and Box & Whiskey Plots to identify outliers in the data.
 
 - Winner (Red vs. Blue)
-![Winner (Red vs. Blue)](/Images/Pie_WinRate.png)
+![Winner (Red vs. Blue)](Resources/Images/Pie_WinRate.png)
 
 - Box & Whisker Plots
     - Age
-    ![Age Box & Whisker](/Images/BoxPlot_Age.png)
+    ![Age Box & Whisker](Resources/Images/BoxPlot_Age.png)
 
     - Height
-    ![Height Box & Whisker](/Images/BoxPlot_Height.png)
+    ![Height Box & Whisker](Resources/Images/BoxPlot_Height.png)
 
     - Weight
-    ![Weight Box & Whisker](/Images/BoxPlot_Weight.png)
+    ![Weight Box & Whisker](Resources/Images/BoxPlot_Weight.png)
 
 ### Created buckets
 The team bucketed the `Age`, `Weight`, and `Height` data, then created charts of the bucketed groups to gain a better visualization of the fighters' stats.
 
 -   R_Age Bucket
-    ![R_Age Bucket](/Images/Bar_RAge_Buckets.png)
+    ![R_Age Bucket](Resources/Images/Bar_RAge_Buckets.png)
 
 -   B_Age Bucket
-    ![B_Age Bucket](/Images/Bar_BAge_Buckets.png)
+    ![B_Age Bucket](Resources/Images/Bar_BAge_Buckets.png)
 
 -   R_Height Bucket
-    ![R_Height Bucket](/Images/Bar_RHeight_Buckets.png)
+    ![R_Height Bucket](Resources/Images/Bar_RHeight_Buckets.png)
 
 -   B_Height Bucket
-    ![B_Height Bucket](/Images/Bar_BHeight_Buckets.png)
+    ![B_Height Bucket](Resources/Images/Bar_BHeight_Buckets.png)
 
 ## Database Integration
 The team created a database in pgAdmin, which contained the following 4 tables:
@@ -574,19 +574,19 @@ MATIN & MAX
 
 ## Dashboard
 
-   Ultimately, we chose to create our dashboard using the Streamlit library, an open-source, free, and Python-based framework for deploying data science projects. We initially discussed coding our dashboard directly with HTML/CSS/JS but ultimately agreed that this seemed too finicky for us. Streamlit allowed us to efficiently code our front-end entirely in its Python framework, freeing up more time to get our pipeline, database, and model to work well together with our interactive elements. 
-	Subject to change, our interactive elements will include: 
-		- Two drop-downs to allow a user to assign the fighters to model to either the 			  red or blue corner. 
-		- The above user inputs will also control the images displayed above our 			  interactive elements. 
-		- A “Predict” button element to run the selections through our model. 
-		- Two dynamic visualisations: 
-			- A gauge indicating the overall prediction percentage(s)
-	 		- A heatmap showing prediction percentages per round by corner.
+Ultimately, we chose to create our dashboard using the Streamlit library, an open-source, free, and Python-based framework for deploying data science projects. We initially discussed coding our dashboard directly with HTML/CSS/JS but ultimately agreed that this seemed too finicky for us. Streamlit allowed us to efficiently code our front-end entirely in its Python framework, freeing up more time to get our pipeline, database, and model to work well together with our interactive elements. 
 
-  In selecting these elements specifically, we are aiming to center our predictive model and keep the user-experience as streamlined we can. In the future, we hope to include a “build-your-own fighter” element, which would run a prediction based on a fighter with user-selected characteristics (E.g., fight style, average control time, etc.). 
+Subject to change, our interactive elements will include: 
+    - Two drop-downs to allow a user to assign the fighters to model to either the red or blue corner. 
+    - The above user inputs will also control the images displayed above our interactive elements. 
+    - A “Predict” button element to run the selections through our model. 
+    - Two dynamic visualisations: 
+        - A gauge indicating the overall prediction percentage(s)
+        - A heatmap showing prediction percentages per round by corner.
+
+In selecting these elements specifically, we are aiming to center our predictive model and keep the user-experience as streamlined we can. In the future, we hope to include a “build-your-own fighter” element, which would run a prediction based on a fighter with user-selected characteristics (e.g., fight style, average control time, etc.). 
 	
-You can view our deployed dashboard here: _Link Pending_. 
-
+You can view our deployed dashboard here: [link pending]
 
 ## Resources
 
