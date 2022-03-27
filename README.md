@@ -2,20 +2,17 @@
 
 ## Project Overview
 
-### Selected topic
-
+### Selected topic 
+<!--Need to change "from 2013" to reflect the date range in the scraped data-->
 The topic selected by the team was UFC Fight Analysis of all UFC fights from 2013.
 
 ### Reason topic was selected
-
 The team selected to analyze UFC fights from 2013 because the team members had prior interest in UFC fighting, and were intrigued by the data contained in the dataset.
 
 ### Description of the source of data
-
 The data on UFC fights from 2013 was obtained from [Kaggle](https://www.kaggle.com/calmdownkarm/ufcdataset?select=data.csv).
 
 ### Questions the team hopes to answer with the data
-
 The questions we hope to answer with the data include:
 
 -   Can our machine learning model predict the `winner` (target) based on the features?
@@ -27,7 +24,7 @@ The questions we hope to answer with the data include:
 
 ### Team Member Roles
 
-For the First Segment of the project, each team member was assigned a specific role:
+For the First and Second Segments of the project, each team member was assigned a specific role:
 
 -   **Square:** The team member in the square role will be responsible for the repository.
     -   Tozer, Francesca, and Matin
@@ -44,24 +41,23 @@ The team attends a standing meeting daily from 6-7pm EST on Discord to discuss p
 
 ## Data Exploration
 
-[Description of the data exploration (cleaning) phase of the project]
+[Description of the data exploration phase of the project (i.e. Kaggle data and scraper)]
 
-During the data exploration (cleaning) phase of the project, the team performed the following actions to clean and transform the data as a preprocessing step for the machine learning model.
-
-### Converted data types
-
-Using methods such as `convert_dtypes` and `astype`, the team converted the data types of various columns as necessary for the analysis
-
-### Dropped non-beneficial columns
-
-Using methods such as `drop` and `loc`, along with conditional operators, the team dropped all columns that were non-beneficial to the analysis, or columns that might create unnecessary "noise" for the machine learning model
+FRANCESCA: Kaggle data
+JACK: Scraper
 
 ### Created charts
 
--   [Red vs. Blue Win Rate]
+FRANCESCA:
+- Winner (Red vs. Blue)
+- Box & Whisker Plots
+    - Age
+    - Height
+    - Weight
 
 ### Created buckets
 
+FRANCESCA:
 -   [Age]
 -   [Weight]
 -   [Height]
@@ -76,47 +72,72 @@ The team determined that the machine learning model for implementation was the L
 
 ### Preliminary Data Preprocessing
 
-1. **Imported [Data](https://github.com/seven-foot-two/turtle-time/blob/main/Resources/scraped_data.csv) into a Pandas DataFrame.**
-2. **Drop duplicate rows:**
-	- In order to ensure that the newly scraped data doesn't contain any duplicate rows (fights), `.drop_duplicates(["Event_Date", "B_Name", "R_Name"])` is employed; Dropping duplicates by evaluating the `Event_Date`, `B_Name` (Blue fighters name), and `R_Name` (Red fighters name) column values.
-3. **Converted `Event_Date` column values to `datetime64` datatype.**
-4. **Dropped rows (fights) that happened **before** May 3rd, 2001.**
-	- The reasoning for dropping the row before 5/3/2001 is to eliminate the fights that had little to no rules. For example, before these major rule changes, there were fights with NO time limit. Another example is the fact that they had fighters of different weight classes (Open Weight) fight; Some fighters had 100+ Lb. weight discrepancies.
+During the preliminary data preprocessing phase of the project, the team performed the following actions to clean and transform the data as a preprocessing step for the machine learning model.
+
+1. **Imported [scraped data](https://github.com/seven-foot-two/turtle-time/blob/main/Resources/scraped_data.csv) into a Pandas DataFrame**
+
+2. **Dropped duplicate rows (fights)**
+    - To ensure the scraped data did not contain duplicate rows (fights), duplicate rows were dropped using `drop_duplicates` based on the columns `Event_Date`, `B_Name`, and `R_Name`, where `Event_Date` contained the date of the fight, `B_Name` contained the name of the Blue fighter, and `R_Name` contained the name of the Red fighter.
+
+3. **Converted `Event_Date` column values to `datetime64` data type**
+    - The data type of the `Event_Date` column was converted to `datetime64` using the `to_datetime` function.
+
+4. **Dropped rows (fights) that happened *before* 5/3/2001**
+	- UFC Fights had little to no rules prior to 5/3/2001. Examples of this were as follows:
+        - Some fights had no time limit.
+        - Some fights included fighters of different weight classes, putting fighters of the lower weight classes at a disadvantage. In some cases, fighters had 100+ lb. weight discrepencies.
+    - However, major rule changes were implemented on 5/3/2001, eliminating these unfair circumstances. As such, rows with an `Event_Date` before 5/3/2001 were dropped to maintain consistency in the rules set forth in the fights analyzed.
+
 5.  **Replaced `"--", "---" and "No Time Limit"` with `np.NaN`**
+    <!-- What column was this done on? -->
 	- `No Time Limit` should already not exist due to the date restriction above but if it does, it will be replaced with `NaN`. 
 	- `"--"` and `"---"` represent NO value. **Not** zero; Nothing. An example would be the **take-down percentage** column, where these values are present quite often. This is due to the fact that the fighter didn't even attempt a single take-down. To clarify a little more, if a fighter was to attempt a take-down but failed to land that take-down, they would then have a take-down percentage of 0%.
+
 6. **`R_Draws` and `B_Draws` were split to create a `No_Contest` for each corner color**
 	- Some of the `Draws` column values contained "(x NC)", where "x" represents the amount of no contests. 	
 	- The "x" value was extracted and put into its own `No_Contest` column.
-7. **Rearranged columns.**
+
+7. **Rearranged columns**
 	- With the new `No_Contest` columns created, the DataFrames columns are rearranged to for origination.
 	- `R_No_Contest` column moved to the position after `R_Draws`.
 	- `B_No_Contest` column moved to the position after `B_Draws`.
+
 8. **Used `.loc` on the `Weight_Class` column in order to keep the standardized weight classes**
-	- **Standardized weight classes:** `Heavyweight,
-Light Heavyweight, 
-Middleweight, 
- Welterweight,
- Lightweight,
- Featherweight,
- Bantamweight,
- Flyweight,
- Strawweight,
- Women's Strawweight,
-Women's Flyweight,
- Women's Bantamweight,
- Women's Featherweight.`
+	- **Standardized weight classes:** 
+        `Heavyweight,
+        Light Heavyweight, 
+        Middleweight, 
+        Welterweight,
+        Lightweight,
+        Featherweight,
+        Bantamweight,
+        Flyweight,
+        Strawweight,
+        Women's Strawweight,
+        Women's Flyweight,
+        Women's Bantamweight,
+        Women's Featherweight.`
+
 9. **`R_Height` and `B_Height` bucketed using quartile (4 buckets created).**
     - `R_Height_Bucket` and `B_Height_Bucket` columns created.
+
 10. **`R_Age` and `B_Age` bucketed using quartile (4 buckets created).**
 	- `R_Age_Bucket` and `B_Age_Bucket` columns created. 
+
 11. **`Gender` column created based on `Weight_Class` column value containing "Women's" or not.**
 	- If the fighter is a women, the `Gender` column will contain a value of `0`.
 	- If the fighter is a man, the `Gender` column will contain a value of `1` .
-12. **Converted columns to best inferred possible dtypes using `.covert_dtypes` supporting `pd.NA`**
+
+12. **Converted columns to best inferred possible dtypes using `.covert_dtypes` supporting `pd.NA`.**
 	- These inferred data types may not be correct and in our situation, a lot were incorrect. 
 	- Columns with the data type of "string" or "object" were inspected to figure out why they were inferred this way.
 		- No issues were found in any of the columns so they were converted to the correct data type (Categorical OR Numerical).
+
+13. FRANCESCA: **Set Categories converted to category datatype using `astype`**
+14. MATIN: **Gender**
+15. MATIN: **BMI**
+16. MATIN: **Estimation of Body Fat**
+17. MATIN: **Lean Body Mass**
 
 **Categorical Data:**  
 <details>
@@ -450,10 +471,6 @@ Women's Flyweight,
 
 </details>
 
-
-
-
-
 ### Feature Engineering
 
 #### Weight Classes
@@ -489,35 +506,34 @@ The UFC have different weight classes for each fight and was used to introduce n
 1.  Encode categorical features as a one-hot numeric array
   -   `OneHotEncoder(handle_unknown="ignore")`
 
-### Feature Selection
-
-#### Numerical
-
--   Last_round
--   Max_round
--   B_Age
--   R_Age
--   B_Height
--   R_Height
-
-#### Categorical
-
--   winby
--   B_Weight_Class
--   R_Weight_Class
-
 ### Training and Testing Sets
 
 Multiple arrays are created from splitting the train and test subsets randomly. The training dataset contains 80% of the data, whereas the testing dataset contains 20%. Additionally, `X` represents the features and `Y` as the target variable.
 
 ### Machine Learning Model Selection
-
-[Explanation of model choice, including limitations and benefits]
-<!-- TODO: Do we need this? This is a rehash of the Machine Learning Model paragraph. -->
+MATIN & MAX
+- Link Kaggle data file
+- Brief descriptions + accuracy scores of each ML model tested
 
 ## Analysis
 
-### Results of the ML Model
+### Logistic Regression ML Model (using [Kaggle data](Resources/data.csv))
+
+#### Feature Selection 
+- Numerical
+    - Last_round
+    - Max_round
+    - B_Age
+    - R_Age
+    - B_Height
+    - R_Height
+- Categorical
+    - winby
+    - B_Weight_Class
+    - R_Weight_Class
+
+#### Results
+**Classification Report:**
 |                | **precision** | **recall** | **f1-score** | **support** |
 |---------------:|--------------:|-----------:|-------------:|------------:|
 | **blue**       | 0.59          | 0.30       | 0.40         | 195         |
@@ -527,8 +543,27 @@ Multiple arrays are created from splitting the train and test subsets randomly. 
 | **macro avg**  | 0.60          | 0.57       | 0.55         | 456         |
 | **weight avg** | 0.61          | 0.61       | 0.58         | 456         |
 
-### Visualizations/Charts
+**Confusion Matrix:**
 ![Pipeline](Resources/Images/confusion_matrix.png)
+
+### All Other ML Models (using [scraped data](Resources/scraped_data.csv))
+MATIN & MAX
+
+## Dashboard
+
+   Ultimately, we chose to create our dashboard using the Streamlit library, an open-source, free, and Python-based framework for deploying data science projects. We initially discussed coding our dashboard directly with HTML/CSS/JS but ultimately agreed that this seemed too finicky for us. Streamlit allowed us to efficiently code our front-end entirely in its Python framework, freeing up more time to get our pipeline, database, and model to work well together with our interactive elements. 
+	Subject to change, our interactive elements will include: 
+		- Two drop-downs to allow a user to assign the fighters to model to either the 			  red or blue corner. 
+		- The above user inputs will also control the images displayed above our 			  interactive elements. 
+		- A “Predict” button element to run the selections through our model. 
+		- Two dynamic visualisations: 
+			- A gauge indicating the overall prediction percentage(s)
+	 		- A heatmap showing prediction percentages per round by corner.
+
+  In selecting these elements specifically, we are aiming to center our predictive model and keep the user-experience as streamlined we can. In the future, we hope to include a “build-your-own fighter” element, which would run a prediction based on a fighter with user-selected characteristics (E.g., fight style, average control time, etc.). 
+	
+You can view our deployed dashboard here: _Link Pending_. 
+
 
 ## Resources
 
