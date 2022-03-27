@@ -1,0 +1,1 @@
+SELECT * FROM ufc_table
