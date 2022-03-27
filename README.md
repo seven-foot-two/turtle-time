@@ -50,32 +50,32 @@ JACK: Scraper
 The team created various charts to gain a better understanding of the data, such as the comparison between Red and Blue Winners, and Box & Whiskey Plots to identify outliers in the data.
 
 - Winner (Red vs. Blue)
-![Winner (Red vs. Blue)](/Images/Pie_WinRate.png)
+![Winner (Red vs. Blue)](Resources/Images/Pie_WinRate.png)
 
 - Box & Whisker Plots
     - Age
-    ![Age Box & Whisker](/Images/BoxPlot_Age.png)
+    ![Age Box & Whisker](Resources/Images/BoxPlot_Age.png)
 
     - Height
-    ![Height Box & Whisker](/Images/BoxPlot_Height.png)
+    ![Height Box & Whisker](Resources/Images/BoxPlot_Height.png)
 
     - Weight
-    ![Weight Box & Whisker](/Images/BoxPlot_Weight.png)
+    ![Weight Box & Whisker](Resources/Images/BoxPlot_Weight.png)
 
 ### Created buckets
 The team bucketed the `Age`, `Weight`, and `Height` data, then created charts of the bucketed groups to gain a better visualization of the fighters' stats.
 
 -   R_Age Bucket
-    ![R_Age Bucket](/Images/Bar_RAge_Buckets.png)
+    ![R_Age Bucket](Resources/Images/Bar_RAge_Buckets.png)
 
 -   B_Age Bucket
-    ![B_Age Bucket](/Images/Bar_BAge_Buckets.png)
+    ![B_Age Bucket](Resources/Images/Bar_BAge_Buckets.png)
 
 -   R_Height Bucket
-    ![R_Height Bucket](/Images/Bar_RHeight_Buckets.png)
+    ![R_Height Bucket](Resources/Images/Bar_RHeight_Buckets.png)
 
 -   B_Height Bucket
-    ![B_Height Bucket](/Images/Bar_BHeight_Buckets.png)
+    ![B_Height Bucket](Resources/Images/Bar_BHeight_Buckets.png)
 
 ## Database Integration
 The team created a database in pgAdmin, which contained the following 4 tables:
