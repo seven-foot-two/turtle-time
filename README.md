@@ -159,14 +159,15 @@ During the preliminary data preprocessing phase of the project, the team perform
 		- No issues were found in any of the columns so they were converted to the correct data type (Categorical OR Numerical).
 
 13. **Set Categories converted to category datatype using `astype`**
-
-14. MATIN: **Gender**
-
+<!--
+14. **Gender**
+ 
 15. MATIN: **BMI**
 
 16. MATIN: **Estimation of Body Fat**
 
 17. MATIN: **Lean Body Mass**
+--> 
 
 **Categorical Data:**  
 <details>
@@ -561,37 +562,30 @@ Multiple arrays are created from splitting the train and test subsets randomly. 
 
 ## Analysis
 
-### Logistic Regression ML Model (using [Kaggle data](Resources/data.csv))
+### Logistic Regression ML Model (using (Resources/data.csv))
 
 #### Feature Selection 
 - Numerical
-    - Last_round
-    - Max_round
-    - B_Age
-    - R_Age
-    - B_Height
-    - R_Height
+    - `selector(dtype_include="number")`
 - Categorical
-    - winby
-    - B_Weight_Class
-    - R_Weight_Class
+    - `selector(dtype_include="category")`
+
 
 #### Results
 **Classification Report:**
 |                | **precision** | **recall** | **f1-score** | **support** |
 |---------------:|--------------:|-----------:|-------------:|------------:|
-| **blue**       | 0.59          | 0.30       | 0.40         | 195         |
-| **red**        | 0.62          | 0.85       | 0.71         | 261         |
+| **blue**       | 0.84          | 0.78       | 0.81         | 390         |
+| **red**        | 0.89          | 0.92       | 0.91         | 754         |
 |                |               |            |              |             |
-| **accuracy**   |               |            | 0.61         | 456         |
-| **macro avg**  | 0.60          | 0.57       | 0.55         | 456         |
-| **weight avg** | 0.61          | 0.61       | 0.58         | 456         |
+| **accuracy**   |               |            | 0.87         | 1144        |
+| **macro avg**  | 0.86          | 0.85       | 0.86         | 1144        |
+| **weight avg** | 0.87          | 0.87       | 0.87         | 1144        |
+
 
 **Confusion Matrix:**
 ![Pipeline](Resources/Images/confusion_matrix.png)
 
-### All Other ML Models (using [scraped data](Resources/scraped_data.csv))
-MATIN & MAX
 
 ## Dashboard
 
