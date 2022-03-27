@@ -340,6 +340,14 @@ CREATE TABLE ufc_table(
 SELECT * FROM ufc_table
 ORDER BY field1 ASC;
 
+-- Count number of rows in ufc_table
+SELECT COUNT(*) FROM ufc_table
+
+-- Count number of columns in ufc_table
+SELECT COUNT(*)
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE table_name = 'ufc_table'
+
 -- Create fighter_stats table
 CREATE TABLE fighter_stats (
 	weight_class VARCHAR,
