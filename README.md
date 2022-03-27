@@ -1,12 +1,5 @@
-# turtle-time
+# UFC Fight Analysis
 
-
-<<<<<<< HEAD
-## Resources
-- Source Code: [`UFC_Final_Project.ipynb`](UFC_Final_Project.ipynb)
-- Data: [`data.csv`](Resources/data.csv)
-- Libraries: [`Pandas`](https://pandas.pydata.org), [`Matplotlib`](https://matplotlib.org/), [`Scikit Learn`](https://scikit-learn.org/stable/index.html)
-=======
 ## Project Overview
 
 ### Selected topic
@@ -567,4 +560,3 @@ Multiple arrays are created from splitting the train and test subsets randomly. 
       - `Accuracy` - Accuracy column values are percentages.
       - `Defense` - Defense column values are percentages.
 -   Libraries: [`Pandas`](https://pandas.pydata.org), [`Matplotlib`](https://matplotlib.org/), [`Scikit Learn`](https://scikit-learn.org/stable/index.html), [`Joblib`](https://github.com/joblib/joblib)
->>>>>>> main
