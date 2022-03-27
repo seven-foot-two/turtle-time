@@ -584,6 +584,7 @@ Multiple arrays are created from splitting the train and test subsets randomly. 
 
 
 **Confusion Matrix:**
+
 ![Pipeline](Resources/Images/confusion_matrix.png)
 
 
