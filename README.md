@@ -583,12 +583,12 @@ MATIN & MAX
 Ultimately, we chose to create our dashboard using the Streamlit library, an open-source, free, and Python-based framework for deploying data science projects. We initially discussed coding our dashboard directly with HTML/CSS/JS but ultimately agreed that this seemed too finicky for us. Streamlit allowed us to efficiently code our front-end entirely in its Python framework, freeing up more time to get our pipeline, database, and model to work well together with our interactive elements. 
 
 Subject to change, our interactive elements will include: 
-    - Two drop-downs to allow a user to assign the fighters to model to either the red or blue corner. 
-    - The above user inputs will also control the images displayed above our interactive elements. 
-    - A “Predict” button element to run the selections through our model. 
-    - Two dynamic visualisations: 
-        - A gauge indicating the overall prediction percentage(s)
-        - A heatmap showing prediction percentages per round by corner.
+- Two drop-downs to allow a user to assign the fighters to model to either the red or blue corner. 
+- The above user inputs will also control the images displayed above our interactive elements. 
+- A “Predict” button element to run the selections through our model. 
+- Two dynamic visualisations: 
+    - A gauge indicating the overall prediction percentage(s)
+    - A heatmap showing prediction percentages per round by corner.
 
 In selecting these elements specifically, we are aiming to center our predictive model and keep the user-experience as streamlined we can. In the future, we hope to include a “build-your-own fighter” element, which would run a prediction based on a fighter with user-selected characteristics (e.g., fight style, average control time, etc.). 
 	
