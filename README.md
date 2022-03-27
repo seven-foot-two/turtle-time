@@ -44,38 +44,44 @@ The team attends a standing meeting daily from 6-7pm EST on Discord to discuss p
 
 The team explored various sites for the most interesting/feasible dataset, and finally settled on [UFC Fight Data from Kaggle](Resources/data.csv).
 
-JACK: Scraper
-
 ### Created charts
 The team created various charts to gain a better understanding of the data, such as the comparison between Red and Blue Winners, and Box & Whiskey Plots to identify outliers in the data.
 
 - Winner (Red vs. Blue)
-![Winner (Red vs. Blue)](Resources/Images/Pie_WinRate.png)
+
+![Winner (Red vs. Blue)](Resources/Images/Pie_WinRate.png | width=100)
 
 - Box & Whisker Plots
     - Age
-    ![Age Box & Whisker](Resources/Images/BoxPlot_Age.png)
+
+    ![Age Box & Whisker](Resources/Images/BoxPlot_Age.png | width=100)
 
     - Height
-    ![Height Box & Whisker](Resources/Images/BoxPlot_Height.png)
+
+    ![Height Box & Whisker](Resources/Images/BoxPlot_Height.png | width=100)
 
     - Weight
-    ![Weight Box & Whisker](Resources/Images/BoxPlot_Weight.png)
+
+    ![Weight Box & Whisker](Resources/Images/BoxPlot_Weight.png | width=100)
 
 ### Created buckets
 The team bucketed the `Age`, `Weight`, and `Height` data, then created charts of the bucketed groups to gain a better visualization of the fighters' stats.
 
 -   R_Age Bucket
-    ![R_Age Bucket](Resources/Images/Bar_RAge_Buckets.png)
+
+    ![R_Age Bucket](Resources/Images/Bar_RAge_Buckets.png | width=100)
 
 -   B_Age Bucket
-    ![B_Age Bucket](Resources/Images/Bar_BAge_Buckets.png)
+
+    ![B_Age Bucket](Resources/Images/Bar_BAge_Buckets.png | width=100)
 
 -   R_Height Bucket
-    ![R_Height Bucket](Resources/Images/Bar_RHeight_Buckets.png)
+
+    ![R_Height Bucket](Resources/Images/Bar_RHeight_Buckets.png | width=100)
 
 -   B_Height Bucket
-    ![B_Height Bucket](Resources/Images/Bar_BHeight_Buckets.png)
+
+    ![B_Height Bucket](Resources/Images/Bar_BHeight_Buckets.png | width=100)
 
 ## Database Integration
 The team created a database in pgAdmin, which contained the following 4 tables:
