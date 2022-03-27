@@ -48,39 +48,40 @@ The team explored various sites for the most interesting/feasible dataset, and f
 The team created various charts to gain a better understanding of the data, such as the comparison between Red and Blue Winners, and Box & Whiskey Plots to identify outliers in the data.
 
 - Winner (Red vs. Blue)
-<img src="Resources/Images/Pie_WinRate.png" alt="Pie Win Rate" width="100" height="auto"> 
+
+  <img src="Resources/Images/Pie_WinRate.png" alt="Pie Win Rate" width="400" height="auto"> 
 
 - Box & Whisker Plots
     - Age
 
-    ![Age Box & Whisker](Resources/Images/BoxPlot_Age.png | width=100)
+      <img src="Resources/Images/BoxPlot_Age.png" alt="Age Box & Whisker" width="400" height="auto"> 
 
     - Height
 
-    ![Height Box & Whisker](Resources/Images/BoxPlot_Height.png | width=100)
+      <img src="Resources/Images/BoxPlot_Height.png" alt="Height Box & Whisker" width="400" height="auto"> 
 
     - Weight
 
-    ![Weight Box & Whisker](Resources/Images/BoxPlot_Weight.png | width=100)
+      <img src="Resources/Images/BoxPlot_Weight.png" alt="Weight Box & Whisker" width="400" height="auto"> 
 
 ### Created buckets
 The team bucketed the `Age`, `Weight`, and `Height` data, then created charts of the bucketed groups to gain a better visualization of the fighters' stats.
 
--   R_Age Bucket
+- R_Age Bucket
 
-    ![R_Age Bucket](Resources/Images/Bar_RAge_Buckets.png | width=100)
+  <img src="Resources/Images/Bar_RAge_Buckets.png" alt="R_Age Bucket" width="400" height="auto"> 
 
--   B_Age Bucket
+- B_Age Bucket
 
-    ![B_Age Bucket](Resources/Images/Bar_BAge_Buckets.png | width=100)
+  <img src="Resources/Images/Bar_BAge_Buckets.png" alt="B_Age Bucket" width="400" height="auto"> 
 
--   R_Height Bucket
+- R_Height Bucket
 
-    ![R_Height Bucket](Resources/Images/Bar_RHeight_Buckets.png | width=100)
+  <img src="Resources/Images/Bar_RHeight_Buckets.png" alt="R_Height Bucket" width="400" height="auto"> 
 
--   B_Height Bucket
+- B_Height Bucket
 
-    ![B_Height Bucket](Resources/Images/Bar_BHeight_Buckets.png | width=100)
+  <img src="Resources/Images/Bar_BHeight_Buckets.png" alt="B_Height Bucket" width="400" height="auto"> 
 
 ## Database Integration
 The team created a database in pgAdmin, which contained the following 4 tables:
