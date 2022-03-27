@@ -40,31 +40,57 @@ For the First and Second Segments of the project, each team member was assigned 
 The team attends a standing meeting daily from 6-7pm EST on Discord to discuss progress made on the project, and other project-related matters. The team also maintains constant communication as-needed via Discord chat. The team maintains meeting notes, scheduling, and organization in [Notion](https://fobordo.notion.site/Module-20-Final-Project-d827016db1854b4f860cc8e221d9ccd7).
 
 ## Data Exploration
+<!--[Description of the data exploration phase of the project (i.e. Kaggle data and scraper)]-->
 
-[Description of the data exploration phase of the project (i.e. Kaggle data and scraper)]
-
-FRANCESCA: Kaggle data
-JACK: Scraper
+The team explored various sites for the most interesting/feasible dataset, and finally settled on [UFC Fight Data from Kaggle](Resources/data.csv).
 
 ### Created charts
+The team created various charts to gain a better understanding of the data, such as the comparison between Red and Blue Winners, and Box & Whiskey Plots to identify outliers in the data.
 
-FRANCESCA:
 - Winner (Red vs. Blue)
+
+  <img src="Resources/Images/Pie_WinRate.png" alt="Pie Win Rate" width="400" height="auto"> 
+
 - Box & Whisker Plots
     - Age
+
+      <img src="Resources/Images/BoxPlot_Age.png" alt="Age Box & Whisker" width="400" height="auto"> 
+
     - Height
+
+      <img src="Resources/Images/BoxPlot_Height.png" alt="Height Box & Whisker" width="400" height="auto"> 
+
     - Weight
 
-### Created buckets
+      <img src="Resources/Images/BoxPlot_Weight.png" alt="Weight Box & Whisker" width="400" height="auto"> 
 
-FRANCESCA:
--   [Age]
--   [Weight]
--   [Height]
+### Created buckets
+The team bucketed the `Age`, `Weight`, and `Height` data, then created charts of the bucketed groups to gain a better visualization of the fighters' stats.
+
+- R_Age Bucket
+
+  <img src="Resources/Images/Bar_RAge_Buckets.png" alt="R_Age Bucket" width="400" height="auto"> 
+
+- B_Age Bucket
+
+  <img src="Resources/Images/Bar_BAge_Buckets.png" alt="B_Age Bucket" width="400" height="auto"> 
+
+- R_Height Bucket
+
+  <img src="Resources/Images/Bar_RHeight_Buckets.png" alt="R_Height Bucket" width="400" height="auto"> 
+
+- B_Height Bucket
+
+  <img src="Resources/Images/Bar_BHeight_Buckets.png" alt="B_Height Bucket" width="400" height="auto"> 
 
 ## Database Integration
+The team created a database in pgAdmin, which contained the following 4 tables:
+1. `ufc_table` - The table containing all scraped data.
+2. `fighter_stats` - The table containing all fighter stats.
+3. `fight_stats` - The table containing all fight stats.
+4. `joined_table` - The table joining [table1] and [table2].
 
-[Description of the database integration?]
+The database tables were populated from within the `UFC_Final_Project.ipynb` Python file. The team used `to_sql` to overwrite the table with updated scraped data each time time the file is run. Then the team used the `psycopg2`, `sqlalchemy`, and `io` libraries to populate the tables in the pgAdmin database with data from the correspoding Pandas DataFrames.
 
 ## Machine Learning Model
 
@@ -89,7 +115,6 @@ During the preliminary data preprocessing phase of the project, the team perform
     - However, major rule changes were implemented on 5/3/2001, eliminating these unfair circumstances. As such, rows with an `Event_Date` before 5/3/2001 were dropped to maintain consistency in the rules set forth in the fights analyzed.
 
 5.  **Replaced `"--", "---" and "No Time Limit"` with `np.NaN`**
-    <!-- What column was this done on? -->
 	- `No Time Limit` should already not exist due to the date restriction above but if it does, it will be replaced with `NaN`. 
 	- `"--"` and `"---"` represent NO value. **Not** zero; Nothing. An example would be the **take-down percentage** column, where these values are present quite often. This is due to the fact that the fighter didn't even attempt a single take-down. To clarify a little more, if a fighter was to attempt a take-down but failed to land that take-down, they would then have a take-down percentage of 0%.
 
@@ -133,10 +158,14 @@ During the preliminary data preprocessing phase of the project, the team perform
 	- Columns with the data type of "string" or "object" were inspected to figure out why they were inferred this way.
 		- No issues were found in any of the columns so they were converted to the correct data type (Categorical OR Numerical).
 
-13. FRANCESCA: **Set Categories converted to category datatype using `astype`**
+13. **Set Categories converted to category datatype using `astype`**
+
 14. MATIN: **Gender**
+
 15. MATIN: **BMI**
+
 16. MATIN: **Estimation of Body Fat**
+
 17. MATIN: **Lean Body Mass**
 
 **Categorical Data:**  
@@ -153,7 +182,7 @@ During the preliminary data preprocessing phase of the project, the team perform
  'B_Age_Bucket',
  'R_Height_Bucket',
  'B_Height_Bucket',
- 'Gender'`.
+ 'Gender'`
 
 </details>
 
@@ -551,19 +580,19 @@ MATIN & MAX
 
 ## Dashboard
 
-   Ultimately, we chose to create our dashboard using the Streamlit library, an open-source, free, and Python-based framework for deploying data science projects. We initially discussed coding our dashboard directly with HTML/CSS/JS but ultimately agreed that this seemed too finicky for us. Streamlit allowed us to efficiently code our front-end entirely in its Python framework, freeing up more time to get our pipeline, database, and model to work well together with our interactive elements. 
-	Subject to change, our interactive elements will include: 
-		- Two drop-downs to allow a user to assign the fighters to model to either the 			  red or blue corner. 
-		- The above user inputs will also control the images displayed above our 			  interactive elements. 
-		- A “Predict” button element to run the selections through our model. 
-		- Two dynamic visualisations: 
-			- A gauge indicating the overall prediction percentage(s)
-	 		- A heatmap showing prediction percentages per round by corner.
+Ultimately, we chose to create our dashboard using the Streamlit library, an open-source, free, and Python-based framework for deploying data science projects. We initially discussed coding our dashboard directly with HTML/CSS/JS but ultimately agreed that this seemed too finicky for us. Streamlit allowed us to efficiently code our front-end entirely in its Python framework, freeing up more time to get our pipeline, database, and model to work well together with our interactive elements. 
 
-  In selecting these elements specifically, we are aiming to center our predictive model and keep the user-experience as streamlined we can. In the future, we hope to include a “build-your-own fighter” element, which would run a prediction based on a fighter with user-selected characteristics (E.g., fight style, average control time, etc.). 
+Subject to change, our interactive elements will include: 
+- Two drop-downs to allow a user to assign the fighters to model to either the red or blue corner. 
+- The above user inputs will also control the images displayed above our interactive elements. 
+- A “Predict” button element to run the selections through our model. 
+- Two dynamic visualisations: 
+    - A gauge indicating the overall prediction percentage(s)
+    - A heatmap showing prediction percentages per round by corner.
+
+In selecting these elements specifically, we are aiming to center our predictive model and keep the user-experience as streamlined we can. In the future, we hope to include a “build-your-own fighter” element, which would run a prediction based on a fighter with user-selected characteristics (e.g., fight style, average control time, etc.). 
 	
-You can view our deployed dashboard here: _Link Pending_. 
-
+You can view our deployed dashboard here: [link pending]
 
 ## Resources
 

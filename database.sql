@@ -1,6 +1,6 @@
 -- Create ufc_table
-CREATE TABLE ufc_table(
-   	FIELD1 INTEGER NOT NULL PRIMARY KEY,
+CREATE TABLE ufc_table (
+   	FIELD1 INTEGER NOT NULL,
 	Event_Date DATE NOT NULL,
 	Weight_Class VARCHAR(21) NOT NULL,
 	Max_Rounds INTEGER NOT NULL,
@@ -333,12 +333,24 @@ CREATE TABLE ufc_table(
 	B_Age_Bucket VARCHAR(14) NOT NULL,
 	R_Height_Bucket VARCHAR(14) NOT NULL,
 	B_Height_Bucket VARCHAR(14) NOT NULL,
-	Gender BIT NOT NULL
+	Gender BIT NOT NULL,
+	PRIMARY KEY (FIELD1, B_Name, R_Name)
 );
 
 -- Display ufc_table
 SELECT * FROM ufc_table
 ORDER BY field1 ASC;
+
+-- Drop ufc_table
+DROP TABLE ufc_table;
+
+-- Count number of rows in ufc_table
+SELECT COUNT(*) FROM ufc_table
+
+-- Count number of columns in ufc_table
+SELECT COUNT(*)
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE table_name = 'ufc_table'
 
 -- Create fighter_stats table
 CREATE TABLE fighter_stats (
@@ -346,8 +358,8 @@ CREATE TABLE fighter_stats (
 	Gender VARCHAR,
 	B_Name VARCHAR,
 	B_Stance VARCHAR,
-	B_Age_Bucket,
-	B_Height_Bucket,
+	B_Age_Bucket VARCHAR,
+	B_Height_Bucket VARCHAR,
 	B_Age INT,
 	B_Height INT,
 	B_Weight INT,
@@ -364,27 +376,29 @@ CREATE TABLE fighter_stats (
 	B_Career_Takedown_Defence INT,
 	B_Career_Submission_Average INT,
 	B_Knockdowns INT,
-	R_Name,
-	R_Stance,
-	R_Age_Bucket,
-	R_Height_Bucket,
-	R_Age,
-	R_Height,
-	R_Weight,
-	R_Reach,
-	R_Wins,
-	R_Losses,
-	R_Draws,
-	R_No_Contest,
-	R_Career_Significant_Strikes_Landed_PM,
-	R_Career_Striking_Accuracy,
-	R_Career_Significant_Strike_Defence,
-	R_Career_Takedown_Average,
-	R_Career_Takedown_Accuracy,
-	R_Career_Takedown_Defence,
-	R_Career_Submission_Average,
-	R_Knockdowns
-	PRIMARY KEY B_Name, R_Name
+	R_Name VARCHAR,
+	R_Stance VARCHAR,
+	R_Age_Bucket VARCHAR,
+	R_Height_Bucket VARCHAR,
+	R_Age INT,
+	R_Height INT,
+	R_Weight INT,
+	R_Reach INT,
+	R_Wins INT,
+	R_Losses INT,
+	R_Draws INT,
+	R_No_Contest INT,
+	R_Career_Significant_Strikes_Landed_PM INT,
+	R_Career_Striking_Accuracy INT,
+	R_Career_Significant_Strike_Defence INT,
+	R_Career_Takedown_Average INT,
+	R_Career_Takedown_Accuracy INT,
+	R_Career_Takedown_Defence INT,
+	R_Career_Submission_Average INT,
+	R_Knockdowns INT,
+	FOREIGN KEY (B_Name) REFERENCES ufc_table (B_Name),
+	FOREIGN KEY (R_Name) REFERENCES ufc_table (R_Name),
+	PRIMARY KEY (B_Name, R_Name)
 );
 
 -- Drop fighter_stats table
@@ -393,9 +407,9 @@ DROP TABLE fighter_stats;
 -- Display fighter_stats table
 SELECT * FROM fighter_stats;
 
-
 -- Create fight_stats table
 CREATE TABLE fight_stats (
+	B_Name VARCHAR,
     B_Knockdowns INT,
     B_Significant_Strikes_Landed INT,
     B_Significant_Strikes_Attempted INT,
@@ -534,6 +548,7 @@ CREATE TABLE fight_stats (
     B_Round_Five_Takedown_Perc VARCHAR,
     B_Round_Five_Submission_Attempts INT,
     B_Round_Five_Grappling_Reversals INT,
+	R_Name VARCHAR,
     R_Knockdowns INT,
     R_Significant_Strikes_Landed INT,
     R_Significant_Strikes_Attempted INT,
@@ -672,7 +687,9 @@ CREATE TABLE fight_stats (
     R_Round_Five_Takedown_Perc VARCHAR,
     R_Round_Five_Submission_Attempts INT,
     R_Round_Five_Grappling_Reversals INT,
-	PRIMARY KEY B_Name, R_Name
+	FOREIGN KEY (B_Name) REFERENCES ufc_table (B_Name),
+	FOREIGN KEY (R_Name) REFERENCES ufc_table (R_Name),
+	PRIMARY KEY (B_Name, R_Name)
 );
 
 -- Drop fight_stats table
