@@ -540,9 +540,24 @@ The UFC have different weight classes for each fight and was used to introduce n
 Multiple arrays are created from splitting the train and test subsets randomly. The training dataset contains 80% of the data, whereas the testing dataset contains 20%. Additionally, `X` represents the features and `Y` as the target variable.
 
 ### Machine Learning Model Selection
-MATIN & MAX
-- Link Kaggle data file
-- Brief descriptions + accuracy scores of each ML model tested
+
+| **Classifier**                  | **Balanced Accuracy Score** | **Precision** | **Precision_Blue** | **Precision_Red** | **Recall** | **Recall_Blue** | **Recall_Red** | **Parameters**                |
+|---------------------------------|-----------------------------|---------------|--------------------|-------------------|------------|-----------------|----------------|-------------------------------|
+| **XGBClassifier**               | 0.899                       | 0.898         | 0.881              | 0.907             | 0.899      | 0.813           | 0.943          | random_state=0                |
+| **SVC**                         | 0.896                       | 0.896         | 0.890              | 0.898             | 0.896      | 0.792           | 0.950          | random_state=0                |
+| **GradientBoostingClassifier**  | 0.896                       | 0.895         | 0.880              | 0.903             | 0.896      | 0.805           | 0.943          | random_state=0                |
+| **Neural Net (MLPClassifier)**  | 0.892                       | 0.891         | 0.863              | 0.905             | 0.892      | 0.810           | 0.934          | random_state=0                |
+| **RandomForestClassifier**      | 0.876                       | 0.878         | 0.895              | 0.869             | 0.876      | 0.721           | 0.956          | random_state=0                |
+| **LogisticRegression**          | 0.873                       | 0.872         | 0.836              | 0.891             | 0.873      | 0.782           | 0.920          | max_iter=1000, random_state=0 |
+| **AdaBoostClassifier**          | 0.873                       | 0.872         | 0.841              | 0.888             | 0.873      | 0.774           | 0.924          | random_state=0                |
+| **BaggingClassifier**           | 0.872                       | 0.870         | 0.831              | 0.891             | 0.872      | 0.782           | 0.918          | random_state=0                |
+| **PassiveAggressiveClassifier** | 0.855                       | 0.853         | 0.804              | 0.879             | 0.855      | 0.759           | 0.905          | random_state=0                |
+| **KNeighborsClassifier**        | 0.852                       | 0.851         | 0.806              | 0.874             | 0.852      | 0.746           | 0.907          |                               |
+| **DecisionTreeClassifier**      | 0.817                       | 0.816         | 0.744              | 0.853             | 0.817      | 0.708           | 0.874          | random_state=0                |
+| **RidgeClassifier**             | 0.812                       | 0.810         | 0.735              | 0.850             | 0.812      | 0.703           | 0.869          | random_state=0                |
+
+- With default parameters, XGBClassifier has the highest accuracy score out of all classifiers.
+- HyperParameter optimization will be the next goal for selecting the best model.
 
 ## Analysis
 
@@ -583,12 +598,12 @@ MATIN & MAX
 Ultimately, we chose to create our dashboard using the Streamlit library, an open-source, free, and Python-based framework for deploying data science projects. We initially discussed coding our dashboard directly with HTML/CSS/JS but ultimately agreed that this seemed too finicky for us. Streamlit allowed us to efficiently code our front-end entirely in its Python framework, freeing up more time to get our pipeline, database, and model to work well together with our interactive elements. 
 
 Subject to change, our interactive elements will include: 
-    - Two drop-downs to allow a user to assign the fighters to model to either the red or blue corner. 
-    - The above user inputs will also control the images displayed above our interactive elements. 
-    - A “Predict” button element to run the selections through our model. 
-    - Two dynamic visualisations: 
-        - A gauge indicating the overall prediction percentage(s)
-        - A heatmap showing prediction percentages per round by corner.
+- Two drop-downs to allow a user to assign the fighters to model to either the red or blue corner. 
+- The above user inputs will also control the images displayed above our interactive elements. 
+- A “Predict” button element to run the selections through our model. 
+- Two dynamic visualisations: 
+    - A gauge indicating the overall prediction percentage(s)
+    - A heatmap showing prediction percentages per round by corner.
 
 In selecting these elements specifically, we are aiming to center our predictive model and keep the user-experience as streamlined we can. In the future, we hope to include a “build-your-own fighter” element, which would run a prediction based on a fighter with user-selected characteristics (e.g., fight style, average control time, etc.). 
 	
