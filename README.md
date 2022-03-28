@@ -639,3 +639,9 @@ You can view our deployed dashboard here: [link pending]
       - `Accuracy` - Accuracy column values are percentages.
       - `Defense` - Defense column values are percentages.
 -   Libraries: [`Pandas`](https://pandas.pydata.org), [`Matplotlib`](https://matplotlib.org/), [`Scikit Learn`](https://scikit-learn.org/stable/index.html), [`Joblib`](https://github.com/joblib/joblib)
+
+ - Database: ['PGAdmin'](https://www.pgadmin.org/) with ['SQL Alchemy'](https://www.sqlalchemy.org/) and ['Psycopg2'] (https://pypi.org/project/psycopg2/) libraries. 
+      - Database Schema:
+      ![Table Schema](https://github.com/seven-foot-two/turtle-time/blob/main/Resources/Images/Schema.PNG)
+
+      - Given the number of features we are dealing with the above image is not able to capture the all of the table descriptions. If you are interested, you can download a .txt file for the full schema ['here'](https://github.com/seven-foot-two/turtle-time/blob/main/QuickDBD.txt). 
