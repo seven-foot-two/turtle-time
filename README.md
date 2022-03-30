@@ -585,7 +585,7 @@ Multiple arrays are created from splitting the train and test subsets randomly. 
 | **macro avg**  | 0.86          | 0.85       | 0.86         | 1144        |
 | **weight avg** | 0.87          | 0.87       | 0.87         | 1144        |
 
-### Confusion Matrix
+#### Confusion Matrix
 ![Pipeline](Resources/Images/confusion_matrix.png)
 
 ## Dashboard
