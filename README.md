@@ -67,19 +67,19 @@ The team created various charts to gain a better understanding of the data, such
 ### Created buckets
 The team bucketed the `Age`, `Weight`, and `Height` data, then created charts of the bucketed groups to gain a better visualization of the fighters' stats.
 
-- R_Age Bucket
+- `R_Age` Bucket
 
   <img src="Resources/Images/Bar_RAge_Buckets.png" alt="R_Age Bucket" width="400" height="auto"> 
 
-- B_Age Bucket
+- `B_Age` Bucket
 
   <img src="Resources/Images/Bar_BAge_Buckets.png" alt="B_Age Bucket" width="400" height="auto"> 
 
-- R_Height Bucket
+- `R_Height` Bucket
 
   <img src="Resources/Images/Bar_RHeight_Buckets.png" alt="R_Height Bucket" width="400" height="auto"> 
 
-- B_Height Bucket
+- `B_Height` Bucket
 
   <img src="Resources/Images/Bar_BHeight_Buckets.png" alt="B_Height Bucket" width="400" height="auto"> 
 
@@ -565,19 +565,17 @@ Multiple arrays are created from splitting the train and test subsets randomly. 
 - With default parameters, XGBClassifier has the highest accuracy score out of all classifiers.
 - HyperParameter optimization will be the next goal for selecting the best model.
 
-## Analysis
+## Analysis: Logistic Regression ML Model (using [Kaggle data](Resources/data.csv))
 
-### Logistic Regression ML Model (using (Resources/data.csv))
-
-#### Feature Selection 
+### Feature Selection 
 - Numerical
     - `selector(dtype_include="number")`
 - Categorical
     - `selector(dtype_include="category")`
 
+### Results
 
-#### Results
-**Classification Report:**
+#### Classification Report
 |                | **precision** | **recall** | **f1-score** | **support** |
 |---------------:|--------------:|-----------:|-------------:|------------:|
 | **blue**       | 0.84          | 0.78       | 0.81         | 390         |
@@ -587,11 +585,8 @@ Multiple arrays are created from splitting the train and test subsets randomly. 
 | **macro avg**  | 0.86          | 0.85       | 0.86         | 1144        |
 | **weight avg** | 0.87          | 0.87       | 0.87         | 1144        |
 
-
-**Confusion Matrix:**
-
+#### Confusion Matrix
 ![Pipeline](Resources/Images/confusion_matrix.png)
-
 
 ## Dashboard
 
