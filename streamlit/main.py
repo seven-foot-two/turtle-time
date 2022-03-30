@@ -2,7 +2,7 @@ import pandas as pd
 import streamlit as st
 
 def print_hi():
-    df = pd.read_csv("clean_scraped_data.csv")
+    df = pd.read_csv("../Resources/clean_scraped_data.csv")
     col_left, col_mid, col_right = st.columns(3)
 
     with col_left:

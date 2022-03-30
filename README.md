@@ -92,6 +92,11 @@ The team created a database in pgAdmin, which contained the following 4 tables:
 
 The database tables were populated from within the `UFC_Final_Project.ipynb` Python file. The team used `to_sql` to overwrite the table with updated scraped data each time time the file is run. Then the team used the `psycopg2`, `sqlalchemy`, and `io` libraries to populate the tables in the pgAdmin database with data from the correspoding Pandas DataFrames.
 
+### Database Schema:
+![Table Schema](https://github.com/seven-foot-two/turtle-time/blob/main/Resources/Images/Schema.PNG)
+
+- Given the number of features we are dealing with the above image is not able to capture the all of the table descriptions. If you are interested, you can download a .txt file for the full schema [here](https://github.com/seven-foot-two/turtle-time/blob/main/QuickDBD.txt). 
+
 ## Machine Learning Model
 
 The team determined that the machine learning model for implementation was the Logistic Regression model. Logistic Regression was chosen because the dataset has been processed to have two possible outcomes (`blue` or `red` winner). In addition, Logistic Regression is widely used in machine learning due to its simplicity and speed. We are interested in evaluating the model's accuracy using Logistic Regression as a baseline to compare against other classifiers.
@@ -606,37 +611,36 @@ You can view our deployed dashboard here: [link pending]
 
 ## Resources
 
--   Source Code: [`UFC_Final_Project.ipynb`](UFC_Final_Project.ipynb)
--   Original Data: [`data.csv`](Resources/data.csv)
-    -   Header Breakdown
-        -   `B` - Blue corner
-        -   `R` - Red corner
-        -   `B-Prev` - Previous wins of the fighter in the blue corner
-        -   `R-Prev` - Previous wins of the fighter in the red corner
-        -   `Last_round` - The round the fight ENDED
-        -   `Max_round` - Total rounds the fight was scheduled for
-        -   `Height` - Fighter height (cm)
-        -   `Weight` - Fighter weight (kg)
-        -   `winby`
-            -   `DEC` - Decision: Fight went all rounds and the judges decided the winner.
-            -   `KO/TKO`
-                -   Knockout (KO): Opponent was flatlined, out cold.
-                -   Technical Knockout (TKO): Opponent was not able to respond and the fight was stopped by the ref.
-            -   `SUB` - Submission: Opponent was submitted.
-        -   `winner`
-            -   `Red` - Fighter in the red corner won the fight.
-            -   `Blue` - Fighter in the blue corner won the fight.
-            -   `No contest` - No contest decisions in MMA are usually declared when an accidental illegal strike (the rules on which differ from each organization and state) causes the recipient of the blow to be unable to continue, that decision being made by the referee, doctor, the fighter or his corner.
--   Scraped Data: [`scraped_data.csv`](Resources/scraped_data.csv)
+- Source Code: [`UFC_Final_Project.ipynb`](UFC_Final_Project.ipynb)
+
+- Original Data: [`data.csv`](Resources/data.csv)
+    - Header Breakdown
+        - `B` - Blue corner
+        - `R` - Red corner
+        - `B-Prev` - Previous wins of the fighter in the blue corner
+        - `R-Prev` - Previous wins of the fighter in the red corner
+        - `Last_round` - The round the fight ENDED
+        - `Max_round` - Total rounds the fight was scheduled for
+        - `Height` - Fighter height (cm)
+        - `Weight` - Fighter weight (kg)
+        - `winby`
+            - `DEC` - Decision: Fight went all rounds and the judges decided the winner.
+            - `KO/TKO`
+                - Knockout (KO): Opponent was flatlined, out cold.
+                - Technical Knockout (TKO): Opponent was not able to respond and the fight was stopped by the ref.
+            - `SUB` - Submission: Opponent was submitted.
+        - `winner`
+            - `Red` - Fighter in the red corner won the fight.
+            - `Blue` - Fighter in the blue corner won the fight.
+            - `No contest` - No contest decisions in MMA are usually declared when an accidental illegal strike (the rules on which differ from each organization and state) causes the recipient of the blow to be unable to continue, that decision being made by the referee, doctor, the fighter or his corner.
+
+- Scraped Data: [`scraped_data.csv`](Resources/scraped_data.csv)
     - New columns
       - `Height` - Fighter height (Inches)
       - `Weight` - Fighter weight (Lbs.)
       - `Accuracy` - Accuracy column values are percentages.
       - `Defense` - Defense column values are percentages.
--   Libraries: [`Pandas`](https://pandas.pydata.org), [`Matplotlib`](https://matplotlib.org/), [`Scikit Learn`](https://scikit-learn.org/stable/index.html), [`Joblib`](https://github.com/joblib/joblib)
 
- - Database: ['PGAdmin'](https://www.pgadmin.org/) with ['SQL Alchemy'](https://www.sqlalchemy.org/) and ['Psycopg2'] (https://pypi.org/project/psycopg2/) libraries. 
-      - Database Schema:
-      ![Table Schema](https://github.com/seven-foot-two/turtle-time/blob/main/Resources/Images/Schema.PNG)
+- Libraries: [`Pandas`](https://pandas.pydata.org), [`Matplotlib`](https://matplotlib.org/), [`Scikit Learn`](https://scikit-learn.org/stable/index.html), [`Joblib`](https://github.com/joblib/joblib)
 
-      - Given the number of features we are dealing with the above image is not able to capture the all of the table descriptions. If you are interested, you can download a .txt file for the full schema ['here'](https://github.com/seven-foot-two/turtle-time/blob/main/QuickDBD.txt). 
+- Database: [`PGAdmin`](https://www.pgadmin.org/) with [`SQL Alchemy`](https://www.sqlalchemy.org/) and [`Psycopg2`](https://pypi.org/project/psycopg2/) libraries.
