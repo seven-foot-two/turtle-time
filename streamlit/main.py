@@ -41,8 +41,15 @@ def predict(df):
     return clf.predict(df), clf.predict_proba(df)
 
 
+# Create column with fight matchup.
+def create_fight_matchup(df):
+    df["Fight_Matchup"] = df["B_Name"] + " vs. " + df["R_Name"]
+    return df
+
+
 # Load data from database
 ufc_df = load_data()
+ufc_df = create_fight_matchup(ufc_df)
 
 # Load Model
 clf = load_model()
@@ -53,8 +60,8 @@ clf = load_model()
 # ----- #
 with st.sidebar:
     st.sidebar.header("Options")
+    # Model Selection
     st.sidebar.subheader("Model Selection")
-
     model_selection = st.sidebar.selectbox(
         "Classifier",
         [
@@ -66,16 +73,25 @@ with st.sidebar:
             "XGBClassifier",
         ],
     )
+    # Data Selection
     st.sidebar.subheader("Prediction Options")
     data_selection = st.sidebar.selectbox(
         "Data Selection",
         ["Upcoming Fights", "Fighter vs. Fighter", "Create your own fighter",],
     )
 
+    # If user selected "Upcoming Fights" then allow user to pick and predict a upcoming fight.
+    if data_selection == "Upcoming Fights":
+        upcoming_fight_matchup = st.sidebar.selectbox(
+            "Upcoming Fights", ufc_df["Fight_Matchup"],
+        )
+
+    # Visualization Selection
     st.sidebar.subheader("Visualizations")
     win_rate_by = st.sidebar.selectbox(
         "Win Rate By", ["Age", "Height", "Weight", "Stance"]
     )
+
 
 # Main page
 # ----- #
