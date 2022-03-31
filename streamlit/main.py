@@ -97,10 +97,30 @@ with st.sidebar:
 # ----- #
 st.title("UFC Fighter Prediction")
 st.header("Predict Fight (Database)")
-fight_selection = ufc_df.iloc[[0]]
-prediction, pred_proba = predict(fight_selection)
-st.write(prediction)
-st.write(pred_proba)
+
+if data_selection == "Upcoming Fights":
+    # TODO: This should be refactored at some point in the future.
+    fight_detail = ufc_df[ufc_df["Fight_Matchup"] == upcoming_fight_matchup]
+    blue_name = fight_detail["B_Name"].iloc[0]
+    red_name = fight_detail["R_Name"].iloc[0]
+
+    # Predict fight.
+    prediction, pred_proba = predict(fight_detail)
+
+    # Display results of prediction
+    if prediction == "Blue":
+        predicted_winner = blue_name
+    elif prediction == "Red":
+        predicted_winner = red_name
+
+    # Display probability of prediction
+    st.write(f"The predicted winner of this fight is: {predicted_winner}.")
+    st.write(
+        f"The predicted probability of the winner being {blue_name} is: {round(pred_proba[0][0] * 100, 2)}%"
+    )
+    st.write(
+        f"The predicted probability of the winner being {red_name} is: {round(pred_proba[0][1] * 100, 2)}%"
+    )
 
 
 # # Check if the original dataframe has the same results as database.
