@@ -86,10 +86,30 @@ with st.sidebar:
             "Upcoming Fights", ufc_df["Fight_Matchup"],
         )
     elif data_selection == "Fighter vs. Fighter":
-        # Fighter vs. Fighter
+        # TODO: Fighter vs. Fighter
         blue_fighter = st.sidebar.selectbox("Blue Fighter", ufc_df["B_Name"].unique())
         red_fighter = st.sidebar.selectbox("Red Fighter", ufc_df["R_Name"].unique())
-
+    elif data_selection == "Create your own fighter":
+        # TODO: Create your own fighter
+        # I am testing the different Streamlit widgets:
+        st.sidebar.subheader("First Fighter")
+        red_fighter_age_2 = st.sidebar.number_input(
+            "Insert age 1", min_value=18, max_value=75, value=18
+        )
+        red_fighter_age = st.sidebar.slider("Fighter 1 Age", 18, 75, 25)
+        red_fighter_weight = st.sidebar.slider("Fighter 1 Weight (lb)", 115, 265, 150)
+        red_fighter_stance = st.sidebar.selectbox(
+            "Fighter 1 Stance", ufc_df["R_Stance"].head(5)
+        )
+        st.sidebar.subheader("Second Fighter")
+        blue_fighter_age_2 = st.sidebar.number_input(
+            "Insert age 2", min_value=18, max_value=75, value=18
+        )
+        blue_fighter_age = st.sidebar.slider("Fighter 2 Age", 18, 75, 25)
+        blue_fighter_weight = st.sidebar.slider("Fighter 2 Weight (lb)", 115, 265, 150)
+        blue_fighter_stance = st.sidebar.selectbox(
+            "Fighter 2 Stance", ufc_df["R_Stance"].head(5)
+        )
     # Visualization Selection
     st.sidebar.subheader("Visualizations")
     win_rate_by = st.sidebar.selectbox(
@@ -159,6 +179,11 @@ elif data_selection == "Fighter vs. Fighter":
     col1, col2 = st.columns(2)
     col1.subheader(f"{blue_fighter}")
     col2.subheader(f"{red_fighter}")
+elif data_selection == "Create your own fighter":
+    st.subheader("Create your own fighter")
+    # TODO: Predict fight.
+    # TODO: Display probability of prediction.
+    # TODO: Display statistics of selected fighter.
 
 # # Check if the original dataframe has the same results as database.
 # # ----- #
