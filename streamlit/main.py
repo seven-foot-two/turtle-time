@@ -102,7 +102,17 @@ if data_selection == "Upcoming Fights":
     # TODO: This should be refactored at some point in the future.
     fight_detail = ufc_df[ufc_df["Fight_Matchup"] == upcoming_fight_matchup]
     blue_name = fight_detail["B_Name"].iloc[0]
+    blue_age = fight_detail["B_Age"].iloc[0]
+    blue_height = fight_detail["B_Height"].iloc[0]
+    blue_weight = fight_detail["B_Weight"].iloc[0]
+    blue_reach = fight_detail["B_Reach"].iloc[0]
+    blue_stance = fight_detail["B_Stance"].iloc[0]
     red_name = fight_detail["R_Name"].iloc[0]
+    red_age = fight_detail["R_Age"].iloc[0]
+    red_height = fight_detail["R_Height"].iloc[0]
+    red_weight = fight_detail["R_Weight"].iloc[0]
+    red_reach = fight_detail["R_Reach"].iloc[0]
+    red_stance = fight_detail["R_Stance"].iloc[0]
 
     # Predict fight.
     prediction, pred_proba = predict(fight_detail)
@@ -121,6 +131,21 @@ if data_selection == "Upcoming Fights":
     st.write(
         f"The predicted probability of the winner being {red_name} is: {round(pred_proba[0][1] * 100, 2)}%"
     )
+
+    # Display statistics of selected fighter
+    col1, col2 = st.columns(2)
+    col1.subheader(f"{blue_name}")
+    col1.write(f"Age: {blue_age}")
+    col1.write(f"Height: {blue_height}")
+    col1.write(f"Weight: {blue_weight}")
+    col1.write(f"Reach: {blue_reach}")
+    col1.write(f"Stance: {blue_stance}")
+    col2.subheader(f"{red_name}")
+    col2.write(f"Age: {red_age}")
+    col2.write(f"Height: {red_height}")
+    col2.write(f"Weight: {red_weight}")
+    col2.write(f"Reach: {red_reach}")
+    col2.write(f"Stance: {red_stance}")
 
 
 # # Check if the original dataframe has the same results as database.
