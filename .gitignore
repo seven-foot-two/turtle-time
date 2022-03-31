@@ -1,3 +1,6 @@
+# Joblib files
+*.joblib
+
 # Database configuration file
 config.py
 
