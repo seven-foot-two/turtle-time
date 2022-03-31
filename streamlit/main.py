@@ -47,8 +47,38 @@ ufc_df = load_data()
 # Load Model
 clf = load_model()
 
+# App Layout
+# ------------------------- #
+# Sidebar
+# ----- #
+with st.sidebar:
+    st.sidebar.header("Options")
+    st.sidebar.subheader("Model Selection")
+
+    model_selection = st.sidebar.selectbox(
+        "Classifier",
+        [
+            "VotingClassifier",
+            "GradientBoostingClassifier",
+            "RandomForestClassifier",
+            "MLPClassifier",
+            "SVC",
+            "XGBClassifier",
+        ],
+    )
+    st.sidebar.subheader("Prediction Options")
+    data_selection = st.sidebar.selectbox(
+        "Data Selection",
+        ["Upcoming Fights", "Fighter vs. Fighter", "Create your own fighter",],
+    )
+
+    st.sidebar.subheader("Visualizations")
+    win_rate_by = st.sidebar.selectbox(
+        "Win Rate By", ["Age", "Height", "Weight", "Stance"]
+    )
+
 # Main page
-# -------------------------#
+# ----- #
 st.title("UFC Fighter Prediction")
 st.header("Predict Fight (Database)")
 fight_selection = ufc_df.iloc[[0]]
@@ -56,13 +86,14 @@ prediction, pred_proba = predict(fight_selection)
 st.write(prediction)
 st.write(pred_proba)
 
-# Check if the original dataframe has the same results as database.
-# ----- #
-# Load DataFrame
-ufc_df = load("../Resources/clean_scraped_data.joblib")
-st.header("Predict Fight (saved DataFrame)")
-# Predict first fight
-fight_selection = ufc_df.iloc[[0]]
-prediction, pred_proba = predict(fight_selection)
-st.write(prediction)
-st.write(pred_proba)
+
+# # Check if the original dataframe has the same results as database.
+# # ----- #
+# # Load DataFrame
+# ufc_df = load("../Resources/clean_scraped_data.joblib")
+# st.header("Predict Fight (saved DataFrame)")
+# # Predict first fight
+# fight_selection = ufc_df.iloc[[0]]
+# prediction, pred_proba = predict(fight_selection)
+# st.write(prediction)
+# st.write(pred_proba)
