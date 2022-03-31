@@ -47,7 +47,7 @@ def create_fight_matchup(df):
     return df
 
 
-# Load data from database
+# Load data from database.
 ufc_df = load_data()
 ufc_df = create_fight_matchup(ufc_df)
 
@@ -85,6 +85,10 @@ with st.sidebar:
         upcoming_fight_matchup = st.sidebar.selectbox(
             "Upcoming Fights", ufc_df["Fight_Matchup"],
         )
+    elif data_selection == "Fighter vs. Fighter":
+        # Fighter vs. Fighter
+        blue_fighter = st.sidebar.selectbox("Blue Fighter", ufc_df["B_Name"].unique())
+        red_fighter = st.sidebar.selectbox("Red Fighter", ufc_df["R_Name"].unique())
 
     # Visualization Selection
     st.sidebar.subheader("Visualizations")
@@ -98,8 +102,8 @@ with st.sidebar:
 st.title("UFC Fighter Prediction")
 st.header("Predict Fight (Database)")
 
+# TODO: This should be refactored at some point in the future.
 if data_selection == "Upcoming Fights":
-    # TODO: This should be refactored at some point in the future.
     fight_detail = ufc_df[ufc_df["Fight_Matchup"] == upcoming_fight_matchup]
     blue_name = fight_detail["B_Name"].iloc[0]
     blue_age = fight_detail["B_Age"].iloc[0]
@@ -117,13 +121,13 @@ if data_selection == "Upcoming Fights":
     # Predict fight.
     prediction, pred_proba = predict(fight_detail)
 
-    # Display results of prediction
+    # Display results of prediction.
     if prediction == "Blue":
         predicted_winner = blue_name
     elif prediction == "Red":
         predicted_winner = red_name
 
-    # Display probability of prediction
+    # Display probability of prediction.
     st.write(f"The predicted winner of this fight is: {predicted_winner}.")
     st.write(
         f"The predicted probability of the winner being {blue_name} is: {round(pred_proba[0][0] * 100, 2)}%"
@@ -132,7 +136,7 @@ if data_selection == "Upcoming Fights":
         f"The predicted probability of the winner being {red_name} is: {round(pred_proba[0][1] * 100, 2)}%"
     )
 
-    # Display statistics of selected fighter
+    # Display statistics of selected fighter.
     col1, col2 = st.columns(2)
     col1.subheader(f"{blue_name}")
     col1.write(f"Age: {blue_age}")
@@ -147,6 +151,14 @@ if data_selection == "Upcoming Fights":
     col2.write(f"Reach: {red_reach}")
     col2.write(f"Stance: {red_stance}")
 
+elif data_selection == "Fighter vs. Fighter":
+    st.subheader("Fighter vs. Fighter")
+    # TODO: Predict fight.
+    # TODO: Display probability of prediction.
+    # TODO: Display statistics of selected fighter.
+    col1, col2 = st.columns(2)
+    col1.subheader(f"{blue_fighter}")
+    col2.subheader(f"{red_fighter}")
 
 # # Check if the original dataframe has the same results as database.
 # # ----- #
