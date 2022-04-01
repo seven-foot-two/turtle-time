@@ -89,6 +89,7 @@ The team created a database in pgAdmin, which contained the following 4 tables:
 2. `fighter_stats` - The table containing all fighter stats.
 3. `fight_stats` - The table containing all fight stats.
 4. `joined_table` - The table joining [table1] and [table2].
+5. `fighter_agg_stats` - The table aggregating fighter, irrespective of Red or Blue corner. 
 
 The database tables were populated from within the `UFC_Final_Project.ipynb` Python file. The team used `to_sql` to overwrite the table with updated scraped data each time time the file is run. Then the team used the `psycopg2`, `sqlalchemy`, and `io` libraries to populate the tables in the pgAdmin database with data from the correspoding Pandas DataFrames.
 
