@@ -1,5 +1,9 @@
+# Joblib files
+*.joblib
+
 # Database configuration file
 config.py
+secrets.toml
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
