@@ -99,7 +99,7 @@ The database tables were populated from within the `UFC_Final_Project.ipynb` Pyt
 
 ## Machine Learning Model
 
-The team determined that the machine learning model for implementation was the Logistic Regression model. Logistic Regression was chosen because the dataset has been processed to have two possible outcomes (`blue` or `red` winner). In addition, Logistic Regression is widely used in machine learning due to its simplicity and speed. We are interested in evaluating the model's accuracy using Logistic Regression as a baseline to compare against other classifiers.
+The team determined that the machine learning model for implementation was the VotingClassifier ensemble with soft voting. The top five classifiers previously tested (based on accuracy score) were selected for inclusion in the voting ensemble.  With soft voting, each classifier provides a probability value that a specific data point belongs to a particular target class (`blue` or `red` winner). The predictions are then added up, and the target label with the greatest sum of weighted probabilities wins the vote.  Using VotingClassifier results in better performance than that of any of the five models used in the ensemble.  However, one drawback of using this ensemble is that all the models equally contribute to the prediction, even though some might perform better than others.
 
 ### Preliminary Data Preprocessing
 
@@ -639,3 +639,5 @@ You can view our deployed dashboard here: [link pending]
 - Libraries: [`Pandas`](https://pandas.pydata.org), [`Matplotlib`](https://matplotlib.org/), [`Scikit Learn`](https://scikit-learn.org/stable/index.html), [`Joblib`](https://github.com/joblib/joblib)
 
 - Database: [`PGAdmin`](https://www.pgadmin.org/) with [`SQL Alchemy`](https://www.sqlalchemy.org/) and [`Psycopg2`](https://pypi.org/project/psycopg2/) libraries.
+
+- Google Slides Presentation (Draft): [UFC Modeler](https://docs.google.com/presentation/d/1SalY5Zud0pnSI-2ArvA9PWgOhFRQytqYsEfhETg1UzA/edit?usp=sharing)
