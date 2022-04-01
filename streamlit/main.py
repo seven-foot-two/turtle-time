@@ -51,6 +51,9 @@ def create_fight_matchup(df):
 ufc_df = load_data()
 ufc_df = create_fight_matchup(ufc_df)
 
+chart_df = load_data(
+    'SELECT "R_Age_Bucket", "B_Age_Bucket", "B_Height_Bucket", "R_Height_Bucket", "B_Stance", "R_Stance", "Weight_Class", "Winner" FROM ufc_table'
+)
 # Load Model
 clf = load_model()
 
@@ -251,15 +254,11 @@ elif data_selection == "Create your own fighter":
     # TODO: Display probability of prediction.
     # TODO: Display statistics of selected fighter.
 
-
-chart_df = load_data(
-    'SELECT "R_Age_Bucket", "B_Age_Bucket", "B_Height_Bucket", "R_Height_Bucket", "B_Stance", "R_Stance", "Weight_Class", "Winner" FROM ufc_table'
-)
-
-# Win Rate By Charts
+# Pie Charts
+# ----- #
+# `Win Rate By` Charts
 if win_rate_by == "Age":
     st.header(f"Win Rate By {win_rate_by}")
-
     blue_wr_age = (
         chart_df[chart_df.Winner == "Blue"]
         .groupby("B_Age_Bucket")
