@@ -252,13 +252,7 @@ elif data_selection == "Create your own fighter":
     # TODO: Display statistics of selected fighter.
 
 
-@st.cache
-def chart_data():
-    chart_data = load_data("SELECT * FROM ufc_table")
-    return chart_data
-
-
-chart_df = chart_data()
+chart_df = load_data("SELECT * FROM ufc_table")
 
 # Win Rate By Charts
 if win_rate_by == "Age":
