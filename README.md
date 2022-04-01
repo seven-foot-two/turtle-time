@@ -640,3 +640,5 @@ You can view our deployed dashboard here: [link pending]
 - Libraries: [`Pandas`](https://pandas.pydata.org), [`Matplotlib`](https://matplotlib.org/), [`Scikit Learn`](https://scikit-learn.org/stable/index.html), [`Joblib`](https://github.com/joblib/joblib)
 
 - Database: [`PGAdmin`](https://www.pgadmin.org/) with [`SQL Alchemy`](https://www.sqlalchemy.org/) and [`Psycopg2`](https://pypi.org/project/psycopg2/) libraries.
+
+- Google Slides Presentation (Draft): [UFC Modeler](https://docs.google.com/presentation/d/1SalY5Zud0pnSI-2ArvA9PWgOhFRQytqYsEfhETg1UzA/edit?usp=sharing)
