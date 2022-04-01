@@ -1,10 +1,10 @@
 import os
-
 import numpy as np
 import pandas as pd
 import psycopg2
 from joblib import load
-
+from plotly.subplots import make_subplots
+import plotly.graph_objects as go
 import streamlit as st
 
 # Initialize connection.
@@ -51,6 +51,9 @@ def create_fight_matchup(df):
 ufc_df = load_data()
 ufc_df = create_fight_matchup(ufc_df)
 
+chart_df = load_data(
+    'SELECT "R_Age_Bucket", "B_Age_Bucket", "B_Height_Bucket", "R_Height_Bucket", "B_Stance", "R_Stance", "Weight_Class", "Winner" FROM ufc_table'
+)
 # Load Model
 clf = load_model()
 
@@ -113,7 +116,7 @@ with st.sidebar:
     # Visualization Selection
     st.sidebar.subheader("Visualizations")
     win_rate_by = st.sidebar.selectbox(
-        "Win Rate By", ["Age", "Height", "Weight", "Stance"]
+        "Win Rate By", ["Age", "Height", "Weight Class", "Stance"]
     )
 
 
@@ -231,25 +234,228 @@ elif data_selection == "Fighter vs. Fighter":
     # )
 
     # Display statistics of selected fighter.
-    col1, col2 = st.columns(2)
-    col1.subheader(f"{blue_name}")
-    col1.write(f"Age: {blue_age}")
-    col1.write(f"Height: {blue_height}")
-    col1.write(f"Weight: {blue_weight}")
-    col1.write(f"Reach: {blue_reach}")
-    col1.write(f"Stance: {blue_stance}")
-    col2.subheader(f"{red_name}")
-    col2.write(f"Age: {red_age}")
-    col2.write(f"Height: {red_height}")
-    col2.write(f"Weight: {red_weight}")
-    col2.write(f"Reach: {red_reach}")
-    col2.write(f"Stance: {red_stance}")
+    # col1, col2 = st.columns(2)
+    # col1.subheader(f"{blue_name}")
+    # col1.write(f"Age: {blue_age}")
+    # col1.write(f"Height: {blue_height}")
+    # col1.write(f"Weight: {blue_weight}")
+    # col1.write(f"Reach: {blue_reach}")
+    # col1.write(f"Stance: {blue_stance}")
+    # col2.subheader(f"{red_name}")
+    # col2.write(f"Age: {red_age}")
+    # col2.write(f"Height: {red_height}")
+    # col2.write(f"Weight: {red_weight}")
+    # col2.write(f"Reach: {red_reach}")
+    # col2.write(f"Stance: {red_stance}")
 
 elif data_selection == "Create your own fighter":
     st.subheader("Create your own fighter")
     # TODO: Predict fight.
     # TODO: Display probability of prediction.
     # TODO: Display statistics of selected fighter.
+
+# Pie Charts
+# ----- #
+# `Win Rate By` Charts
+if win_rate_by == "Age":
+    st.header(f"Win Rate By {win_rate_by}")
+    blue_wr_age = (
+        chart_df[chart_df.Winner == "Blue"]
+        .groupby("B_Age_Bucket")
+        .Winner.count()
+        .reset_index()
+    )
+    red_wr_age = (
+        chart_df[chart_df.Winner == "Red"]
+        .groupby("R_Age_Bucket")
+        .Winner.count()
+        .reset_index()
+    )
+
+    fig = make_subplots(rows=2, cols=1, specs=[[{"type": "pie"}], [{"type": "pie"}]])
+
+    fig.add_trace(
+        go.Pie(
+            values=red_wr_age["Winner"],
+            labels=red_wr_age["R_Age_Bucket"],
+            name="Red Corner",
+            legendgroup="1",
+            title="<b>Red Win Rate By Age</b>",
+        ),
+        row=1,
+        col=1,
+    )
+
+    fig.add_trace(
+        go.Pie(
+            values=blue_wr_age["Winner"],
+            labels=blue_wr_age["B_Age_Bucket"],
+            name="Blue Corner",
+            legendgroup="2",
+            showlegend=True,
+            title="<b>Blue Win Rate By Age</b>",
+        ),
+        row=2,
+        col=1,
+    )
+
+    fig.update_layout(
+        margin=dict(l=0, r=500, t=100, b=0),
+        height=900,
+        width=900,
+        legend_tracegroupgap=450,
+        legend=dict(title="<b>Age Range:</b> "),
+        font=dict(size=18),
+    )
+    fig.update_traces(marker=dict(line=dict(color="#000000", width=1.25)))
+    st.plotly_chart(fig)
+
+
+elif win_rate_by == "Height":
+    st.header(f"Win Rate By {win_rate_by}")
+    blue_wr_height = (
+        chart_df[chart_df.Winner == "Blue"]
+        .groupby("B_Height_Bucket")
+        .Winner.count()
+        .reset_index()
+    )
+    red_wr_height = (
+        chart_df[chart_df.Winner == "Red"]
+        .groupby("R_Height_Bucket")
+        .Winner.count()
+        .reset_index()
+    )
+
+    fig = make_subplots(rows=2, cols=1, specs=[[{"type": "pie"}], [{"type": "pie"}]])
+    fig.add_trace(
+        go.Pie(
+            values=red_wr_height["Winner"],
+            name="Red Corner",
+            labels=red_wr_height["R_Height_Bucket"],
+            title="<b>Red Win Rate By Height</b>",
+        ),
+        row=1,
+        col=1,
+    )
+    fig.add_trace(
+        go.Pie(
+            values=blue_wr_height["Winner"],
+            name="Blue Corner",
+            labels=blue_wr_height["B_Height_Bucket"],
+            title="<b>Blue Win Rate By Height</b>",
+        ),
+        row=2,
+        col=1,
+    )
+    fig.update_layout(
+        margin=dict(l=0, r=500, t=100, b=0),
+        height=900,
+        width=900,
+        legend=dict(title="<b>Height Range (in.):</b> "),
+        font_size=18,
+    )
+    fig.update_traces(marker=dict(line=dict(color="#000000", width=1.25)))
+    st.plotly_chart(fig)
+
+elif win_rate_by == "Weight Class":
+    st.header(f"Win Rate By {win_rate_by}")
+    blue_wr_weight = (
+        chart_df[chart_df.Winner == "Blue"]
+        .groupby("Weight_Class")
+        .Winner.count()
+        .reset_index()
+    )
+    red_wr_weight = (
+        chart_df[chart_df.Winner == "Red"]
+        .groupby("Weight_Class")
+        .Winner.count()
+        .reset_index()
+    )
+
+    fig = make_subplots(rows=2, cols=1, specs=[[{"type": "pie"}], [{"type": "pie"}]])
+    fig.add_trace(
+        go.Pie(
+            values=red_wr_weight["Winner"],
+            labels=red_wr_weight["Weight_Class"],
+            name="Red Corner",
+            title="<b>Red Win Rate By Weight Class</b>",
+        ),
+        row=1,
+        col=1,
+    )
+
+    fig.add_trace(
+        go.Pie(
+            values=blue_wr_weight["Winner"],
+            labels=blue_wr_weight["Weight_Class"],
+            name="Blue Corner",
+            title="<b>Blue Win Rate By Weight Class</b>",
+        ),
+        row=2,
+        col=1,
+    )
+
+    fig.update_layout(
+        margin=dict(l=0, r=500, t=100, b=0),
+        height=900,
+        width=900,
+        legend=dict(title="<b>Weight Classes:</b> ", x=1.1),
+        font=dict(size=18),
+        legend_font_size=18,
+    )
+    fig.update_traces(marker=dict(line=dict(color="#000000", width=0.5)))
+    st.plotly_chart(fig)
+
+elif win_rate_by == "Stance":
+
+    st.header(f"Win Rate By {win_rate_by}")
+
+    fig = make_subplots(rows=2, cols=1, specs=[[{"type": "pie"}], [{"type": "pie"}]])
+
+    blue_wr_stance = (
+        chart_df[chart_df.Winner == "Blue"]
+        .groupby("B_Stance")
+        .Winner.count()
+        .reset_index()
+    )
+    red_wr_stance = (
+        chart_df[chart_df.Winner == "Red"]
+        .groupby("R_Stance")
+        .Winner.count()
+        .reset_index()
+    )
+    fig.append_trace(
+        go.Pie(
+            values=red_wr_stance["Winner"],
+            labels=red_wr_stance["R_Stance"],
+            name="Red Corner",
+            title="<b>Red Win Rate By Stance</b>",
+        ),
+        row=1,
+        col=1,
+    )
+
+    fig.append_trace(
+        go.Pie(
+            values=blue_wr_stance["Winner"],
+            labels=blue_wr_stance["B_Stance"],
+            name="Blue Corner",
+            title="<b>Blue Win Rate By Stance</b>",
+        ),
+        row=2,
+        col=1,
+    )
+
+    fig.update_layout(
+        margin=dict(l=0, r=500, t=100, b=0),
+        height=900,
+        width=900,
+        legend=dict(title="<b>Fight Stance:</b> "),
+        font=dict(size=18),
+    )
+    fig.update_traces(marker=dict(line=dict(color="#000000", width=1.25)))
+    st.plotly_chart(fig)
+
 
 # # Check if the original dataframe has the same results as database.
 # # ----- #
