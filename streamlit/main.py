@@ -305,7 +305,7 @@ if win_rate_by == "Age":
         height=900,
         width=900,
         legend_tracegroupgap=450,
-        legend=dict(title="<b>Age Range (in.):</b> "),
+        legend=dict(title="<b>Age Range:</b> "),
         font=dict(size=18),
     )
     fig.update_traces(marker=dict(line=dict(color="#000000", width=1.25)))
