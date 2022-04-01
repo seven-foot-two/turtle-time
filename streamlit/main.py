@@ -252,7 +252,9 @@ elif data_selection == "Create your own fighter":
     # TODO: Display statistics of selected fighter.
 
 
-chart_df = load_data("SELECT * FROM ufc_table")
+chart_df = load_data(
+    'SELECT "R_Age_Bucket", "B_Age_Bucket", "B_Height_Bucket", "R_Height_Bucket", "B_Stance", "R_Stance", "Weight_Class", "Winner" FROM ufc_table'
+)
 
 # Win Rate By Charts
 if win_rate_by == "Age":
