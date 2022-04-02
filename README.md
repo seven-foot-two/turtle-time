@@ -549,6 +549,7 @@ The team determined that the machine learning model for implementation was the V
 
 | **Classifier**                  | **Balanced Accuracy Score** | **Precision** | **Precision_Blue** | **Precision_Red** | **Recall** | **Recall_Blue** | **Recall_Red** | **Parameters**                |
 |---------------------------------|-----------------------------|---------------|--------------------|-------------------|------------|-----------------|----------------|-------------------------------|
+| **VotingClassifier**               | 0.907                       | 0.907         | 0.901              | 0.910             | 0.907   | 0.818           | 0.954          | *                             |
 | **XGBClassifier**               | 0.899                       | 0.898         | 0.881              | 0.907             | 0.899      | 0.813           | 0.943          | random_state=0                |
 | **SVC**                         | 0.896                       | 0.896         | 0.890              | 0.898             | 0.896      | 0.792           | 0.950          | random_state=0                |
 | **GradientBoostingClassifier**  | 0.896                       | 0.895         | 0.880              | 0.903             | 0.896      | 0.805           | 0.943          | random_state=0                |
@@ -562,12 +563,25 @@ The team determined that the machine learning model for implementation was the V
 | **DecisionTreeClassifier**      | 0.817                       | 0.816         | 0.744              | 0.853             | 0.817      | 0.708           | 0.874          | random_state=0                |
 | **RidgeClassifier**             | 0.812                       | 0.810         | 0.735              | 0.850             | 0.812      | 0.703           | 0.869          | random_state=0                |
 
+*VotingClassifier() Parameters:
+```python
+VotingClassifier(
+    estimators=[
+        ("gbc", GradientBoostingClassifier(random_state=0)),
+        ("rf", RandomForestClassifier(random_state=0)),
+        ("mlp", MLPClassifier(random_state=0)),
+        ("svc", SVC(random_state=0, probability=True)),
+        ("xgb", XGBClassifier(random_state=0)),
+    ],
+    voting="soft")
+```
+
 - With default parameters, XGBClassifier has the highest accuracy score out of all classifiers.
 - HyperParameter optimization will be the next goal for selecting the best model.
 
-### Voting Classifier Results
+### VotingClassifier Results
 
-The top five models selected by accuracy are passed into a soft voting classifier ensemble:
+The top five models selected by accuracy are passed into a soft VotingClassifier ensemble:
 1. XGBClassifier
 2. SVC
 3. GradientBoostingClassifier
