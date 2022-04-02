@@ -10,7 +10,8 @@ The topic selected by the team was UFC Fight Analysis of all UFC fights from 201
 The team selected to analyze UFC fights from 2013 because the team members had prior interest in UFC fighting, and were intrigued by the data contained in the dataset.
 
 ### Description of the source of data
-The data on UFC fights from 2013 was obtained from [Kaggle](https://www.kaggle.com/calmdownkarm/ufcdataset?select=data.csv).
+- The original data of UFC fights from 2013 was obtained from [Kaggle](https://www.kaggle.com/calmdownkarm/ufcdataset?select=data.csv).
+- The scraped data of all UFC fights was obtained from [UFC Stats](https://ufcstats.com).
 
 ### Questions the team hopes to answer with the data
 The questions we hope to answer with the data include:
@@ -19,21 +20,8 @@ The questions we hope to answer with the data include:
 -   Can our machine learning model predict the `winby` based on features?
 -   Is there a relationship between fighter `age` and `winner` outcome?
 -   Is there a relationship between fighter `height` and `winner` outcome?
--   Is there a relationship between fighter `hometown` and `winner` outcome?
 -   Is there a relationship between fighter `weight` and `winner` outcome?
 
-### Team Member Roles
-
-For the First and Second Segments of the project, each team member was assigned a specific role:
-
--   **Square:** The team member in the square role will be responsible for the repository.
-    -   Tozer, Francesca, and Matin
--   **Triangle:** The member in the triangle role will create a mockup of a machine learning model. This can even be a diagram that explains how it will work concurrently with the rest of the project steps.
-    -   Jack, Max, and Matin
--   **Circle:** The member in the circle role will create a mockup of a database with a set of sample data, or even fabricated data. This will ensure the database will work seamlessly with the rest of the project.
-    -   Francesca and Tozer
--   **X:** The member in the X role will decide which technologies will be used for each step of the project.
-    -   Jack and Max
 
 ### Communication Protocols
 
@@ -93,9 +81,9 @@ The team created a database in pgAdmin, which contained the following 4 tables:
 The database tables were populated from within the `UFC_Final_Project.ipynb` Python file. The team used `to_sql` to overwrite the table with updated scraped data each time time the file is run. Then the team used the `psycopg2`, `sqlalchemy`, and `io` libraries to populate the tables in the pgAdmin database with data from the correspoding Pandas DataFrames.
 
 ### Database Schema:
-![Table Schema](https://github.com/seven-foot-two/turtle-time/blob/main/Resources/Images/Schema.PNG)
+![Table Schema](Resources/Images/Schema.PNG)
 
-- Given the number of features we are dealing with the above image is not able to capture the all of the table descriptions. If you are interested, you can download a .txt file for the full schema [here](https://github.com/seven-foot-two/turtle-time/blob/main/QuickDBD.txt).
+- Given the number of features we are dealing with the above image is not able to capture the all of the table descriptions. If you are interested, you can download a .txt file for the full schema [here](QuickDBD.txt).
 
 ## Machine Learning Model
 
@@ -103,7 +91,7 @@ The database tables were populated from within the `UFC_Final_Project.ipynb` Pyt
 
 During the preliminary data preprocessing phase of the project, the team performed the following actions to clean and transform the data as a preprocessing step for the machine learning model.
 
-1. **Imported [scraped data](https://github.com/seven-foot-two/turtle-time/blob/main/Resources/scraped_data.csv) into a Pandas DataFrame**
+1. **Imported [scraped data](Resources/scraped_data.csv) into a Pandas DataFrame**
 
 2. **Dropped duplicate rows (fights)**
     - To ensure the scraped data did not contain duplicate rows (fights), duplicate rows were dropped using `drop_duplicates` based on the columns `Event_Date`, `B_Name`, and `R_Name`, where `Event_Date` contained the date of the fight, `B_Name` contained the name of the Blue fighter, and `R_Name` contained the name of the Red fighter.
@@ -162,15 +150,8 @@ During the preliminary data preprocessing phase of the project, the team perform
 		- No issues were found in any of the columns so they were converted to the correct data type (Categorical OR Numerical).
 
 13. **Set Categories converted to category datatype using `astype`**
-<!--
-14. **Gender**
 
-15. MATIN: **BMI**
 
-16. MATIN: **Estimation of Body Fat**
-
-17. MATIN: **Lean Body Mass**
--->
 
 **Categorical Data:**  
 <details>
@@ -650,8 +631,8 @@ You can view our deployed dashboard here: [link pending]
 
 - Scraped Data: [`scraped_data.csv`](Resources/scraped_data.csv)
     - New columns
-      - `Height` - Fighter height (Inches)
-      - `Weight` - Fighter weight (Lbs.)
+      - `Height` - Fighter height (in.)
+      - `Weight` - Fighter weight (lbs.)
       - `Accuracy` - Accuracy column values are percentages.
       - `Defense` - Defense column values are percentages.
 
