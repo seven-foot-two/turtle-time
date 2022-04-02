@@ -129,7 +129,7 @@ with st.sidebar:
 # Main page
 # ----- #
 st.title("UFC Fighter Prediction")
-st.header("Predict Fight (Database)")
+st.header("Predict Fight")
 
 # TODO: This should be refactored at some point in the future.
 if data_selection == "Upcoming Fights":
@@ -152,9 +152,9 @@ if data_selection == "Upcoming Fights":
 
     # Display results of prediction.
     if prediction == "Blue":
-        predicted_winner = blue_name
+        predicted_winner = f"Blue ({blue_name})"
     elif prediction == "Red":
-        predicted_winner = red_name
+        predicted_winner = f"Red ({red_name})"
 
     # Display probability of prediction.
     st.write(f"The predicted winner of this fight is: {predicted_winner}.")
@@ -165,15 +165,17 @@ if data_selection == "Upcoming Fights":
         f"The predicted probability of the winner being {red_name} is: {round(pred_proba[0][1] * 100, 2)}%"
     )
 
-    # Display statistics of selected fighter.
+    # Display statistics of selected fight.
     col1, col2 = st.columns(2)
-    col1.subheader(f"{blue_name}")
+    col1.subheader(f"Blue ({blue_name})")
+    col2.subheader(f"Red ({red_name})")
+    # Display blue fighter stats
     col1.write(f"Age: {blue_age}")
     col1.write(f"Height: {blue_height}")
     col1.write(f"Weight: {blue_weight}")
     col1.write(f"Reach: {blue_reach}")
     col1.write(f"Stance: {blue_stance}")
-    col2.subheader(f"{red_name}")
+    # Display red fighter stats
     col2.write(f"Age: {red_age}")
     col2.write(f"Height: {red_height}")
     col2.write(f"Weight: {red_weight}")
@@ -181,7 +183,7 @@ if data_selection == "Upcoming Fights":
     col2.write(f"Stance: {red_stance}")
 
 elif data_selection == "Fighter vs. Fighter":
-    st.subheader("Fighter vs. Fighter")
+    # st.subheader("Fighter vs. Fighter")
     # Get blue & red fighters
     fighter_stats_blue = fighter_agg_stats[
         fighter_agg_stats["Name"] == blue_fighter
@@ -224,9 +226,9 @@ elif data_selection == "Fighter vs. Fighter":
 
     # Display results of prediction.
     if prediction == "Blue":
-        predicted_winner = blue_name.iloc[0]
+        predicted_winner = f"Blue ({blue_name.iloc[0]})"
     elif prediction == "Red":
-        predicted_winner = red_name.iloc[0]
+        predicted_winner = f"Red ({red_name.iloc[0]})"
 
     # Display probability of prediction.
     st.write(f"The predicted winner of this fight is: {predicted_winner}.")
@@ -239,8 +241,8 @@ elif data_selection == "Fighter vs. Fighter":
 
     # Display statistics of selected fighter.
     col1, col2 = st.columns(2)
-    col1.subheader(f"{blue_fighter}")
-    col2.subheader(f"{red_fighter}")
+    col1.subheader(f"Blue ({blue_fighter})")
+    col2.subheader(f"Red ({red_fighter})")
     # Display blue fighter stats
     col1.write(f"Age: {blue_age.iloc[0]}")
     col1.write(f"Height: {blue_height.iloc[0]}")
