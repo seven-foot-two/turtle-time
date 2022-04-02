@@ -99,8 +99,6 @@ The database tables were populated from within the `UFC_Final_Project.ipynb` Pyt
 
 ## Machine Learning Model
 
-The team determined that the machine learning model for implementation was the VotingClassifier ensemble with soft voting. The top five classifiers previously tested (based on accuracy score) were selected for inclusion in the voting ensemble.  With soft voting, each classifier provides a probability value that a specific data point belongs to a particular target class (`blue` or `red` winner). The predictions are then added up, and the target label with the greatest sum of weighted probabilities wins the vote.  Using VotingClassifier results in better performance than that of any of the five models used in the ensemble.  However, one drawback of using this ensemble is that all the models equally contribute to the prediction, even though some might perform better than others.
-
 ### Preliminary Data Preprocessing
 
 During the preliminary data preprocessing phase of the project, the team performed the following actions to clean and transform the data as a preprocessing step for the machine learning model.
@@ -547,6 +545,8 @@ Multiple arrays are created from splitting the train and test subsets randomly. 
 
 ### Machine Learning Model Selection
 
+The team determined that the machine learning model for implementation was the VotingClassifier ensemble with soft voting. The top five classifiers previously tested (based on accuracy score) were selected for inclusion in the voting ensemble.  With soft voting, each classifier provides a probability value that a specific data point belongs to a particular target class (`blue` or `red` winner). The predictions are then added up, and the target label with the greatest sum of weighted probabilities wins the vote.  Using VotingClassifier results in better performance than that of any of the five models used in the ensemble.  However, one drawback of using this ensemble is that all the models equally contribute to the prediction, even though some might perform better than others.
+
 | **Classifier**                  | **Balanced Accuracy Score** | **Precision** | **Precision_Blue** | **Precision_Red** | **Recall** | **Recall_Blue** | **Recall_Red** | **Parameters**                |
 |---------------------------------|-----------------------------|---------------|--------------------|-------------------|------------|-----------------|----------------|-------------------------------|
 | **XGBClassifier**               | 0.899                       | 0.898         | 0.881              | 0.907             | 0.899      | 0.813           | 0.943          | random_state=0                |
@@ -565,25 +565,9 @@ Multiple arrays are created from splitting the train and test subsets randomly. 
 - With default parameters, XGBClassifier has the highest accuracy score out of all classifiers.
 - HyperParameter optimization will be the next goal for selecting the best model.
 
-## Analysis: Logistic Regression ML Model (using [Kaggle data](Resources/data.csv))
-
-### Feature Selection 
-- Numerical
-    - `selector(dtype_include="number")`
-- Categorical
-    - `selector(dtype_include="category")`
-
 ### Results
 
 #### Classification Report
-|                | **precision** | **recall** | **f1-score** | **support** |
-|---------------:|--------------:|-----------:|-------------:|------------:|
-| **blue**       | 0.84          | 0.78       | 0.81         | 390         |
-| **red**        | 0.89          | 0.92       | 0.91         | 754         |
-|                |               |            |              |             |
-| **accuracy**   |               |            | 0.87         | 1144        |
-| **macro avg**  | 0.86          | 0.85       | 0.86         | 1144        |
-| **weight avg** | 0.87          | 0.87       | 0.87         | 1144        |
 
 #### Confusion Matrix
 ![Pipeline](Resources/Images/confusion_matrix.png)
