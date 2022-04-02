@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-### Selected topic 
+### Selected topic
 <!--Need to change "from 2013" to reflect the date range in the scraped data-->
 The topic selected by the team was UFC Fight Analysis of all UFC fights from 2013.
 
@@ -49,39 +49,39 @@ The team created various charts to gain a better understanding of the data, such
 
 - Winner (Red vs. Blue)
 
-  <img src="Resources/Images/Pie_WinRate.png" alt="Pie Win Rate" width="400" height="auto"> 
+  <img src="Resources/Images/Pie_WinRate.png" alt="Pie Win Rate" width="400" height="auto">
 
 - Box & Whisker Plots
     - Age
 
-      <img src="Resources/Images/BoxPlot_Age.png" alt="Age Box & Whisker" width="400" height="auto"> 
+      <img src="Resources/Images/BoxPlot_Age.png" alt="Age Box & Whisker" width="400" height="auto">
 
     - Height
 
-      <img src="Resources/Images/BoxPlot_Height.png" alt="Height Box & Whisker" width="400" height="auto"> 
+      <img src="Resources/Images/BoxPlot_Height.png" alt="Height Box & Whisker" width="400" height="auto">
 
     - Weight
 
-      <img src="Resources/Images/BoxPlot_Weight.png" alt="Weight Box & Whisker" width="400" height="auto"> 
+      <img src="Resources/Images/BoxPlot_Weight.png" alt="Weight Box & Whisker" width="400" height="auto">
 
 ### Created buckets
 The team bucketed the `Age`, `Weight`, and `Height` data, then created charts of the bucketed groups to gain a better visualization of the fighters' stats.
 
 - `R_Age` Bucket
 
-  <img src="Resources/Images/Bar_RAge_Buckets.png" alt="R_Age Bucket" width="400" height="auto"> 
+  <img src="Resources/Images/Bar_RAge_Buckets.png" alt="R_Age Bucket" width="400" height="auto">
 
 - `B_Age` Bucket
 
-  <img src="Resources/Images/Bar_BAge_Buckets.png" alt="B_Age Bucket" width="400" height="auto"> 
+  <img src="Resources/Images/Bar_BAge_Buckets.png" alt="B_Age Bucket" width="400" height="auto">
 
 - `R_Height` Bucket
 
-  <img src="Resources/Images/Bar_RHeight_Buckets.png" alt="R_Height Bucket" width="400" height="auto"> 
+  <img src="Resources/Images/Bar_RHeight_Buckets.png" alt="R_Height Bucket" width="400" height="auto">
 
 - `B_Height` Bucket
 
-  <img src="Resources/Images/Bar_BHeight_Buckets.png" alt="B_Height Bucket" width="400" height="auto"> 
+  <img src="Resources/Images/Bar_BHeight_Buckets.png" alt="B_Height Bucket" width="400" height="auto">
 
 ## Database Integration
 The team created a database in pgAdmin, which contained the following 4 tables:
@@ -95,7 +95,7 @@ The database tables were populated from within the `UFC_Final_Project.ipynb` Pyt
 ### Database Schema:
 ![Table Schema](https://github.com/seven-foot-two/turtle-time/blob/main/Resources/Images/Schema.PNG)
 
-- Given the number of features we are dealing with the above image is not able to capture the all of the table descriptions. If you are interested, you can download a .txt file for the full schema [here](https://github.com/seven-foot-two/turtle-time/blob/main/QuickDBD.txt). 
+- Given the number of features we are dealing with the above image is not able to capture the all of the table descriptions. If you are interested, you can download a .txt file for the full schema [here](https://github.com/seven-foot-two/turtle-time/blob/main/QuickDBD.txt).
 
 ## Machine Learning Model
 
@@ -118,7 +118,7 @@ During the preliminary data preprocessing phase of the project, the team perform
     - However, major rule changes were implemented on 5/3/2001, eliminating these unfair circumstances. As such, rows with an `Event_Date` before 5/3/2001 were dropped to maintain consistency in the rules set forth in the fights analyzed.
 
 5.  **Replaced `"--", "---" and "No Time Limit"` with `np.NaN`**
-	- `No Time Limit` should already not exist due to the date restriction above but if it does, it will be replaced with `NaN`. 
+	- `No Time Limit` should already not exist due to the date restriction above but if it does, it will be replaced with `NaN`.
 	- `"--"` and `"---"` represent NO value. **Not** zero; Nothing. An example would be the **take-down percentage** column, where these values are present quite often. This is due to the fact that the fighter didn't even attempt a single take-down. To clarify a little more, if a fighter was to attempt a take-down but failed to land that take-down, they would then have a take-down percentage of 0%.
 
 6. **`R_Draws` and `B_Draws` were split to create a `No_Contest` for each corner color**
@@ -131,10 +131,10 @@ During the preliminary data preprocessing phase of the project, the team perform
 	- `B_No_Contest` column moved to the position after `B_Draws`.
 
 8. **Used `.loc` on the `Weight_Class` column in order to keep the standardized weight classes**
-	- **Standardized weight classes:** 
+	- **Standardized weight classes:**
         `Heavyweight,
-        Light Heavyweight, 
-        Middleweight, 
+        Light Heavyweight,
+        Middleweight,
         Welterweight,
         Lightweight,
         Featherweight,
@@ -150,27 +150,27 @@ During the preliminary data preprocessing phase of the project, the team perform
     - `R_Height_Bucket` and `B_Height_Bucket` columns created.
 
 10. **`R_Age` and `B_Age` bucketed using quartile (4 buckets created).**
-	- `R_Age_Bucket` and `B_Age_Bucket` columns created. 
+	- `R_Age_Bucket` and `B_Age_Bucket` columns created.
 
 11. **`Gender` column created based on `Weight_Class` column value containing "Women's" or not.**
 	- If the fighter is a women, the `Gender` column will contain a value of `0`.
 	- If the fighter is a man, the `Gender` column will contain a value of `1` .
 
 12. **Converted columns to best inferred possible dtypes using `.covert_dtypes` supporting `pd.NA`.**
-	- These inferred data types may not be correct and in our situation, a lot were incorrect. 
+	- These inferred data types may not be correct and in our situation, a lot were incorrect.
 	- Columns with the data type of "string" or "object" were inspected to figure out why they were inferred this way.
 		- No issues were found in any of the columns so they were converted to the correct data type (Categorical OR Numerical).
 
 13. **Set Categories converted to category datatype using `astype`**
 <!--
 14. **Gender**
- 
+
 15. MATIN: **BMI**
 
 16. MATIN: **Estimation of Body Fat**
 
 17. MATIN: **Lean Body Mass**
---> 
+-->
 
 **Categorical Data:**  
 <details>
@@ -565,27 +565,48 @@ The team determined that the machine learning model for implementation was the V
 - With default parameters, XGBClassifier has the highest accuracy score out of all classifiers.
 - HyperParameter optimization will be the next goal for selecting the best model.
 
-### Results
+### Voting Classifier Results
+
+The top five models selected by accuracy are passed into a soft voting classifier ensemble:
+1. XGBClassifier
+2. SVC
+3. GradientBoostingClassifier
+4. Neural Net (MLPClassifier)
+5. RandomForestClassifier
+
+> The idea behind the VotingClassifier is to combine conceptually different machine learning classifiers and use a majority vote or the average predicted probabilities (soft vote) to predict the class labels. Such a classifier can be useful for a set of equally well performing model in order to balance out their individual weaknesses. - [SciKit-learn]("https://scikit-learn.org/stable/modules/ensemble.html#voting-classifier")
+
+
+
 
 #### Classification Report
+
+|                  | **precision** | **recall** | **f1-score** | **support** |
+|------------------|---------------|------------|--------------|-------------|
+| **Blue**         | 0.90          | 0.82       | 0.86         | 390         |
+| **Red**          | 0.91          | 0.95       | 0.93         | 754         |
+|                  |               |            |              |             |
+| **accuracy**     |               |            | 0.91         | 1144        |
+| **macro avg**    | 0.91          | 0.89       | 0.89         | 1144        |
+| **weighted avg** | 0.91          | 0.91       | 0.91         | 1144        |
 
 #### Confusion Matrix
 ![Pipeline](Resources/Images/confusion_matrix.png)
 
 ## Dashboard
 
-Ultimately, we chose to create our dashboard using the Streamlit library, an open-source, free, and Python-based framework for deploying data science projects. We initially discussed coding our dashboard directly with HTML/CSS/JS but ultimately agreed that this seemed too finicky for us. Streamlit allowed us to efficiently code our front-end entirely in its Python framework, freeing up more time to get our pipeline, database, and model to work well together with our interactive elements. 
+Ultimately, we chose to create our dashboard using the Streamlit library, an open-source, free, and Python-based framework for deploying data science projects. We initially discussed coding our dashboard directly with HTML/CSS/JS but ultimately agreed that this seemed too finicky for us. Streamlit allowed us to efficiently code our front-end entirely in its Python framework, freeing up more time to get our pipeline, database, and model to work well together with our interactive elements.
 
-Subject to change, our interactive elements will include: 
-- Two drop-downs to allow a user to assign the fighters to model to either the red or blue corner. 
-- The above user inputs will also control the images displayed above our interactive elements. 
-- A “Predict” button element to run the selections through our model. 
-- Two dynamic visualisations: 
+Subject to change, our interactive elements will include:
+- Two drop-downs to allow a user to assign the fighters to model to either the red or blue corner.
+- The above user inputs will also control the images displayed above our interactive elements.
+- A “Predict” button element to run the selections through our model.
+- Two dynamic visualisations:
     - A gauge indicating the overall prediction percentage(s)
     - A heatmap showing prediction percentages per round by corner.
 
-In selecting these elements specifically, we are aiming to center our predictive model and keep the user-experience as streamlined we can. In the future, we hope to include a “build-your-own fighter” element, which would run a prediction based on a fighter with user-selected characteristics (e.g., fight style, average control time, etc.). 
-	
+In selecting these elements specifically, we are aiming to center our predictive model and keep the user-experience as streamlined we can. In the future, we hope to include a “build-your-own fighter” element, which would run a prediction based on a fighter with user-selected characteristics (e.g., fight style, average control time, etc.).
+
 You can view our deployed dashboard here: [link pending]
 
 ## Resources
