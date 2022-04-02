@@ -129,10 +129,12 @@ with st.sidebar:
 # Main page
 # ----- #
 st.title("UFC Fighter Prediction")
-st.header("Predict Fight (Database)")
+# st.header("Predict Fight (Database)")
 
 # TODO: This should be refactored at some point in the future.
 if data_selection == "Upcoming Fights":
+    st.header("Upcoming Fights")
+
     fight_detail = ufc_df[ufc_df["Fight_Matchup"] == upcoming_fight_matchup]
     blue_name = fight_detail["B_Name"].iloc[0]
     blue_age = fight_detail["B_Age"].iloc[0]
@@ -181,7 +183,7 @@ if data_selection == "Upcoming Fights":
     col2.write(f"Stance: {red_stance}")
 
 elif data_selection == "Fighter vs. Fighter":
-    st.subheader("Fighter vs. Fighter")
+    st.header("Fighter vs. Fighter")
     # Get blue & red fighters
     fighter_stats_blue = fighter_agg_stats[
         fighter_agg_stats["Name"] == blue_fighter
