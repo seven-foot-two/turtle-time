@@ -36,8 +36,8 @@ def load_model(classifier="../Resources/clf.joblib"):
 # Predict who wins the fight.
 def predict(df):
     # If dataframe column contains Winner then drop it
-    if "Winner" in df.columns:
-        df = df.drop(columns=["Winner"])
+    # if "Winner" in df.columns:
+    #    df = df.drop(columns=["Winner"])
     return clf.predict(df), clf.predict_proba(df)
 
 
@@ -50,6 +50,8 @@ def create_fight_matchup(df):
 # Load data from database.
 ufc_df = load_data()
 ufc_df = create_fight_matchup(ufc_df)
+
+fighter_agg_stats = load_data(query="SELECT * FROM fighter_agg_stats")
 
 chart_df = load_data(
     'SELECT "R_Age_Bucket", "B_Age_Bucket", "B_Height_Bucket", "R_Height_Bucket", "B_Stance", "R_Stance", "Weight_Class", "Winner" FROM ufc_table'
@@ -89,9 +91,13 @@ with st.sidebar:
             "Upcoming Fights", ufc_df["Fight_Matchup"],
         )
     elif data_selection == "Fighter vs. Fighter":
-        # TODO: Fighter vs. Fighter
-        blue_fighter = st.sidebar.selectbox("Blue Fighter", ufc_df["B_Name"].unique())
-        red_fighter = st.sidebar.selectbox("Red Fighter", ufc_df["R_Name"].unique())
+        # Fighter vs. Fighter
+        blue_fighter = st.sidebar.selectbox(
+            "Blue Fighter", fighter_agg_stats["Name"].unique()
+        )
+        red_fighter = st.sidebar.selectbox(
+            "Red Fighter", fighter_agg_stats["Name"].unique()
+        )
     elif data_selection == "Create your own fighter":
         # TODO: Create your own fighter
         # I am testing the different Streamlit widgets:
@@ -176,77 +182,78 @@ if data_selection == "Upcoming Fights":
 
 elif data_selection == "Fighter vs. Fighter":
     st.subheader("Fighter vs. Fighter")
-    # TODO: Predict fight.
-    # TODO: Display probability of prediction.
-    # TODO: Display statistics of selected fighter.
+    # Get blue & red fighters
+    fighter_stats_blue = fighter_agg_stats[
+        fighter_agg_stats["Name"] == blue_fighter
+    ].reset_index()
+    fighter_stats_red = fighter_agg_stats[
+        fighter_agg_stats["Name"] == red_fighter
+    ].reset_index()
+
+    # Get the fighter stats
+    blue_name = fighter_stats_blue["Name"]
+    blue_age = fighter_stats_blue["Age"]
+    blue_height = fighter_stats_blue["Height"]
+    blue_weight = fighter_stats_blue["Weight"]
+    blue_reach = fighter_stats_blue["Reach"]
+    blue_stance = fighter_stats_blue["Stance"]
+
+    red_name = fighter_stats_red["Name"]
+    red_age = fighter_stats_red["Age"]
+    red_height = fighter_stats_red["Height"]
+    red_weight = fighter_stats_red["Weight"]
+    red_reach = fighter_stats_red["Reach"]
+    red_stance = fighter_stats_red["Stance"]
+
+    fvf_df = pd.DataFrame(columns=ufc_df.columns)
+    fvf_df["B_Name"] = blue_name
+    fvf_df["B_Age"] = blue_age
+    fvf_df["B_Height"] = blue_height
+    fvf_df["B_Weight"] = blue_weight
+    fvf_df["B_Reach"] = blue_reach
+    fvf_df["B_Stance"] = blue_stance
+    fvf_df["R_Name"] = red_name
+    fvf_df["R_Age"] = red_age
+    fvf_df["R_Height"] = red_height
+    fvf_df["R_Weight"] = red_weight
+    fvf_df["R_Reach"] = red_reach
+    fvf_df["R_Stance"] = red_stance
+
+    # Predict fight.
+    prediction, pred_proba = predict(fvf_df)
+
+    # Display results of prediction.
+    if prediction == "Blue":
+        predicted_winner = blue_name.iloc[0]
+    elif prediction == "Red":
+        predicted_winner = red_name.iloc[0]
+
+    # Display probability of prediction.
+    st.write(f"The predicted winner of this fight is: {predicted_winner}.")
+    st.write(
+        f"The predicted probability of the winner being {blue_name.iloc[0]} is: {round(pred_proba[0][0] * 100, 2)}%"
+    )
+    st.write(
+        f"The predicted probability of the winner being {red_name.iloc[0]} is: {round(pred_proba[0][1] * 100, 2)}%"
+    )
+
+    # Display statistics of selected fighter.
     col1, col2 = st.columns(2)
     col1.subheader(f"{blue_fighter}")
     col2.subheader(f"{red_fighter}")
+    # Display blue fighter stats
+    col1.write(f"Age: {blue_age.iloc[0]}")
+    col1.write(f"Height: {blue_height.iloc[0]}")
+    col1.write(f"Weight: {blue_weight.iloc[0]}")
+    col1.write(f"Reach: {blue_reach.iloc[0]}")
+    col1.write(f"Stance: {blue_stance.iloc[0]}")
+    # Display red fighter stats
+    col2.write(f"Age: {red_age.iloc[0]}")
+    col2.write(f"Height: {red_height.iloc[0]}")
+    col2.write(f"Weight: {red_weight.iloc[0]}")
+    col2.write(f"Reach: {red_reach.iloc[0]}")
+    col2.write(f"Stance: {red_stance.iloc[0]}")
 
-    # # Get the fighter stats
-    # blue_name = blue_fighter["Name"].iloc[0]
-    # blue_age = blue_fighter["Age"].iloc[0]
-    # blue_height = blue_fighter["Height"].iloc[0]
-    # blue_weight = blue_fighter["Weight"].iloc[0]
-    # blue_reach = blue_fighter["Reach"].iloc[0]
-    # blue_stance = blue_fighter["Stance"].iloc[0]
-    # red_name = red_fighter["Name"].iloc[0]
-    # red_age = red_fighter["Age"].iloc[0]
-    # red_height = red_fighter["Height"].iloc[0]
-    # red_weight = red_fighter["Weight"].iloc[0]
-    # red_reach = red_fighter["Reach"].iloc[0]
-    # red_stance = red_fighter["Stance"].iloc[0]
-
-    # # Put the fighter stats in a DataFrame
-    # fvf_df = pd.DataFrame()
-    # fvf_df["Fight_Matchup"] = blue_name + " vs. " + red_name
-    # fvf_df["B_Name"] = blue_name
-    # fvf_df["B_Age"] = blue_age
-    # fvf_df["B_Height"] = blue_height
-    # fvf_df["B_Weight"] = blue_weight
-    # fvf_df["B_Reach"] = blue_reach
-    # fvf_df["B_Stance"] = blue_stance
-    # fvf_df["R_Name"] = red_name
-    # fvf_df["R_Age"] = red_age
-    # fvf_df["R_Height"] = red_height
-    # fvf_df["R_Weight"] = red_weight
-    # fvf_df["R_Reach"] = red_reach
-    # fvf_df["R_Stance"] = red_stance
-
-    # fvf_fight_matchup = fvf_df["Fight_Matchup"]
-
-    # # Predict fight.
-    # prediction, pred_proba = predict(fvf_fight_matchup)
-
-    # # Display results of prediction.
-    # if prediction == "Blue":
-    #     predicted_winner = blue_name
-    # elif prediction == "Red":
-    #     predicted_winner = red_name
-
-    # # Display probability of prediction.
-    # st.write(f"The predicted winner of this fight is: {predicted_winner}.")
-    # st.write(
-    #     f"The predicted probability of the winner being {blue_name} is: {round(pred_proba[0][0] * 100, 2)}%"
-    # )
-    # st.write(
-    #     f"The predicted probability of the winner being {red_name} is: {round(pred_proba[0][1] * 100, 2)}%"
-    # )
-
-    # Display statistics of selected fighter.
-    # col1, col2 = st.columns(2)
-    # col1.subheader(f"{blue_name}")
-    # col1.write(f"Age: {blue_age}")
-    # col1.write(f"Height: {blue_height}")
-    # col1.write(f"Weight: {blue_weight}")
-    # col1.write(f"Reach: {blue_reach}")
-    # col1.write(f"Stance: {blue_stance}")
-    # col2.subheader(f"{red_name}")
-    # col2.write(f"Age: {red_age}")
-    # col2.write(f"Height: {red_height}")
-    # col2.write(f"Weight: {red_weight}")
-    # col2.write(f"Reach: {red_reach}")
-    # col2.write(f"Stance: {red_stance}")
 
 elif data_selection == "Create your own fighter":
     st.subheader("Create your own fighter")
