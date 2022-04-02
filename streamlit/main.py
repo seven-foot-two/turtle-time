@@ -26,6 +26,7 @@ def load_data(query="SELECT * FROM ufc_table LIMIT 10"):
         columns = [desc[0] for desc in cur.description]
         return pd.DataFrame(rows, columns=columns).fillna(np.nan)
 
+
 # Load model.
 # TODO: Add other classifiers.
 def load_model(classifier="../Resources/clf.joblib"):
@@ -44,6 +45,7 @@ def predict(df):
 def create_fight_matchup(df):
     df["Fight_Matchup"] = df["B_Name"] + " vs. " + df["R_Name"]
     return df
+
 
 # Load data from database.
 ufc_df = load_data()
@@ -183,11 +185,13 @@ elif data_selection == "Fighter vs. Fighter":
     col1.subheader(f"{blue_fighter}")
     col2.subheader(f"{red_fighter}")
 
-    ######## Matin's Code
-
     # Get blue & red fighters
-    fighter_stats_blue = fighter_agg_stats[fighter_agg_stats["Name"] == blue_fighter]
-    fighter_stats_red = fighter_agg_stats[fighter_agg_stats["Name"] == red_fighter]
+    fighter_stats_blue = fighter_agg_stats[
+        fighter_agg_stats["Name"] == blue_fighter
+    ].reset_index()
+    fighter_stats_red = fighter_agg_stats[
+        fighter_agg_stats["Name"] == red_fighter
+    ].reset_index()
 
     # Get the fighter stats
     blue_name = fighter_stats_blue["Name"]
@@ -222,7 +226,22 @@ elif data_selection == "Fighter vs. Fighter":
     fvf_df["R_Weight"] = red_weight
     fvf_df["R_Reach"] = red_reach
     fvf_df["R_Stance"] = red_stance
-    # st.write(fvf_df)
+    # st.write(
+    #     fvf_df[
+    #         [
+    #             "B_Name",
+    #             "R_Name",
+    #             "B_Age",
+    #             "R_Age",
+    #             "B_Height",
+    #             "R_Height",
+    #             "B_Reach",
+    #             "R_Reach",
+    #             "B_Stance",
+    #             "R_Stance",
+    #         ]
+    #     ]
+    # )
 
     # Predict fight.
     prediction, pred_proba = predict(fvf_df)
