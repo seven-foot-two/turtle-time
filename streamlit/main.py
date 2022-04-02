@@ -91,9 +91,13 @@ with st.sidebar:
             "Upcoming Fights", ufc_df["Fight_Matchup"],
         )
     elif data_selection == "Fighter vs. Fighter":
-        # TODO: Fighter vs. Fighter
-        blue_fighter = st.sidebar.selectbox("Blue Fighter", ufc_df["B_Name"].unique())
-        red_fighter = st.sidebar.selectbox("Red Fighter", ufc_df["R_Name"].unique())
+        # Fighter vs. Fighter
+        blue_fighter = st.sidebar.selectbox(
+            "Blue Fighter", fighter_agg_stats["Name"].unique()
+        )
+        red_fighter = st.sidebar.selectbox(
+            "Red Fighter", fighter_agg_stats["Name"].unique()
+        )
     elif data_selection == "Create your own fighter":
         # TODO: Create your own fighter
         # I am testing the different Streamlit widgets:
