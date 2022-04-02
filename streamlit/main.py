@@ -152,20 +152,26 @@ if data_selection == "Upcoming Fights":
     # Predict fight.
     prediction, pred_proba = predict(fight_detail)
 
-    # Display results of prediction.
+    # Display results of prediction, changing different formatting for each corner (red or blue) 
     if prediction == "Blue":
         predicted_winner = blue_name
     elif prediction == "Red":
         predicted_winner = red_name
 
+    if predicted_winner == blue_name: 
+        winner = f'<b>The predicted winner of this fight, from <span style="color:blue;">the blue corner</span>, is: <span style="color:blue;font-size:20px">{predicted_winner}</span></b>'
+    elif predicted_winner == red_name:
+        winner = f'<b>The predicted winner of this fight, from <span style="color:red;">the red corner</span>, is: <span style="color:red;font-size:20px">{predicted_winner}</span></b>'
+    st.markdown(winner, unsafe_allow_html=True)
+    
     # Display probability of prediction.
-    st.write(f"The predicted winner of this fight is: {predicted_winner}.")
+    
     st.write(
         f"The predicted probability of the winner being {blue_name} is: {round(pred_proba[0][0] * 100, 2)}%"
-    )
+        )
     st.write(
         f"The predicted probability of the winner being {red_name} is: {round(pred_proba[0][1] * 100, 2)}%"
-    )
+        )
 
     # Display statistics of selected fighter.
     col1, col2 = st.columns(2)
@@ -229,9 +235,14 @@ elif data_selection == "Fighter vs. Fighter":
         predicted_winner = blue_name.iloc[0]
     elif prediction == "Red":
         predicted_winner = red_name.iloc[0]
+    
+    if predicted_winner == blue_name.iloc[0]: 
+        winner = f'<b>The predicted winner of this fight, from the blue corner, is: <span style="color:blue;font-size:20px">{predicted_winner}</span></b>'
+    elif predicted_winner == red_name.iloc[0]:
+        winner = f'<b>The predicted winner of this fight, from the red corner, is: <span style="color:red;font-size:20px">{predicted_winner}</span></b>'
+    st.markdown(winner, unsafe_allow_html=True)
 
     # Display probability of prediction.
-    st.write(f"The predicted winner of this fight is: {predicted_winner}.")
     st.write(
         f"The predicted probability of the winner being {blue_name.iloc[0]} is: {round(pred_proba[0][0] * 100, 2)}%"
     )
@@ -243,12 +254,14 @@ elif data_selection == "Fighter vs. Fighter":
     col1, col2 = st.columns(2)
     col1.subheader(f"{blue_fighter}")
     col2.subheader(f"{red_fighter}")
+
     # Display blue fighter stats
     col1.write(f"Age: {blue_age.iloc[0]}")
     col1.write(f"Height: {blue_height.iloc[0]}")
     col1.write(f"Weight: {blue_weight.iloc[0]}")
     col1.write(f"Reach: {blue_reach.iloc[0]}")
     col1.write(f"Stance: {blue_stance.iloc[0]}")
+
     # Display red fighter stats
     col2.write(f"Age: {red_age.iloc[0]}")
     col2.write(f"Height: {red_height.iloc[0]}")
