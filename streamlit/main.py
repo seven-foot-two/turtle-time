@@ -159,9 +159,9 @@ if data_selection == "Upcoming Fights":
         predicted_winner = red_name
 
     if predicted_winner == blue_name:
-        winner = f'<b>The predicted winner of this fight, from <span style="color:blue;">the blue corner</span>, is: <span style="color:blue;font-size:20px">{predicted_winner}</span></b>'
+        winner = f'<b>The predicted winner of this fight, from <span style="color:#636EFA;">the blue corner</span>, is: <span style="color:#636EFA;font-size:20px">{predicted_winner}</span></b>'
     elif predicted_winner == red_name:
-        winner = f'<b>The predicted winner of this fight, from <span style="color:red;">the red corner</span>, is: <span style="color:red;font-size:20px">{predicted_winner}</span></b>'
+        winner = f'<b>The predicted winner of this fight, from <span style="color:#EF563B;">the red corner</span>, is: <span style="color:#EF563B;font-size:20px">{predicted_winner}</span></b>'
     st.markdown(winner, unsafe_allow_html=True)
 
     # Display probability of prediction.
@@ -174,8 +174,8 @@ if data_selection == "Upcoming Fights":
     )
 
     # Display statistics of selected fighter.
-    blue_header = f'<h1><b><span style="color:blue">Blue</b></h1>'
-    red_header = f'<h1><b><span style="color:red">Red</b></h1>'
+    blue_header = f'<h1><b><span style="color:#636EFA">Blue</b></h1>'
+    red_header = f'<h1><b><span style="color:#EF563B">Red</b></h1>'
 
     col1, col2 = st.columns(2)
     col1.markdown(blue_header, unsafe_allow_html=True)
@@ -307,9 +307,9 @@ elif data_selection == "Fighter vs. Fighter":
         predicted_winner = red_name.iloc[0]
 
     if predicted_winner == blue_name.iloc[0]:
-        winner = f'<b>The predicted winner of this fight, from <span style="color:blue;">the blue corner</span>, is: <span style="color:blue;font-size:20px">{predicted_winner}</span></b>'
+        winner = f'<b>The predicted winner of this fight, from <span style="color:#636EFA;">the blue corner</span>, is: <span style="color:#636EFA;font-size:20px">{predicted_winner}</span></b>'
     elif predicted_winner == red_name.iloc[0]:
-        winner = f'<b>The predicted winner of this fight, from <span style="color:red;">the red corner</span>, is: <span style="color:red;font-size:20px">{predicted_winner}</span></b>'
+        winner = f'<b>The predicted winner of this fight, from <span style="color:#EF563B;">the red corner</span>, is: <span style="color:#EF563B;font-size:20px">{predicted_winner}</span></b>'
     st.markdown(winner, unsafe_allow_html=True)
 
     # Display probability of prediction.
@@ -321,8 +321,8 @@ elif data_selection == "Fighter vs. Fighter":
     )
 
     # Display statistics of selected fighter.
-    blue_header = f'<h1><b><span style="color:blue">Blue</b></h1>'
-    red_header = f'<h1><b><span style="color:red">Red</b></h1>'
+    blue_header = f'<h1><b><span style="color:#636EFA">Blue</b></h1>'
+    red_header = f'<h1><b><span style="color:#EF563B">Red</b></h1>'
 
     col1, col2 = st.columns(2)
     col1.markdown(blue_header, unsafe_allow_html=True)
