@@ -596,14 +596,18 @@ Ultimately, we chose to create our dashboard using the Streamlit library, an ope
 Subject to change, our interactive elements will include:
 - Two drop-downs to allow a user to assign the fighters to model to either the red or blue corner.
 - The above user inputs will also control the images displayed above our interactive elements.
-- A “Predict” button element to run the selections through our model.
-- Two dynamic visualisations:
-    - A gauge indicating the overall prediction percentage(s)
-    - A heatmap showing prediction percentages per round by corner.
+- An ability for our users to create their own fighter by selecting values for key aggregated features to test a hypothetical fighter either again an established fighter or another hypothetical fighter. 
 
-In selecting these elements specifically, we are aiming to center our predictive model and keep the user-experience as streamlined we can. In the future, we hope to include a “build-your-own fighter” element, which would run a prediction based on a fighter with user-selected characteristics (e.g., fight style, average control time, etc.).
+In selecting these elements specifically, we are aiming to center our predictive model and keep the user-experience as streamlined we can. 
 
-You can view our deployed dashboard here: [link pending]
+You can view our deployed dashboard here: [link pending final deployment]
+
+## Future State
+
+Looking ahead, we are focused most closely on improving feature selection to better hone our model's predictive capability. We are happy with where our "Upcoming Fights" modeling has ended up and want to parallel this success with a more accurate and robust "Fighter vs. Fighter" function.The next version of our app's "Fighter vs. Fighter" function will serve up the results from our "Upcoming Fights" dataset if a user selects a matchup that already exists in our database. Since we will have the most up-to-date statistics for each fighter and all fights, this method should serve up the most accurate prediction for the user. 
+
+Beyond feature selection and sharpening our "Fighter vs. Fighter" modeling, we also want to analyze our dataset to find the best features to aggregate for our "Create Your Own Fighter" function. Currently, our app hosts a framework for this function, and we need to narrow down the ~350 features per fighter into more manageable bins that our users would select from. E.g., instead of having a user select the number and type of significant strikes per round, we would combine significant strikes per round into a percentage, which we would then bin and allow the user to select as a feature of their fighter. Our aim is to retain the predictive ability of our model while maintaining a streamlined "Create Your Own Fighter" process. 
+
 
 ## Resources
 
