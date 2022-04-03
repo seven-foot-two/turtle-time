@@ -152,40 +152,40 @@ if data_selection == "Upcoming Fights":
     # Predict fight.
     prediction, pred_proba = predict(fight_detail)
 
-    # Display results of prediction, changing different formatting for each corner (red or blue) 
+    # Display results of prediction, changing different formatting for each corner (red or blue)
     if prediction == "Blue":
         predicted_winner = blue_name
     elif prediction == "Red":
         predicted_winner = red_name
 
-    if predicted_winner == blue_name: 
+    if predicted_winner == blue_name:
         winner = f'<b>The predicted winner of this fight, from <span style="color:blue;">the blue corner</span>, is: <span style="color:blue;font-size:20px">{predicted_winner}</span></b>'
     elif predicted_winner == red_name:
         winner = f'<b>The predicted winner of this fight, from <span style="color:red;">the red corner</span>, is: <span style="color:red;font-size:20px">{predicted_winner}</span></b>'
     st.markdown(winner, unsafe_allow_html=True)
-    
+
     # Display probability of prediction.
-    
+
     st.write(
         f"The predicted probability of the winner being {blue_name} is: {round(pred_proba[0][0] * 100, 2)}%"
-        )
+    )
     st.write(
         f"The predicted probability of the winner being {red_name} is: {round(pred_proba[0][1] * 100, 2)}%"
-        )
+    )
 
     # Display statistics of selected fighter.
-    blue_header=f'<h1><b><span style="color:blue">Blue</b></h1>'
-    red_header=f'<h1><b><span style="color:red">Red</b></h1>'
-    
+    blue_header = f'<h1><b><span style="color:blue">Blue</b></h1>'
+    red_header = f'<h1><b><span style="color:red">Red</b></h1>'
+
     col1, col2 = st.columns(2)
-    col1.markdown(blue_header,unsafe_allow_html=True)
+    col1.markdown(blue_header, unsafe_allow_html=True)
     col1.subheader(f"{blue_name}")
     col1.write(f"Age: {blue_age}")
     col1.write(f"Height: {blue_height}")
     col1.write(f"Weight: {blue_weight}")
     col1.write(f"Reach: {blue_reach}")
     col1.write(f"Stance: {blue_stance}")
-    col2.markdown(red_header,unsafe_allow_html=True)
+    col2.markdown(red_header, unsafe_allow_html=True)
     col2.subheader(f"{red_name}")
     col2.write(f"Age: {red_age}")
     col2.write(f"Height: {red_height}")
@@ -208,15 +208,51 @@ elif data_selection == "Fighter vs. Fighter":
     blue_age = fighter_stats_blue["Age"]
     blue_height = fighter_stats_blue["Height"]
     blue_weight = fighter_stats_blue["Weight"]
+    blue_age_bucket = fighter_stats_blue["Age_Bucket"]
+    blue_height_bucket = fighter_stats_blue["Height_Bucket"]
     blue_reach = fighter_stats_blue["Reach"]
     blue_stance = fighter_stats_blue["Stance"]
+    blue_wins = fighter_stats_blue["Wins"]
+    blue_losses = fighter_stats_blue["Losses"]
+    blue_draws = fighter_stats_blue["Draws"]
+    blue_no_contest = fighter_stats_blue["No_Contest"]
+    blue_career_significant_strikes_landed_PM = fighter_stats_blue[
+        "Career_Significant_Strikes_Landed_PM"
+    ]
+    blue_career_striking_accuracy = fighter_stats_blue["Career_Striking_Accuracy"]
+    blue_career_significant_strike_defence = fighter_stats_blue[
+        "Career_Significant_Strike_Defence"
+    ]
+    blue_career_takedown_average = fighter_stats_blue["Career_Takedown_Average"]
+    blue_career_takedown_accuracy = fighter_stats_blue["Career_Takedown_Accuracy"]
+    blue_career_takedown_defence = fighter_stats_blue["Career_Takedown_Defence"]
+    blue_career_submission_average = fighter_stats_blue["Career_Submission_Average"]
+    blue_knockdowns = fighter_stats_blue["Knockdowns"]
 
     red_name = fighter_stats_red["Name"]
     red_age = fighter_stats_red["Age"]
     red_height = fighter_stats_red["Height"]
     red_weight = fighter_stats_red["Weight"]
+    red_age_bucket = fighter_stats_red["Age_Bucket"]
+    red_height_bucket = fighter_stats_red["Height_Bucket"]
     red_reach = fighter_stats_red["Reach"]
     red_stance = fighter_stats_red["Stance"]
+    red_wins = fighter_stats_red["Wins"]
+    red_losses = fighter_stats_red["Losses"]
+    red_draws = fighter_stats_red["Draws"]
+    red_no_contest = fighter_stats_red["No_Contest"]
+    red_career_significant_strikes_landed_PM = fighter_stats_red[
+        "Career_Significant_Strikes_Landed_PM"
+    ]
+    red_career_striking_accuracy = fighter_stats_red["Career_Striking_Accuracy"]
+    red_career_significant_strike_defence = fighter_stats_red[
+        "Career_Significant_Strike_Defence"
+    ]
+    red_career_takedown_average = fighter_stats_red["Career_Takedown_Average"]
+    red_career_takedown_accuracy = fighter_stats_red["Career_Takedown_Accuracy"]
+    red_career_takedown_defence = fighter_stats_red["Career_Takedown_Defence"]
+    red_career_submission_average = fighter_stats_red["Career_Submission_Average"]
+    red_knockdowns = fighter_stats_red["Knockdowns"]
 
     fvf_df = pd.DataFrame(columns=ufc_df.columns)
     fvf_df["B_Name"] = blue_name
@@ -225,12 +261,41 @@ elif data_selection == "Fighter vs. Fighter":
     fvf_df["B_Weight"] = blue_weight
     fvf_df["B_Reach"] = blue_reach
     fvf_df["B_Stance"] = blue_stance
+    fvf_df["B_Age_Bucket"] = blue_age_bucket
+    fvf_df["B_Height_Bucket"] = blue_height_bucket
+    fvf_df["B_Wins"] = blue_wins
+    fvf_df["B_Draws"] = blue_draws
+    fvf_df["B_No_Contest"] = blue_no_contest
+    fvf_df[
+        "B_Career_Significant_Strikes_Landed_PM"
+    ] = blue_career_significant_strikes_landed_PM
+    fvf_df["B_Career_Striking_Accuracy"] = blue_career_striking_accuracy
+    fvf_df["B_Career_Takedown_Average"] = blue_career_submission_average
+    fvf_df["B_Career_Takedown_Accuracy"] = blue_career_takedown_accuracy
+    fvf_df["B_Career_Takedown_Defence"] = blue_career_takedown_defence
+    fvf_df["B_Career_Submission_Average"] = blue_career_submission_average
+    fvf_df["B_Knockdowns"] = blue_knockdowns
+
     fvf_df["R_Name"] = red_name
     fvf_df["R_Age"] = red_age
     fvf_df["R_Height"] = red_height
     fvf_df["R_Weight"] = red_weight
     fvf_df["R_Reach"] = red_reach
     fvf_df["R_Stance"] = red_stance
+    fvf_df["R_Age_Bucket"] = red_age_bucket
+    fvf_df["R_Height_Bucket"] = red_height_bucket
+    fvf_df["R_Wins"] = red_wins
+    fvf_df["R_Draws"] = red_draws
+    fvf_df["R_No_Contest"] = red_no_contest
+    fvf_df[
+        "R_Career_Significant_Strikes_Landed_PM"
+    ] = red_career_significant_strikes_landed_PM
+    fvf_df["R_Career_Striking_Accuracy"] = red_career_striking_accuracy
+    fvf_df["R_Career_Takedown_Average"] = red_career_submission_average
+    fvf_df["R_Career_Takedown_Accuracy"] = red_career_takedown_accuracy
+    fvf_df["R_Career_Takedown_Defence"] = red_career_takedown_defence
+    fvf_df["R_Career_Submission_Average"] = red_career_submission_average
+    fvf_df["R_Knockdowns"] = red_knockdowns
 
     # Predict fight.
     prediction, pred_proba = predict(fvf_df)
@@ -240,8 +305,8 @@ elif data_selection == "Fighter vs. Fighter":
         predicted_winner = blue_name.iloc[0]
     elif prediction == "Red":
         predicted_winner = red_name.iloc[0]
-    
-    if predicted_winner == blue_name.iloc[0]: 
+
+    if predicted_winner == blue_name.iloc[0]:
         winner = f'<b>The predicted winner of this fight, from <span style="color:blue;">the blue corner</span>, is: <span style="color:blue;font-size:20px">{predicted_winner}</span></b>'
     elif predicted_winner == red_name.iloc[0]:
         winner = f'<b>The predicted winner of this fight, from <span style="color:red;">the red corner</span>, is: <span style="color:red;font-size:20px">{predicted_winner}</span></b>'
@@ -256,13 +321,13 @@ elif data_selection == "Fighter vs. Fighter":
     )
 
     # Display statistics of selected fighter.
-    blue_header=f'<h1><b><span style="color:blue">Blue</b></h1>'
-    red_header=f'<h1><b><span style="color:red">Red</b></h1>'
+    blue_header = f'<h1><b><span style="color:blue">Blue</b></h1>'
+    red_header = f'<h1><b><span style="color:red">Red</b></h1>'
 
     col1, col2 = st.columns(2)
-    col1.markdown(blue_header,unsafe_allow_html=True)
+    col1.markdown(blue_header, unsafe_allow_html=True)
     col1.subheader(f"{blue_fighter}")
-    col2.markdown(red_header,unsafe_allow_html=True)
+    col2.markdown(red_header, unsafe_allow_html=True)
     col2.subheader(f"{red_fighter}")
 
     # Display blue fighter stats
