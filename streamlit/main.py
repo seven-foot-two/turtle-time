@@ -172,13 +172,18 @@ if data_selection == "Upcoming Fights":
         )
 
     # Display statistics of selected fighter.
+    blue_header=f'<h1><b><span style="color:blue">Blue</b></h1>'
+    red_header=f'<h1><b><span style="color:red">Red</b></h1>'
+    
     col1, col2 = st.columns(2)
+    col1.markdown(blue_header,unsafe_allow_html=True)
     col1.subheader(f"{blue_name}")
     col1.write(f"Age: {blue_age}")
     col1.write(f"Height: {blue_height}")
     col1.write(f"Weight: {blue_weight}")
     col1.write(f"Reach: {blue_reach}")
     col1.write(f"Stance: {blue_stance}")
+    col2.markdown(red_header,unsafe_allow_html=True)
     col2.subheader(f"{red_name}")
     col2.write(f"Age: {red_age}")
     col2.write(f"Height: {red_height}")
@@ -235,9 +240,9 @@ elif data_selection == "Fighter vs. Fighter":
         predicted_winner = red_name.iloc[0]
     
     if predicted_winner == blue_name.iloc[0]: 
-        winner = f'<b>The predicted winner of this fight, from the blue corner, is: <span style="color:blue;font-size:20px">{predicted_winner}</span></b>'
+        winner = f'<b>The predicted winner of this fight, from <span style="color:blue;">the blue corner</span>, is: <span style="color:blue;font-size:20px">{predicted_winner}</span></b>'
     elif predicted_winner == red_name.iloc[0]:
-        winner = f'<b>The predicted winner of this fight, from the red corner, is: <span style="color:red;font-size:20px">{predicted_winner}</span></b>'
+        winner = f'<b>The predicted winner of this fight, from <span style="color:red;">the red corner</span>, is: <span style="color:red;font-size:20px">{predicted_winner}</span></b>'
     st.markdown(winner, unsafe_allow_html=True)
 
     # Display probability of prediction.
@@ -249,8 +254,13 @@ elif data_selection == "Fighter vs. Fighter":
     )
 
     # Display statistics of selected fighter.
+    blue_header=f'<h1><b><span style="color:blue">Blue</b></h1>'
+    red_header=f'<h1><b><span style="color:red">Red</b></h1>'
+
     col1, col2 = st.columns(2)
+    col1.markdown(blue_header,unsafe_allow_html=True)
     col1.subheader(f"{blue_fighter}")
+    col2.markdown(red_header,unsafe_allow_html=True)
     col2.subheader(f"{red_fighter}")
 
     # Display blue fighter stats
