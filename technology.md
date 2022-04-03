@@ -9,4 +9,4 @@ We'll be running the data on an OVH server using AlmaLinux as the distro, and we
 We'll be using SciKitLearn as our ML library in order to create a classifier. To start, this will be a simple logistic regression to make sure the model works properly with the dataset.  Our training and testing data will be split using the standard 80:20 ratio. We will also be experimenting with Python's AutoML libraries in an attempt to increase performance.
 
 ## Dashboard
-We'll be creating an interactive dashboard using Metabase.
+We'll be creating an interactive dashboard using Streamlit.

@@ -6,33 +6,33 @@ from pathlib import Path
 base_url = "http://ufcstats.com/statistics/events/completed?page=all"
 
 
-# Instantiating the list to hold the URL of each fight of each event
+# Instantiate the list to hold the URL of each fight of each event
 url_fight_list = []
 empty_list = []
 
-#Funtion created to scrape the URLs needed for fight data1
+# Create function to scrape the URLs needed for fight data1
 def url_scraper(URL):
 
-    # Instantiating the list to hold fight event URLs from base_url
+    # Instantiate the list to store fight event URLs from base_url
     url_event_list = []
-    # Requesting page
+    # Request page
     page = requests.get(URL)
-    # Parsing page content
+    # Parse page content
     soup = BeautifulSoup(page.content, "html.parser")
 
-    # Found the one and only table on the page, which contains each event in a "row"
+    # Find the one and only table on the page, which contains each event in a "row"
     event_table = soup.find("table", {"class": "b-statistics__table-events"})
 
     # USER MESSAGE
     print("Extracting Event URLs...")
 
-    # Finding all of the <a> tags within the table, which contain the event url
+    # Find all of the <a> tags within the table, which contain the event url
     for td in event_table.find_all("a")[1:]:
 
-        # Using .get("href") to grab the url and assigning it to "link"
+        # Use .get("href") to grab the url and assigning it to "link"
         link = td.get("href")
 
-        # Checking if url is already in url_event_list, if NOT, appends it.
+        # Check if url is already in url_event_list, if NOT, appends it.
         if link not in url_event_list:
             url_event_list.append(link)
 
@@ -42,7 +42,7 @@ def url_scraper(URL):
     print("Event URL Extraction COMPLETE. Moving on...\nExtracting fight stat URLs...")
 
 
-    # Looping through url_event_list to grab the urls associated with each fight
+    # Loop through url_event_list to grab the urls associated with each fight
     # Essentially the same as scraping for url_event_list above
     for url in url_event_list:
         event_page = requests.get(url)
@@ -85,7 +85,7 @@ months = {"Jan": 1,
 
 fight_stat_list =[]
 
-# Function that intakes the fight urls and gathers stats.
+# Intake fight urls and gathers stats.
 def stat_scraper(fight_list):
     new_scraped_list = []
     prev_scraped_list = []
@@ -106,7 +106,7 @@ def stat_scraper(fight_list):
             new_fight_list.append(url.strip())
     print(new_fight_list)
 
-    # Looping through the urls in fight_list
+    # Loop through the urls in fight_list
     for url in new_fight_list:
         try :
 
@@ -120,12 +120,12 @@ def stat_scraper(fight_list):
             event_date_soup = BeautifulSoup(event_date_page.content, "html.parser")
             event_date = event_date_soup.find("li", {"class": "b-list__box-list-item"}).text.replace("Date:","").strip()
 
-            # Converting date to xx/xx/xxxx format
+            # Convert date to xx/xx/xxxx format
             event_date_convertions = "%B %d, %Y"
             event_date_converted = datetime.datetime.strptime(event_date,
                                                                     event_date_convertions)
 
-            # Stripping excess
+            # Strip excess
             event_date_cleaned = str(event_date_converted).strip("00:00:00").strip()
 
 
@@ -133,15 +133,16 @@ def stat_scraper(fight_list):
             event_date_split = event_date_cleaned.split("-")
             event_year, event_month, event_day = event_date_split[0], event_date_split[1], event_date_split[2]
 
-            # Getting the weight class of the bout. Stripping "Bout", leaving only the weight class
+            # Retrieve the weight class of the bout
+            # Strip "Bout", leaving only the weight class
             bout_weight_class = stat_soup.find("i", {"class": "b-fight-details__fight-title"}).text.replace("Bout", "").strip()
 
 
-            # Getting fighter corner color
+            # Get fighter corner color
             red_fighter_div = fighter_name_main_div.find("i", {"class": "b-fight-details__charts-name b-fight-details__charts-name_pos_left js-chart-name"})
             blue_fighter_div = fighter_name_main_div.find("i", {"class": "b-fight-details__charts-name b-fight-details__charts-name_pos_right js-chart-name"})
 
-            # fighter name assigned to corner color
+            # Assign fighter name to corner color
             blue_fighter = blue_fighter_div.text.strip()
             red_fighter = red_fighter_div.text.strip()
 
@@ -149,10 +150,10 @@ def stat_scraper(fight_list):
             blue_career_stat_url = ""
             red_career_stat_url = ""
 
-            # Getting the winners name and career stat URL
+            # Get the winner's name and career stats URL
             for div in fighter_name_main_div.find_all("div", {"class": "b-fight-details__person"}):
 
-                # Getting career stat url for fighter
+                # Create career stat url for fighter
                 fighter_href_div = div.find("a")
                 fighter_career_name = fighter_href_div.text.strip()
                 fighter_career_href = fighter_href_div.get("href")
@@ -166,27 +167,28 @@ def stat_scraper(fight_list):
                 fighter_header = div.find('i')
                 header_text = fighter_header.text
 
-                # Checks if header text contains "W" (Winner)
+                # Check if header text contains "W" (Winner)
                 if header_text.strip() == "W":
                     # If header text contains "W", the corrisponding name is extracted and assigned to "winner_name"
                     winner_text = div.find("a", {"class": {"b-link b-fight-details__person-link"}})
                     winner_name = winner_text.text.strip()
 
-                    # Comparing "winner_namer" to each corner colors fighter name. If match, winner color is instantiated.
+                    # Compare "winner_namer" to each corner's (Red or Blue) fighter name
+                    # If match, instantiate winner color
                     if winner_name == blue_fighter:
                         winner = "Blue"
                     elif winner_name == red_fighter:
                         winner = "Red"
 
 
-            # Getting fight details div
+            # Get fight details div
             outcome_div = fighter_name_main_div.find("p", {"class":"b-fight-details__text"})
 
-            # Checking <i> tag holding method of victory
+            # Check<i> tag holding method of victory
             method_div = outcome_div.find("i", {"style": "font-style: normal"})
 
             fight_win_method = ""
-            # Assigning "fight_win_method" through comparison
+            # Assign "fight_win_method" through comparison
             if "Decision" in method_div.text:
                fight_win_method = "DEC"
             elif "KO/TKO" in method_div.text:
@@ -197,7 +199,7 @@ def stat_scraper(fight_list):
             max_rounds = ""
             ending_round = ""
 
-            # Getting the Round the fight ended and number of maximum possible rounds.
+            # Get the Round the fight ended and number of maximum possible rounds.
             for i in outcome_div.find_all("i", {"class": "b-fight-details__label"}):
 
                 if "Round:" in i.text:
@@ -209,8 +211,8 @@ def stat_scraper(fight_list):
 
 
 
-            # CAREER STAT RETRIEVAL STARTS HERE
-            # BLUE CORNER
+            ### CAREER STAT RETRIEVAL STARTS HERE
+            ## BLUE CORNER
             blue_career_stat_page = requests.get(blue_career_stat_url)
             blue_career_stat_soup = BeautifulSoup(blue_career_stat_page.content, "html.parser")
             blue_main_career_stats_ul = blue_career_stat_soup.find('ul', {'class': 'b-list__box-list'})
@@ -235,7 +237,7 @@ def stat_scraper(fight_list):
             
 
 
-            # getting fighters wins, losses and draws
+            # Get fighter's wins, losses and draws
             title = blue_career_stat_soup.find("h2", {"class": "b-content__title"})
             blue_fighter_record = title.select_one(":nth-child(2)")
             blue_fighter_WLD = blue_fighter_record.text.strip().strip('Record: ').split('-')
@@ -244,19 +246,19 @@ def stat_scraper(fight_list):
             blue_age_month_clean = ""
             for li in blue_main_career_stats_li:
 
-                # Finding the <i> tag thats within each <li> tag
+                # Find the <i> tag thats within each <li> tag
 
                 blue_stat = li.find('i', {'class': 'b-list__box-item-title b-list__box-item-title_type_width'})
 
-                # Checking to see if "Height" exists within the <i> tag
+                # Check to see if "Height" exists within the <i> tag
                 if "Height:" in blue_stat.text:
                     # If it is, fighterHeights is instantiated with the
                     # next sibling (In this case, the fighters height)
                     blue_fighter_height_dirty = blue_stat.next_sibling
-                    # Reformatting by removing unwanted html
+                    # Reformat by removing unwanted html
                     blue_fighter_height_clean = ''.join(c for c in blue_fighter_height_dirty if c.isalnum())
 
-                    # Reformatting by adding the feet and inches symbols back into the fighters height
+                    # Reformat by adding the feet and inches symbols back into the fighters height
                     blue_fighter_Height_cleaned = blue_fighter_height_clean[:1] + "'" + blue_fighter_height_clean[1:] + '"'
 
                     inches_gathering = blue_fighter_Height_cleaned.split("'")
@@ -277,7 +279,7 @@ def stat_scraper(fight_list):
                     blue_fighter_Stance = blue_stat.next_sibling.text.strip()
 
 
-                # Gets DOB and calculates age
+                # Get DOB and calculates age
                 if "DOB:" in blue_stat.text:
                     blue_fighter_Age_dirty = blue_stat.next_sibling.text.strip()
                     blue_fighter_age_convertions = "%b %d, %Y"
@@ -324,7 +326,7 @@ def stat_scraper(fight_list):
                     if "Sub. Avg.:" in i.text:
                         blue_fighter_Sub_Avg = i.next_sibling.text.strip()
 
-            # RED CORNER
+            ## RED CORNER
             red_career_stat_page = requests.get(red_career_stat_url)
             red_career_stat_soup = BeautifulSoup(red_career_stat_page.content, "html.parser")
             red_main_career_stats_ul = red_career_stat_soup.find('ul', {'class': 'b-list__box-list'})
@@ -348,7 +350,7 @@ def stat_scraper(fight_list):
             red_fighter_Td_Def = ""
             red_fighter_Sub_Avg = ""
 
-            # getting fighters wins, losses and draws
+            # Get fighter's wins, losses and draws
             title = red_career_stat_soup.find("h2", {"class": "b-content__title"})
             red_fighter_record = title.select_one(":nth-child(2)")
             red_fighter_WLD = red_fighter_record.text.strip().strip('Record: ').split('-')
@@ -357,19 +359,19 @@ def stat_scraper(fight_list):
             red_age_month_clean = ""
             for li in red_main_career_stats_li:
 
-                # Finding the <i> tag thats within each <li> tag
+                # Find the <i> tag thats within each <li> tag
 
                 red_stat = li.find('i', {'class': 'b-list__box-item-title b-list__box-item-title_type_width'})
 
-                # Checking to see if "Height" exists within the <i> tag
+                # Check to see if "Height" exists within the <i> tag
                 if "Height:" in red_stat.text:
-                    # If it is, fighterHeights is instantiated with the
-                    # next sibling (In this case, the fighters height)
+                    # If it is, instantiate fighterHeights with the
+                    # next sibling (In this case, the fighter's height)
                     red_fighter_height_dirty = red_stat.next_sibling
-                    # Reformatting by removing unwanted html
+                    # Reformat by removing unwanted html
                     red_fighter_height_clean = ''.join(c for c in red_fighter_height_dirty if c.isalnum())
 
-                    # Reformatting by adding the feet and inches symbols back into the fighters height
+                    # Reformat by adding the feet and inches symbols back into the fighters height
                     red_fighter_Height_cleaned = red_fighter_height_clean[:1] + "'" + red_fighter_height_clean[
                                                                                         1:] + '"'
 
@@ -389,7 +391,7 @@ def stat_scraper(fight_list):
                 if "STANCE:" in red_stat.text:
                     red_fighter_Stance = red_stat.next_sibling.text.strip()
 
-                # Gets DOB and calculates age
+                # Get DOB and calculates age
                 if "DOB:" in red_stat.text:
                     red_fighter_Age_dirty = red_stat.next_sibling.text.strip()
                     red_fighter_age_convertions = "%b %d, %Y"
@@ -441,7 +443,7 @@ def stat_scraper(fight_list):
                         
                         
 
-            # Instantiating values here so they can be assigned to the dictionary
+            # Instantiate values here so they can be assigned to the dictionary
             Red_Significant_Strikes_Landed = ""
             Red_Significant_Strikes_Attempted = ""
             Blue_Significant_Strikes_Landed = ""
@@ -467,10 +469,10 @@ def stat_scraper(fight_list):
             red_knockdowns = ""
             blue_knockdowns = ""
 
-            # Getting the "Totals" table
+            # Get the "Totals" table
             total_overall_table = stat_soup.find("table")
 
-            # Looping through the "rows"
+            # Loop through the "rows"
             for tab in total_overall_table.find_all("tbody"):
                 fighter1rowList = []
                 fighter2rowList = []
@@ -478,13 +480,13 @@ def stat_scraper(fight_list):
                 red_fighter_row = []
                 row = tab.find_all("td")
 
-                # Looping through the column of each row
+                # Loop through the column of each row
                 for r in row:
                     fighter1rowList.append(r.select_one(":nth-child(1)").text)
                     fighter2rowList.append(r.select_one(":nth-child(2)").text)
 
 
-                # Assigning the values to a list based on the fighters corner color
+                # Assign the values to a list based on the fighters corner color
                 if fighter1rowList[0].strip() == blue_fighter:
                     for i in fighter1rowList:
                         blue_fighter_row.append(i)
@@ -499,12 +501,12 @@ def stat_scraper(fight_list):
                     for i in fighter2rowList:
                         red_fighter_row.append(i)
 
-                # Referencing and assigning the Knockdown variables in X_fighter_row
+                # Reference and assigning the Knockdown variables in X_fighter_row
                 red_knockdowns = red_fighter_row[1].strip()
                 blue_knockdowns = blue_fighter_row[1].strip()
 
 
-                # Splitting total table stats and assigning to each corner color
+                # Split total table stats and assign to each corner color
                 Red_Significant_Strikes_Landed = red_fighter_row[2].split("of")[0].strip()
                 Red_Significant_Strikes_Attempted = red_fighter_row[2].split("of")[1].strip()
                 Blue_Significant_Strikes_Landed = blue_fighter_row[2].split("of")[0].strip()
@@ -539,11 +541,11 @@ def stat_scraper(fight_list):
             fighter1SigStrikeRowList = []
             fighter2SigStrikeRowList = []
 
-            # Getting the "Significant Strikes" table
+            # Get the "Significant Strikes" table
             Sig_Strike_overall_table = stat_soup.find_all("table")[2]
 
             Sig_Strike_overall_tbody = Sig_Strike_overall_table.find("tbody", {"class": "b-fight-details__table-body"})
-            # Looping through <tbody> "rows"
+            # Loop through <tbody> "rows"
             for i in Sig_Strike_overall_tbody.find_all("td"):
                 fighter1SigStrikeRowList.append(i.select_one(":nth-child(1)").text)
                 fighter2SigStrikeRowList.append(i.select_one(":nth-child(2)").text)
@@ -553,7 +555,7 @@ def stat_scraper(fight_list):
             blue_sig_strike_fighter_row = []
             red_sig_strike_fighter_row = []
 
-            # deciding corner color base on fighter name vs blue_fighter or red_fighter name
+            # Decide corner color base on fighter name vs blue_fighter or red_fighter name
             if fighter1SigStrikeRowList[0].strip() == blue_fighter:
                 for i in fighter1SigStrikeRowList:
                     blue_sig_strike_fighter_row.append(i)
@@ -568,7 +570,7 @@ def stat_scraper(fight_list):
                 for i in fighter2SigStrikeRowList:
                     red_sig_strike_fighter_row.append(i)
 
-            # Splitting total table stats (Attempted Vs. Landed) assigning to each color
+            # Split total table stats (Attempted Vs. Landed) assigning to each color
             Red_Head_Significant_Strikes_Landed = red_sig_strike_fighter_row[3].split("of")[0].strip()
             Red_Head_Significant_Strikes_Attempted = red_sig_strike_fighter_row[3].split("of")[1].strip()
             Blue_Head_Significant_Strikes_Landed = blue_sig_strike_fighter_row[3].split("of")[0].strip()
@@ -602,18 +604,18 @@ def stat_scraper(fight_list):
 
 
 
-            # Instantiating strings to find each rounds "section"
+            # Instantiate strings to find each rounds "section"
             round_one = "Round 1"
             round_two = "Round 2"
             round_three = "Round 3"
             round_four = "Round 4"
             round_five = "Round 5"
 
-            # Getting the section containing the "Totals" table round information
+            # Get the section containing the "Totals" table round information
             Rounds_totals_round_table = stat_soup.find_all("section", {"class": "b-fight-details__section js-fight-section"})[2]
             totals_round_table = Rounds_totals_round_table.find("table", {"class": "b-fight-details__table js-fight-table"})
 
-            # Finding all round headers within the Totals table
+            # Find all round headers within the Totals table
             roundHeaders = totals_round_table.find_all("thead", {
                 "class": "b-fight-details__table-row b-fight-details__table-row_type_head"})
 
@@ -781,7 +783,7 @@ def stat_scraper(fight_list):
             B_Round_Five_Grappling_Reversals = ""
             B_Round_Five_Grappling_Control_Time = ""
 
-            # GETS Total (table) values of each round:
+            # Get Total (table) values of each round:
             for i in roundHeaders:
                 # ROUND 1
                 # If the loop encounters the header "Round 1", continue...
@@ -796,7 +798,7 @@ def stat_scraper(fight_list):
                             R1_Fighter1_Totals_Table_List.append(y.select_one(":nth-child(1)").text)
                             R1_Fighter2_Totals_Table_List.append(y.select_one(":nth-child(2)").text)
 
-                    # Assigning the values to a list based on the fighters corner color
+                    # Assigni the values to a list based on the fighter's corner color
                     if R1_Fighter1_Totals_Table_List[0].strip() == blue_fighter:
                         for z in R1_Fighter1_Totals_Table_List:
                             R1_Blue_Fighter_Totals_Row.append(z)
@@ -822,7 +824,7 @@ def stat_scraper(fight_list):
                             R2_Fighter1_Totals_Table_List.append(y.select_one(":nth-child(1)").text)
                             R2_Fighter2_Totals_Table_List.append(y.select_one(":nth-child(2)").text)
 
-                    # Assigning the values to a list based on the fighters corner color
+                    # Assign the values to a list based on the fighter's corner color
                     if R2_Fighter1_Totals_Table_List[0].strip() == blue_fighter:
                         for z in R2_Fighter1_Totals_Table_List:
                             R2_Blue_Fighter_Totals_Row.append(z)
@@ -849,7 +851,7 @@ def stat_scraper(fight_list):
                             R3_Fighter1_Totals_Table_List.append(y.select_one(":nth-child(1)").text)
                             R3_Fighter2_Totals_Table_List.append(y.select_one(":nth-child(2)").text)
 
-                    # Assigning the values to a list based on the fighters corner color
+                    # Assign the values to a list based on the fighter's corner color
                     if R3_Fighter1_Totals_Table_List[0].strip() == blue_fighter:
                         for z in R3_Fighter1_Totals_Table_List:
                             R3_Blue_Fighter_Totals_Row.append(z)
@@ -876,7 +878,7 @@ def stat_scraper(fight_list):
                             R4_Fighter1_Totals_Table_List.append(y.select_one(":nth-child(1)").text)
                             R4_Fighter2_Totals_Table_List.append(y.select_one(":nth-child(2)").text)
 
-                    # Assigning the values to a list based on the fighters corner color
+                    # Assign the values to a list based on the fighter's corner color
                     if R4_Fighter1_Totals_Table_List[0].strip() == blue_fighter:
                         for z in R4_Fighter1_Totals_Table_List:
                             R4_Blue_Fighter_Totals_Row.append(z)
@@ -902,7 +904,7 @@ def stat_scraper(fight_list):
                             R5_Fighter1_Totals_Table_List.append(y.select_one(":nth-child(1)").text)
                             R5_Fighter2_Totals_Table_List.append(y.select_one(":nth-child(2)").text)
 
-                    # Assigning the values to a list based on the fighters corner color
+                    # Assign the values to a list based on the fighter's corner color
                     if R5_Fighter1_Totals_Table_List[0].strip() == blue_fighter:
                         for z in R5_Fighter1_Totals_Table_List:
                             R5_Blue_Fighter_Totals_Row.append(z)
@@ -916,7 +918,7 @@ def stat_scraper(fight_list):
                         for z in R5_Fighter2_Totals_Table_List:
                             R5_Red_Fighter_Totals_Row.append(z)
 
-            # fighter values being assigned for each round.
+            ### Assign fighter values for each round.
                 ## ROUND 1 RED FIGHTER STATS
             if R1_Red_Fighter_Totals_Row != empty_list:
                 R_Round_One_Knockdowns = R1_Red_Fighter_Totals_Row[1].strip()
@@ -1242,17 +1244,17 @@ def stat_scraper(fight_list):
             R_Round_Five_Leg_Significant_Strikes_Attempted = ""
             R_Round_Five_Leg_Significant_Strikes_Landed = ""
 
-            # Using Beautiful soup to find Significant Strikes Rounds table
+            # Use Beautiful soup to find Significant Strikes Rounds table
             Rounds_totals_round_table2 = \
             stat_soup.find_all("section", {"class": "b-fight-details__section js-fight-section"})[4]
             totals_round_table2 = Rounds_totals_round_table2.find("table",
                                                                   {"class": "b-fight-details__table js-fight-table"})
 
-            # Finding all round headers within the Totals table
+            # Find all round headers within the Totals table
             roundHeaders2 = totals_round_table2.find_all("thead", {
                 "class": "b-fight-details__table-row b-fight-details__table-row_type_head"})
 
-            # GETS Significant Strikes (table) values of each round:
+            # Get Significant Strikes (table) values of each round:
             for i in roundHeaders2:
                 # ROUND 1
                 # If the loop encounters the header "Round 1", continue...
@@ -1293,7 +1295,7 @@ def stat_scraper(fight_list):
                             R2_Fighter1_SS_Table_List.append(y.select_one(":nth-child(1)").text)
                             R2_Fighter2_SS_Table_List.append(y.select_one(":nth-child(2)").text)
 
-                    # Assigning the values to a list based on the fighters corner color
+                    # Assign the values to a list based on the fighter's corner color
                     if R2_Fighter1_SS_Table_List[0].strip() == blue_fighter:
                         for z in R2_Fighter1_SS_Table_List:
                             R2_Blue_Fighter_SS_Row.append(z)
@@ -1319,7 +1321,7 @@ def stat_scraper(fight_list):
                             R3_Fighter1_SS_Table_List.append(y.select_one(":nth-child(1)").text)
                             R3_Fighter2_SS_Table_List.append(y.select_one(":nth-child(2)").text)
 
-                    # Assigning the values to a list based on the fighters corner color
+                    # Assign the values to a list based on the fighter's corner color
                     if R3_Fighter1_SS_Table_List[0].strip() == blue_fighter:
                         for z in R3_Fighter1_SS_Table_List:
                             R3_Blue_Fighter_SS_Row.append(z)
@@ -1345,7 +1347,7 @@ def stat_scraper(fight_list):
                             R4_Fighter1_SS_Table_List.append(y.select_one(":nth-child(1)").text)
                             R4_Fighter2_SS_Table_List.append(y.select_one(":nth-child(2)").text)
 
-                    # Assigning the values to a list based on the fighters corner color
+                    # Assign the values to a list based on the fighter's corner color
                     if R4_Fighter1_SS_Table_List[0].strip() == blue_fighter:
                         for z in R4_Fighter1_SS_Table_List:
                             R4_Blue_Fighter_SS_Row.append(z)
@@ -1372,7 +1374,7 @@ def stat_scraper(fight_list):
                             R5_Fighter1_SS_Table_List.append(y.select_one(":nth-child(1)").text)
                             R5_Fighter2_SS_Table_List.append(y.select_one(":nth-child(2)").text)
 
-                    # Assigning the values to a list based on the fighters corner color
+                    # Assign the values to a list based on the fighter's corner color
                     if R5_Fighter1_SS_Table_List[0].strip() == blue_fighter:
                         for z in R5_Fighter1_SS_Table_List:
                             R5_Blue_Fighter_SS_Row.append(z)
@@ -1544,7 +1546,7 @@ def stat_scraper(fight_list):
                 R_Round_Five_Significant_Strikes_Ground_Attempted = R5_Red_Fighter_SS_Row[8].split("of")[1].strip()
 
 
-            # Dictionary to be used for writing to CSV file.
+            # Dictionary to write to CSV file.
             fight_stat_dict = {
                 "Event_Date": event_date_cleaned,
                 "Weight_Class": bout_weight_class,
@@ -1889,7 +1891,7 @@ def stat_scraper(fight_list):
 
     path = Path("../newest_dataset.csv")
     keys = fight_stat_list[0].keys()
-    # writing fight results to CSV
+    # Write fight results to CSV
     if path.is_file():
         with open("../newest_dataset.csv", "a", newline='') as output_file:
             writer = csv.DictWriter(output_file, keys)
@@ -1901,7 +1903,7 @@ def stat_scraper(fight_list):
             writer.writeheader()
             writer.writerows(fight_stat_list)
 
-    # storing the urls that have been tested for comparison when rerunning.
+    # Store the urls that have been tested for comparison when rerunning.
     with open("prev_scraped_urls.txt", "r+") as w:
         for link in new_fight_list:
             if link not in w.readlines():
