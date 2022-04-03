@@ -330,14 +330,14 @@ elif data_selection == "Fighter vs. Fighter":
     col2.markdown(red_header, unsafe_allow_html=True)
     col2.subheader(f"{red_fighter}")
 
-    # Display blue fighter stats
+    # Display blue fighter stats.
     col1.write(f"Age: {blue_age.iloc[0]}")
     col1.write(f"Height: {blue_height.iloc[0]}")
     col1.write(f"Weight: {blue_weight.iloc[0]}")
     col1.write(f"Reach: {blue_reach.iloc[0]}")
     col1.write(f"Stance: {blue_stance.iloc[0]}")
 
-    # Display red fighter stats
+    # Display red fighter stats.
     col2.write(f"Age: {red_age.iloc[0]}")
     col2.write(f"Height: {red_height.iloc[0]}")
     col2.write(f"Weight: {red_weight.iloc[0]}")

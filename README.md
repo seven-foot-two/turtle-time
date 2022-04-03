@@ -608,6 +608,15 @@ Looking ahead, we are focused most closely on improving feature selection to bet
 
 Beyond feature selection and sharpening our "Fighter vs. Fighter" modeling, we also want to analyze our dataset to find the best features to aggregate for our "Create Your Own Fighter" function. Currently, our app hosts a framework for this function, and we need to narrow down the ~350 features per fighter into more manageable bins that our users would select from. E.g., instead of having a user select the number and type of significant strikes per round, we would combine significant strikes per round into a percentage, which we would then bin and allow the user to select as a feature of their fighter. Our aim is to retain the predictive ability of our model while maintaining a streamlined "Create Your Own Fighter" process. 
 
+### Existing Coding & Research "To-Do's:"
+Exploration/Transformation: 
+
+- Create `other` category for anything that does not fall in standardized Weight_Class.
+- Determine why `Max_Rounds` being inferred as a object and not `Ending_Round`.
+- Look into whether or not there is a benefit to using `.reindex` when sorting. 
+- Figure out if there is a better way to define `gender` than `str.contains`.
+- Convert time features into more usable datatype. 
+
 
 ## Resources
 
