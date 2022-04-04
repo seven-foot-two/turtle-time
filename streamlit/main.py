@@ -176,9 +176,9 @@ if data_selection == "Upcoming Fights":
         predicted_winner = red_name
 
     if predicted_winner == blue_name:
-        winner = f'<b>The predicted winner of this fight, from <span style="color:#636EFA;">the blue corner</span>, is: <span style="color:#636EFA;font-size:20px">{predicted_winner}</span></b>'
+        winner = f'<b>The predicted winner of this fight, from <span style="color:#636EFA;">the blue corner</span>, is: <span style="color:#636EFA;font-size:20px">{predicted_winner}</span></b>.'
     elif predicted_winner == red_name:
-        winner = f'<b>The predicted winner of this fight, from <span style="color:#EF563B;">the red corner</span>, is: <span style="color:#EF563B;font-size:20px">{predicted_winner}</span></b>'
+        winner = f'<b>The predicted winner of this fight, from <span style="color:#EF563B;">the red corner</span>, is: <span style="color:#EF563B;font-size:20px">{predicted_winner}</span></b>.'
     st.markdown(winner, unsafe_allow_html=True)
 
     # Display probability of prediction.
@@ -324,9 +324,9 @@ elif data_selection == "Fighter vs. Fighter":
         predicted_winner = red_name.iloc[0]
 
     if predicted_winner == blue_name.iloc[0]:
-        winner = f'<b>The predicted winner of this fight, from <span style="color:#636EFA;">the blue corner</span>, is: <span style="color:#636EFA;font-size:20px">{predicted_winner}</span></b>'
+        winner = f'<b>The predicted winner of this fight, from <span style="color:#636EFA;">the blue corner</span>, is: <span style="color:#636EFA;font-size:20px">{predicted_winner}</span></b>.'
     elif predicted_winner == red_name.iloc[0]:
-        winner = f'<b>The predicted winner of this fight, from <span style="color:#EF563B;">the red corner</span>, is: <span style="color:#EF563B;font-size:20px">{predicted_winner}</span></b>'
+        winner = f'<b>The predicted winner of this fight, from <span style="color:#EF563B;">the red corner</span>, is: <span style="color:#EF563B;font-size:20px">{predicted_winner}</span></b>.'
     st.markdown(winner, unsafe_allow_html=True)
 
     # Display probability of prediction.
@@ -347,14 +347,14 @@ elif data_selection == "Fighter vs. Fighter":
     col2.markdown(red_header, unsafe_allow_html=True)
     col2.subheader(f"{red_fighter}")
 
-    # Display blue fighter stats
+    # Display blue fighter stats.
     col1.write(f"Age: {blue_age.iloc[0]}")
     col1.write(f"Height: {blue_height.iloc[0]}")
     col1.write(f"Weight: {blue_weight.iloc[0]}")
     col1.write(f"Reach: {blue_reach.iloc[0]}")
     col1.write(f"Stance: {blue_stance.iloc[0]}")
 
-    # Display red fighter stats
+    # Display red fighter stats.
     col2.write(f"Age: {red_age.iloc[0]}")
     col2.write(f"Height: {red_height.iloc[0]}")
     col2.write(f"Weight: {red_weight.iloc[0]}")
@@ -367,6 +367,9 @@ elif data_selection == "Create your own fighter":
     # TODO: Predict fight.
     # TODO: Display probability of prediction.
     # TODO: Display statistics of selected fighter.
+
+# Line break
+st.markdown("---")
 
 # Pie Charts
 # ----- #
