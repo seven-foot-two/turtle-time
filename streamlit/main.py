@@ -71,11 +71,11 @@ with st.sidebar:
         "Classifier",
         [
             "VotingClassifier",
-            "GradientBoostingClassifier",
-            "RandomForestClassifier",
-            "MLPClassifier",
-            "SVC",
-            "XGBClassifier",
+            "Gradient Boosting",
+            "Random Forest",
+            "Neural Network (MLP)",
+            "C-Support Vector",
+            "XGBoost",
         ],
     )
     # Data Selection
@@ -130,6 +130,37 @@ with st.sidebar:
 # ----- #
 st.title("UFC Fighter Prediction")
 # st.header("Predict Fight (Database)")
+
+
+# Model Selection
+# ----- #
+
+soft_voting_descrption = ">The idea behind the VotingClassifier is to combine conceptually different machine learning classifiers and use the average predicted probabilities (soft vote) to predict the class labels. Such a classifier can be useful for a set of equally well performing model in order to balance out their individual weaknesses. - [SciKit-learn](https://scikit-learn.org/stable/modules/ensemble.html#voting-classifier)"
+grading_boosting_description = ">GB builds an additive model in a forward stage-wise fashion; it allows for the optimization of arbitrary differentiable loss functions. In each stage `n_classes_` regression trees are fit on the negative gradient of the binomial or multinomial deviance loss function. Binary classification is a special case where only a single regression tree is induced. - [SciKit-learn](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.GradientBoostingClassifier.html)"
+random_forest_descrption = ">A random forest is a meta estimator that fits a number of decision tree classifiers on various sub-samples of the dataset and uses averaging to improve the predictive accuracy and control over-fitting. The sub-sample size is controlled with the `max_samples` parameter if `bootstrap=True` (default), otherwise the whole dataset is used to build each tree. - [SciKit-learn](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html)"
+mlp_description = ">MLPClassifier trains iteratively since at each time step the partial derivatives of the loss function with respect to the model parameters are computed to update the parameters. It can also have a regularization term added to the loss function that shrinks model parameters to prevent overfitting. - [SciKit-learn](https://scikit-learn.org/stable/modules/generated/sklearn.neural_network.MLPClassifier.html)"
+svc_description = ">The implementation is based on libsvm. The fit time scales at least quadratically with the number of samples and may be impractical beyond tens of thousands of samples. - [SciKit-learn](https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html)"
+XGBoost_description = ">XGBoost is an optimized distributed gradient boosting library designed to be highly efficient, flexible and portable. It implements machine learning algorithms under the Gradient Boosting framework. XGBoost provides a parallel tree boosting (also known as GBDT, GBM) that solve many data science problems in a fast and accurate way. [XGBoost](https://xgboost.readthedocs.io/en/stable/)"
+
+if model_selection == "VotingClassifier":
+    clf = load_model("../Resources/clf.joblib")
+    st.markdown(soft_voting_descrption)
+elif model_selection == "Gradient Boosting":
+    clf = load_model("../Resources/gbc.joblib")
+    st.markdown(grading_boosting_description)
+elif model_selection == "Random Forest":
+    clf = load_model("../Resources/rfc.joblib")
+    st.markdown(random_forest_descrption)
+elif model_selection == "Neural Network (MLP)":
+    clf = load_model("../Resources/mlp.joblib")
+    st.markdown(mlp_description)
+elif model_selection == "C-Support Vector":
+    clf = load_model("../Resources/SVC.joblib")
+    st.markdown(svc_description)
+elif model_selection == "XGBoost":
+    clf = load_model("../Resources/xgb.joblib")
+    st.markdown(XGBoost_description)
+
 
 # TODO: This should be refactored at some point in the future.
 if data_selection == "Upcoming Fights":
