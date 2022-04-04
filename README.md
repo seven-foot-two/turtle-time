@@ -28,9 +28,7 @@ The questions we hope to answer with the data include:
 The team attends a standing meeting daily from 6-7pm EST on Discord to discuss progress made on the project, and other project-related matters. The team also maintains constant communication as-needed via Discord chat. The team maintains meeting notes, scheduling, and organization in [Notion](https://fobordo.notion.site/Module-20-Final-Project-d827016db1854b4f860cc8e221d9ccd7).
 
 ## Data Exploration
-<!--[Description of the data exploration phase of the project (i.e. Kaggle data and scraper)]-->
-
-The team explored various sites for the most interesting/feasible dataset, and finally settled on [UFC Fight Data from Kaggle](Resources/data.csv).
+The team explored various sites for the most interesting and feasible dataset, and finally settled on [UFC Fight Data from Kaggle](Resources/data.csv). After exploring and cleaning the data, the team discovered several issues within the dataset, including mismatched values to some rows. The team decided the best course of action would be to scrape the data directly from the Kaggle dataset's source, which was [UFC Stats](https://ufcstats.com). The team developed a scraper to scrape data from the UFC Stats website into a [`new CSV file`](Resources/scraped_data.csv) to explore, clean, and preprocess for analysis.
 
 ### Created charts
 The team created various charts to gain a better understanding of the data, such as the comparison between Red and Blue Winners, and Box & Whiskey Plots to identify outliers in the data.
