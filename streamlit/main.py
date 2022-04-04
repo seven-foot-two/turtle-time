@@ -71,11 +71,11 @@ with st.sidebar:
         "Classifier",
         [
             "VotingClassifier",
-            "GradientBoostingClassifier",
-            "RandomForestClassifier",
-            "MLPClassifier",
-            "SVC",
-            "XGBClassifier",
+            "Gradient Boosting",
+            "Random Forest",
+            "Neural Network (MLP)",
+            "C-Support Vector",
+            "XGBoost",
         ],
     )
     # Data Selection
@@ -130,6 +130,23 @@ with st.sidebar:
 # ----- #
 st.title("UFC Fighter Prediction")
 # st.header("Predict Fight (Database)")
+
+
+# Model Selection
+# ----- #
+if model_selection == "VotingClassifier":
+    clf = load_model("../Resources/clf.joblib")
+elif model_selection == "Gradient Boosting":
+    clf = load_model("../Resources/gbc.joblib")
+elif model_selection == "Random Forest":
+    clf = load_model("../Resources/rfc.joblib")
+elif model_selection == "Neural Network (MLP)":
+    clf = load_model("../Resources/mlp.joblib")
+elif model_selection == "C-Support Vector":
+    clf = load_model("../Resources/SVC.joblib")
+elif model_selection == "XGBoost":
+    clf = load_model("../Resources/xgb.joblib")
+
 
 # TODO: This should be refactored at some point in the future.
 if data_selection == "Upcoming Fights":
