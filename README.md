@@ -490,7 +490,7 @@ During the preliminary data preprocessing phase of the project, the team perform
 
 #### Weight Classes
 
-The UFC have different weight classes for each fight and was used to introduce new categorical features to our dataset.
+The UFC has different weight classes for each fight and was used to introduce new categorical features to our dataset.
 
 |    Weight Class   | Minimum Weight | Maximum Weight |
 | :---------------: | :------------: | :------------: |
