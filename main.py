@@ -29,7 +29,8 @@ def load_data(query="SELECT * FROM ufc_table LIMIT 10"):
 
 # Load model.
 # TODO: Add other classifiers.
-def load_model(classifier="../Resources/clf.joblib"):
+@st.experimental_memo()
+def load_model(classifier="Resources/clf.joblib"):
     return load(os.path.join(classifier))
 
 
@@ -143,22 +144,22 @@ svc_description = ">The implementation is based on libsvm. The fit time scales a
 XGBoost_description = ">XGBoost is an optimized distributed gradient boosting library designed to be highly efficient, flexible and portable. It implements machine learning algorithms under the Gradient Boosting framework. XGBoost provides a parallel tree boosting (also known as GBDT, GBM) that solve many data science problems in a fast and accurate way. [XGBoost](https://xgboost.readthedocs.io/en/stable/)"
 
 if model_selection == "VotingClassifier":
-    clf = load_model("../Resources/clf.joblib")
+    clf = load_model("Resources/clf.joblib")
     st.markdown(soft_voting_descrption)
 elif model_selection == "Gradient Boosting":
-    clf = load_model("../Resources/gbc.joblib")
+    clf = load_model("Resources/gbc.joblib")
     st.markdown(grading_boosting_description)
 elif model_selection == "Random Forest":
-    clf = load_model("../Resources/rfc.joblib")
+    clf = load_model("Resources/rfc.joblib")
     st.markdown(random_forest_descrption)
 elif model_selection == "Neural Network (MLP)":
-    clf = load_model("../Resources/mlp.joblib")
+    clf = load_model("Resources/mlp.joblib")
     st.markdown(mlp_description)
 elif model_selection == "C-Support Vector":
-    clf = load_model("../Resources/SVC.joblib")
+    clf = load_model("Resources/SVC.joblib")
     st.markdown(svc_description)
 elif model_selection == "XGBoost":
-    clf = load_model("../Resources/xgb.joblib")
+    clf = load_model("Resources/xgb.joblib")
     st.markdown(XGBoost_description)
 
 
