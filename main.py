@@ -83,7 +83,7 @@ with st.sidebar:
     st.sidebar.subheader("Prediction Options")
     data_selection = st.sidebar.selectbox(
         "Data Selection",
-        ["Upcoming Fights", "Fighter vs. Fighter", "Create your own fighter",],
+        ["Upcoming Fights", "Fighter vs. Fighter", "Create Your Own Fighter",],
     )
 
     # If user selected "Upcoming Fights" then allow user to pick and predict a upcoming fight.
@@ -99,7 +99,7 @@ with st.sidebar:
         red_fighter = st.sidebar.selectbox(
             "Red Fighter", fighter_agg_stats["Name"].unique()
         )
-    elif data_selection == "Create your own fighter":
+    elif data_selection == "Create Your Own Fighter":
         # TODO: Create your own fighter
         # I am testing the different Streamlit widgets:
         st.sidebar.subheader("First Fighter")
