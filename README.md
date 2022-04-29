@@ -598,7 +598,7 @@ Subject to change, our interactive elements will include:
 
 In selecting these elements specifically, we are aiming to center our predictive model and keep the user-experience as streamlined we can. 
 
-You can view our deployed dashboard here: [link pending final deployment]
+You can view our deployed dashboard here: http://turtledashboard.ddns.net/
 
 ## Future State
 
